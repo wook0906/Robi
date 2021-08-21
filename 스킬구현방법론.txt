@@ -1,0 +1,57 @@
+Project_Wu의 스킬 시스템 구현 방법론
+
+스킬의 종류
+공격스킬(A), 방어스킬(A&P), 버프스킬(P)
+공격 스킬에는 그에 맞는 발사체들이 있거나, 지속형태(화염방사) 혹은 단발성 스킬(충격파등...)들이 있다.
+공격을 맞았을 때 캐릭터의 체력이 회복되거나 몬스터에게 지속 피해를 주는 기능도 있다.
+발사체는 관통, 폭발등의 속성을 가질 수도 있다.
+
+스킬 사용을 coolTime의 남은 시간을 기준으로 우선순위 큐에 넣고
+Update에서 큐를 순회하면서 coolTime을 줄여주고 coolTime이 0이하이면 해당 스킬을
+꺼내와서 사용.
+사용 후 다시 쿨타임과 함께 우선순위 큐에 넣기.
+Class ActiveSkillDispatcher
+PriorityQueue<(time, ActiveSkill)> queue
+
+BaseSkillStat
+Level:int
+coolTime:int // 0은 패시브
+
+AttackSkillStat : BaseSkillStat
+Damage : int
+AttackRange : int // 0은 단일 타겟
+useCount : int // 스킬 사용 횟수... 기본 1
+targetMax : int
+
+ProjectileSkillStat : AttackSkillStat
+projectileCount : int // 기본 1
+Speed : int
+isExplosion : bool
+explosionRange : float
+explosionDamage : int
+isPenetrate : bool
+
+HoldingSkillStat : AttackSkillStat
+Duration : float
+delayPerAttack : float // 공격이 들어가는 시간
+
+ActiveSkill
+Name : string
+Description : string
+Virtual Play()
+
+AttackSkill : ActiveSkill
+Prefab : GameObject // 발사체, 공격 이펙트등...
+Virtual Description : string(property) -> 기본 Description에 수치값을 Stat으로 채워서 보여줄 수 있게
+Virtual OnFire()
+Virtual OnHit(target:GameObject)
+Virtual OnKill(target:GameObject)
+
+ProjectileSkill : AttackSkill
+ProjectilSkillStat stat
+
+HoldingSkill : AttackSkill()
+HoldingSkillStat stat
+
+NormalAttack : ProjectileSkill
+

@@ -1,0 +1,52 @@
+{
+  "stats": [
+    {
+        "level": "1",
+        "coolTime": "3",
+        "damage": "20",
+        "attackRange": "5",
+        "useCount": "1",
+        "targetMax": "1",
+        "projectileCount": "2",
+        "speed": "50",
+        "isExplode": "false",
+        "explosionRange": "0.0",
+        "explosionDamage": "0",
+        "isPenetrate": "true",
+        "duration": "0",
+        "delayPerAttack": "0"
+    },
+    {
+        "level": "2",
+        "coolTime": "3",
+        "damage": "30",
+        "attackRange": "5",
+        "useCount": "1",
+        "targetMax": "1",
+        "projectileCount": "2",
+        "speed": "50",
+        "isExplode": "false",
+        "explosionRange": "0.0",
+        "explosionDamage": "0",
+        "isPenetrate": "true",
+        "duration": "0",
+        "delayPerAttack": "0"
+    },
+    {
+        "level": "3",
+        "coolTime": "3",
+        "damage": "40",
+        "attackRange": "5",
+        "useCount": "1",
+        "targetMax": "1",
+        "projectileCount": "2",
+        "speed": "50",
+        "isExplode": "false",
+        "explosionRange": "0.0",
+        "explosionDamage": "0",
+        "isPenetrate": "true",
+        "duration": "0",
+        "delayPerAttack": "0"
+    }
+  ]
+}
