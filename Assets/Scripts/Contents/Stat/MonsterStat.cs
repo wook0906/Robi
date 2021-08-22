@@ -49,6 +49,7 @@ public class MonsterStat : CreatureStat
         {
             Hp = 0;
             OnDead(attacker);
+            
         }
     }
 

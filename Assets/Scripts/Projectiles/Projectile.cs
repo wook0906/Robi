@@ -21,6 +21,8 @@ public class Projectile : MonoBehaviour
     public float ExplosionDamage { get { return _explosionDamage; } }
     private bool _isPenetrate;
     public bool IsPenetrate { get { return _isPenetrate; } }
+    private float _duration;
+    public float Duration { get { return _duration; } }
     LayerMask _targetLayer;
     public LayerMask TargetLayer { get { return _targetLayer; } }
 
@@ -31,7 +33,9 @@ public class Projectile : MonoBehaviour
 
     public Action<GameObject, Projectile> OnHit;
     public Action<GameObject> OnKill;
+    public Action<Vector3, Projectile> OnArrive;
 
+    private float durationTimer = 0f;
     
 
     //public void Init(BaseController onwer, GameObject target, int damage,
@@ -55,7 +59,7 @@ public class Projectile : MonoBehaviour
 
     public void Init(BaseController onwer, Vector3 targetPos, int damage,
         float attackRange, float speed, bool isExplode,
-        float explosionRange, float explosionDamage, bool isPenetrate, LayerMask targetLayer)
+        float explosionRange, float explosionDamage, bool isPenetrate, float duration, LayerMask targetLayer)
     {
         _owner = onwer;
         _damage = damage;
@@ -65,6 +69,7 @@ public class Projectile : MonoBehaviour
         _explosionRange = explosionRange;
         _explosionDamage = explosionDamage;
         _isPenetrate = isPenetrate;
+        _duration = duration;
 
         _toTarget = (targetPos - transform.position).normalized;
         _targetPos = targetPos;
@@ -82,34 +87,44 @@ public class Projectile : MonoBehaviour
         float deltaDist = Speed * Time.fixedDeltaTime;
         transform.rotation = Quaternion.LookRotation(_toTarget, Vector3.back);
         float dist = (_targetPos - transform.position).magnitude;
-        if (_attackRange > 0)
-        {
-            //if(dist < 0.1f)
-            //{
-            //    transform.position = _targetPos;
-            //    Collider[] colliders = Physics.OverlapSphere(transform.position, GetComponent<SphereCollider>().radius, TargetLayer);
-            //    foreach (var collider in colliders)
-            //    {
-            //        //if(collider.CompareTag(_targetTag))
-            //        //{
-            //            OnHit(collider.gameObject, this);
-            //            collider.GetComponent<CreatureStat>().OnAttacked(_owner, _damage);
-            //        //}
-            //    }
-            //    Destroy(gameObject);
-            //}   
-        }
-        else
-        {
-            //if (dist < 0.1f)
-            //{
-            //    OnHit(null, this);
-            //    Destroy(gameObject);
-            //}
-        }
         //deltaDist = Mathf.Clamp(deltaDist, 0, dist);
         transform.position += _toTarget * _speed * Time.deltaTime;
         //_rigid.MovePosition(transform.position + _toTarget * deltaDist);
+        if (_attackRange > 0)
+        {
+            if (dist < 0.1f)
+            {
+                //transform.position = _targetPos;
+                //Collider[] colliders = Physics.OverlapSphere(transform.position, GetComponent<SphereCollider>().radius, TargetLayer);
+                //foreach (var collider in colliders)
+                //{
+                //    //if(collider.CompareTag(_targetTag))
+                //    //{
+                //    OnHit(collider.gameObject, this);
+                //    collider.GetComponent<CreatureStat>().OnAttacked(_owner, _damage);
+                //    //}
+                //}
+                if (OnArrive != null)
+                    OnArrive(transform.position, this);
+                Destroy(gameObject);
+            }
+        }
+        //else
+        //{
+        //    //if (dist < 0.1f)
+        //    //{
+        //    //    OnHit(null, this);
+        //    //    Destroy(gameObject);
+        //    //}
+        //}
+        if (_duration > 0)
+        {
+            durationTimer += Time.deltaTime;
+            if (durationTimer >= _duration)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -120,8 +135,7 @@ public class Projectile : MonoBehaviour
         {
             return;
         }
-
-
+        
         OnHit(other.gameObject, this);
         other.GetComponent<CreatureStat>().OnAttacked(_owner, Damage);
         if (_isPenetrate)

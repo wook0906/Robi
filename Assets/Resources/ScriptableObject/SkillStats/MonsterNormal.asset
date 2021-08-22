@@ -22,5 +22,5 @@ MonoBehaviour:
   _explosionRange: 0
   _explosionDamage: 0
   _isPenetrate: 0
-  _duration: 0
+  _duration: 1.5
   _delayPerAttack: 0

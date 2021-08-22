@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BombingAttack : AttackSkillBase
+public class MonsterBombing : AttackSkillBase
 {
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
-        _type = Define.AttackSkillType.Bombing;
+        _type = Define.AttackSkillType.MonsterBombing;
+        gameObject.AddComponent<SkillStat>().SetStat(_type);
         base.Init(owner, muzzleTransform, parent);
         _prefab = Resources.Load<GameObject>("Prefabs/Projectiles/BombingAttackProjectile");
     }
@@ -35,19 +36,21 @@ public class BombingAttack : AttackSkillBase
                 pos.z = 0f;
                 pos.x -= 10f;
                 Projectile projectile = go.GetComponent<Projectile>();
-                projectile.Init(_owner, pos, 0, 0f, Stat.Speed,
+                projectile.Init(_owner, pos, 0, Stat.AttackRange, Stat.Speed,
                     Stat.IsExplode, Stat.ExplosionRange, Stat.ExplosionDamage,
-                    Stat.IsPenetrate, Stat.Duration, LayerMask.NameToLayer("Enemy"));
+                    Stat.IsPenetrate, Stat.Duration, LayerMask.NameToLayer("Player"));
 
                 projectile.OnHit -= OnHit;
                 projectile.OnHit += OnHit;
                 projectile.OnKill -= OnKill;
                 projectile.OnKill += OnKill;
+                projectile.OnArrive -= OnArrive;
+                projectile.OnArrive += OnArrive;
             }
             OnFire();
             yield return new WaitForSeconds(Stat.DelayPerAttack);
         }
-        _owner.State = Define.CreatureState.Idle;
+        //_owner.State = Define.CreatureState.Idle;
         _owner.ActiveSkillDispatcher.Add(Stat.CoolTime, this);
     }
 
@@ -69,25 +72,48 @@ public class BombingAttack : AttackSkillBase
         effect.Play();
 
 
-        Collider[] colliders = Physics.OverlapSphere(projectile.transform.position, projectile.ExplosionRange);
+        Collider[] colliders = Physics.OverlapSphere(projectile.transform.position, projectile.ExplosionRange, 1<<LayerMask.NameToLayer("Player"));
         if (colliders.Length == 0)
             return;
 
-        int count = 0;
 
         foreach (var collider in colliders)
         {
-            if (_owner == null)
-                return;
-
-            if (collider.gameObject == projectile.gameObject || collider.gameObject == _owner.gameObject)
-                continue;
-
             CreatureStat stat = collider.GetComponent<CreatureStat>();
             if (stat == null)
                 continue;
             stat.OnAttacked(_owner, projectile.ExplosionDamage);
-            count++;
+        }
+    }
+    public override void OnArrive(Vector3 targetPos, Projectile projectile)
+    {
+        Debug.Log("OnArrive!");
+        ParticleSystem effect = Managers.Resource.Instantiate("Effects/Explosion").GetComponent<ParticleSystem>();
+        Vector3 pos = projectile.transform.position;
+        pos.z -= Stat.ExplosionRange;
+        effect.transform.position = pos;
+        effect.Play();
+
+
+        effect = Managers.Resource.Instantiate("Effects/ExplosionMark").GetComponent<ParticleSystem>();
+        effect.GetComponent<ParticleAutoDestroy>().Init(0f, Stat.ExplosionRange * 2f);
+        pos = projectile.transform.position;
+        pos.z = -0.02f;
+        effect.transform.position = pos;
+        effect.Play();
+
+
+        Collider[] colliders = Physics.OverlapSphere(projectile.transform.position, projectile.ExplosionRange, 1<< LayerMask.NameToLayer("Player"));
+        if (colliders.Length == 0)
+            return;
+
+
+        foreach (var collider in colliders)
+        {
+            CreatureStat stat = collider.GetComponent<CreatureStat>();
+            if (stat == null)
+                continue;
+            stat.OnAttacked(_owner, projectile.ExplosionDamage);
         }
     }
 }

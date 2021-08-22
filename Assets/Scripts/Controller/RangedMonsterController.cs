@@ -37,12 +37,6 @@ public class RangedMonsterController : MonsterController
             case Define.CreatureState.Idle:
                 break;
             case Define.CreatureState.Move:
-                //transform.position += moveDir.normalized * _stat.MoveSpeed * Time.deltaTime;
-                //if(IsPlayerInAttackRange())
-                //{
-                //    chaseStartPos = transform.position;
-                //    State = Define.CreatureState.Attack;
-                //}
                 Move();
                 break;
             case Define.CreatureState.Chase:
@@ -65,14 +59,38 @@ public class RangedMonsterController : MonsterController
     {
         base.Init();
         State = Define.CreatureState.Move;
-        //baseAttack = new NormalAttack();
 
         GameObject MonsterNormalAttack = new GameObject() { name = "NormalAttack" };
         MonsterNormalAttack.transform.parent = transform;
         MonsterNormalAttack.transform.localPosition = Vector3.zero;
         MonsterNormalAttack normalSkill = MonsterNormalAttack.AddComponent<MonsterNormalAttack>();
         normalSkill.Init(this, null, null);
-        
+
+        //GameObject MonsterLaserAttack = new GameObject() { name = "MonsterLaserAttack" };
+        //MonsterLaserAttack.transform.parent = transform;
+        //MonsterLaserAttack.transform.localPosition = Vector3.zero;
+        //MonsterLaserAttack normalSkill = MonsterLaserAttack.AddComponent<MonsterLaserAttack>();
+        //normalSkill.Init(this, null, null);
+
+        //GameObject MonsterMissile = new GameObject() { name = "MonsterMissile" };
+        //MonsterMissile.transform.parent = transform;
+        //MonsterMissile.transform.localPosition = Vector3.zero;
+        //MonsterMissile normalSkill = MonsterMissile.AddComponent<MonsterMissile>();
+        //normalSkill.Init(this, null, null);
+
+        //GameObject MonsterLaunchBomb = new GameObject() { name = "MonsterLaunchBomb" };
+        //MonsterLaunchBomb.transform.parent = transform;
+        //MonsterLaunchBomb.transform.localPosition = Vector3.zero;
+        //MonsterLaunchBomb normalSkill = MonsterLaunchBomb.AddComponent<MonsterLaunchBomb>();
+        //normalSkill.Init(this, null, null);
+
+        //GameObject MonsterBombing = new GameObject() { name = "MonsterBombing" };
+        //MonsterBombing.transform.parent = transform;
+        //MonsterBombing.transform.localPosition = Vector3.zero;
+        //MonsterBombing normalSkill = MonsterBombing.AddComponent<MonsterBombing>();
+        //normalSkill.Init(this, null, null);
+
+
         attackSkills.Add(normalSkill);
 
         for (int i = 0; i < attackSkills.Count; i++)

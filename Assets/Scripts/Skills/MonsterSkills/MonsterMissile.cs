@@ -3,35 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Define;
 
-public class MissileAttack : AttackSkillBase
+public class MonsterMissile : AttackSkillBase
 {
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
-        _type = AttackSkillType.Missile;
+        _type = AttackSkillType.MonsterMissile;
+        gameObject.AddComponent<SkillStat>().SetStat(_type);
         base.Init(owner, muzzleTransform, parent);
         _prefab = Resources.Load<GameObject>("Prefabs/Projectiles/MissileAttackProjectile");
     }
 
     public override bool UseSkill()
     {
-        GameObject target = SearchTarget();
+        GameObject target = MonsterController.target;
 
         if (target == null)
             return false;
 
-        _owner.State = Define.CreatureState.Attack;
-
         GameObject missileGO = Instantiate(_prefab, _parent);
         missileGO.transform.rotation = Quaternion.identity;
         if (_muzzleTransform == null)
-            missileGO.transform.position = _owner.GetComponent<PlayerController>().launchPoints[(int)Define.LaunchPointType.RS].transform.position;
+            missileGO.transform.position = _owner.CenterPosition;
         else
             missileGO.transform.position = _muzzleTransform.position;
 
         Projectile projectile = missileGO.GetComponent<Projectile>();
         projectile.Init(_owner, target.GetComponent<BaseController>().CenterPosition, Stat.Damage, Stat.AttackRange,
             Stat.Speed, Stat.IsExplode, Stat.ExplosionRange, Stat.ExplosionDamage,
-            Stat.IsPenetrate, Stat.Duration, LayerMask.NameToLayer("Enemy"));
+            Stat.IsPenetrate, Stat.Duration, LayerMask.NameToLayer("Player"));
 
         projectile.OnHit -= OnHit;
         projectile.OnHit += OnHit;
@@ -44,39 +43,27 @@ public class MissileAttack : AttackSkillBase
 
     public override void OnFire()
     {
-        Debug.Log("Fire");
-        _owner.State = CreatureState.Idle;
         _owner.ActiveSkillDispatcher.Add(Stat.CoolTime, this);
     }
 
     public override void OnHit(GameObject target, Projectile projectile)
     {
-        Debug.Log("미사일 폭발!");
-        //Debug.Log($"Hit target:{target.name}", this);
-        //TODO: 나중에 타켓 레이어를 미리 Init 함수에서 셋팅할 수 있게해서 targetLayer의
-        // 물체들만 걸리게하자!
+        Debug.Log("폭발!");
         ParticleSystem effect = Managers.Resource.Instantiate("Effects/Explosion").GetComponent<ParticleSystem>();
         Vector3 pos = projectile.transform.position;
         effect.transform.position = pos;
         effect.Play();
 
-        Collider[] colliders = Physics.OverlapSphere(projectile.transform.position, projectile.ExplosionRange, 1 << 8);
+        Collider[] colliders = Physics.OverlapSphere(projectile.transform.position, projectile.ExplosionRange, 1 << LayerMask.NameToLayer("Player"));
         if (colliders.Length == 0)
             return;
 
-        //Debug count
-        int count = 0;
-
         foreach (var collider in colliders)
         {
-            if (collider.gameObject == projectile.gameObject || collider.gameObject == _owner.gameObject)
-                continue;
             CreatureStat stat = collider.GetComponent<CreatureStat>();
             if (stat == null)
                 continue;
             stat.OnAttacked(_owner, projectile.ExplosionDamage);
-            count++;
         }
-        Debug.Log($"Missile Explosion! Hit {count} monsters");
     }
 }

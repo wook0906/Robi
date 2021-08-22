@@ -40,7 +40,7 @@ public class DroneController : BaseController
         projectileGo.transform.position = transform.position;
 
         Projectile projectile = projectileGo.GetComponent<Projectile>();
-        projectile.Init(this, target.GetComponent<BaseController>().CenterPosition, stat.Damage, stat.AttackRange, stat.Speed*2f, stat.IsExplode, stat.ExplosionRange, stat.ExplosionDamage, stat.IsPenetrate,LayerMask.NameToLayer("Enemy"));
+        projectile.Init(this, target.GetComponent<BaseController>().CenterPosition, stat.Damage, stat.AttackRange, stat.Speed*2f, stat.IsExplode, stat.ExplosionRange, stat.ExplosionDamage, stat.IsPenetrate,stat.Duration, LayerMask.NameToLayer("Enemy"));
         
 
         projectile.OnHit -= OnHit;

@@ -48,6 +48,10 @@ public abstract class AttackSkillBase : ActiveSkill
     {
 
     }
+    public virtual void OnArrive(Vector3 targetPos, Projectile projectile)
+    {
+
+    }
 
     protected virtual GameObject SearchNoramalStateTarget()
     {

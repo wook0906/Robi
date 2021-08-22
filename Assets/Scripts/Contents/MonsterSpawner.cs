@@ -34,14 +34,15 @@ public class MonsterSpawner : MonoBehaviour
         yield return new WaitForSeconds(3f);
         while(true)
         {
-            GameObject enemyGO = Managers.Resource.Instantiate($"Creatures/Enemy/{(Define.Monsters)Random.Range((int)Define.Monsters.F01,(int)Define.Monsters.MAX)}");
+            //GameObject enemyGO = Managers.Resource.Instantiate($"Creatures/Enemy/{(Define.Monsters)Random.Range((int)Define.Monsters.F01,(int)Define.Monsters.MAX)}");
+            GameObject enemyGO = Managers.Resource.Instantiate($"Creatures/Enemy/F01");
             Vector3 pos = cam.transform.position + (Random.onUnitSphere * radius);
             pos.z = 0f;
             //pos += Vector3.right * radius;
             //pos = Quaternion.Euler(0f, 0f, Random.Range(0, 360)) * pos;
             enemyGO.transform.position = pos;
             Managers.Object.AddMonster(enemyGO.GetComponent<MonsterController>());
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
         }
     }
 

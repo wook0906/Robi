@@ -33,7 +33,7 @@ public class MonsterNormalAttack : AttackSkillBase
         Projectile projectile = projectileGO.GetComponent<Projectile>();
         projectile.Init(_owner, target.GetComponent<BaseController>().CenterPosition, Stat.Damage, Stat.AttackRange,
             Stat.Speed, Stat.IsExplode, Stat.ExplosionRange, Stat.ExplosionDamage,
-            Stat.IsPenetrate, LayerMask.NameToLayer("Player"));
+            Stat.IsPenetrate, Stat.Duration, LayerMask.NameToLayer("Player"));
 
         projectile.OnHit -= OnHit;
         projectile.OnHit += OnHit;

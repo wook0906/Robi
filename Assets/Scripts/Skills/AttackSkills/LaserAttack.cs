@@ -36,7 +36,7 @@ public class LaserAttack : AttackSkillBase
             Projectile projectile = projectileGO.GetComponent<Projectile>();
             projectile.Init(_owner, target.GetComponent<BaseController>().CenterPosition, Stat.Damage, Stat.AttackRange,
                 Stat.Speed, Stat.IsExplode, Stat.ExplosionRange, Stat.ExplosionDamage,
-                Stat.IsPenetrate,LayerMask.NameToLayer("Enemy"));
+                Stat.IsPenetrate,Stat.Duration, LayerMask.NameToLayer("Enemy"));
 
             projectile.OnHit -= OnHit;
             projectile.OnHit += OnHit;
