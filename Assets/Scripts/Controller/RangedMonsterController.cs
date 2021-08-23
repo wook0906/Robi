@@ -52,7 +52,7 @@ public class RangedMonsterController : MonsterController
                 break;
         }
 
-        _activeSkillDispatcher.Update(Time.deltaTime);
+        _attackSkillDispatcher.Update(Time.deltaTime);
     }
 
     protected override void Init()
@@ -60,11 +60,11 @@ public class RangedMonsterController : MonsterController
         base.Init();
         State = Define.CreatureState.Move;
 
-        GameObject MonsterNormalAttack = new GameObject() { name = "NormalAttack" };
-        MonsterNormalAttack.transform.parent = transform;
-        MonsterNormalAttack.transform.localPosition = Vector3.zero;
-        MonsterNormalAttack normalSkill = MonsterNormalAttack.AddComponent<MonsterNormalAttack>();
-        normalSkill.Init(this, null, null);
+        //GameObject MonsterNormalAttack = new GameObject() { name = "NormalAttack" };
+        //MonsterNormalAttack.transform.parent = transform;
+        //MonsterNormalAttack.transform.localPosition = Vector3.zero;
+        //MonsterNormalAttack normalSkill = MonsterNormalAttack.AddComponent<MonsterNormalAttack>();
+        //normalSkill.Init(this, null, null);
 
         //GameObject MonsterLaserAttack = new GameObject() { name = "MonsterLaserAttack" };
         //MonsterLaserAttack.transform.parent = transform;
@@ -90,13 +90,19 @@ public class RangedMonsterController : MonsterController
         //MonsterBombing normalSkill = MonsterBombing.AddComponent<MonsterBombing>();
         //normalSkill.Init(this, null, null);
 
+        GameObject Shield = new GameObject() { name = "Shield" };
+        Shield.transform.parent = transform;
+        Shield.transform.localPosition = Vector3.zero;
+        MonsterImmortalShield normalSkill = Shield.AddComponent<MonsterImmortalShield>();
+        normalSkill.Init(this, null, null);
+        //_attackSkillDispatcher.Add(0f, normalSkill);
 
-        attackSkills.Add(normalSkill);
 
-        for (int i = 0; i < attackSkills.Count; i++)
-        {
-            _activeSkillDispatcher.Add(0f, attackSkills[i]);
-        }
+        //attackSkills.Add(normalSkill);
+        //for (int i = 0; i < attackSkills.Count; i++)
+        //{
+        //    _activeSkillDispatcher.Add(0f, attackSkills[i]);
+        //}
     }
 
     private bool IsPlayerInAttackRange()

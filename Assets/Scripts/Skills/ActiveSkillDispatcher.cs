@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+
 public class ActiveSkillDispatcher
 {
     private float delayPerAttack = 0.5f;
     private float lastFireAttackTime = 0f;
-
+    
     public class ReservedSkillInfo
     {
         public float coolTime;
@@ -39,6 +40,7 @@ public class ActiveSkillDispatcher
 
     private BaseController _owner;
     private ActiveSkillList _skillList;
+    private ActiveSkillList _nonAttackSkillList;
 
     public void Init(BaseController owner)
     {
@@ -56,15 +58,15 @@ public class ActiveSkillDispatcher
     {
         UpdateCoolTime(deltaTime);
 
-        //if (Time.time - lastFireAttackTime < delayPerAttack)
-        //    return;
+        if (Time.time - lastFireAttackTime < delayPerAttack)
+            return;
 
         if (_owner.gameObject.CompareTag("Enemy") && _owner.State != Define.CreatureState.Attack)
             return;
 
         foreach (var item in _skillList.Skills)
         {
-            
+           
             if (item.coolTime > 0)
                 break;
             if (!item.skill.UseSkill())

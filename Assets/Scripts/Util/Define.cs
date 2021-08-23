@@ -83,6 +83,7 @@ public static class Define
         MonsterBombing,
         MonsterMissile,
         MonsterShield,
+        MonsterImmortalShield,
         MonsterMax,
     }
 

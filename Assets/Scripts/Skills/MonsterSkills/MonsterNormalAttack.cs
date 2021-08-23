@@ -45,7 +45,7 @@ public class MonsterNormalAttack : AttackSkillBase
 
     public override void OnFire()
     {
-        _owner.ActiveSkillDispatcher.Add(Stat.CoolTime, this);
+        _owner.AttackSkillDispatcher.Add(Stat.CoolTime, this);
     }
 
     public override void OnHit(GameObject target, Projectile projectile)

@@ -5,6 +5,21 @@ using UnityEngine;
 [System.Serializable]
 public class SkillStat : MonoBehaviour
 {
+    public SkillStat() { }
+    public SkillStat(float coolTime, int damage, float attackRange, int numOfProjectilePerBurst, float speed, bool isExplode, float explosionRange, int explosionDamage, bool isPenetrate, float duration, float delayPerAttack)
+    { 
+        _coolTime = coolTime;
+        _damage = damage;
+        _attackRange = attackRange;
+        _numOfProjectilePerBurst = numOfProjectilePerBurst;
+        _speed = speed;
+        _isExplode = isExplode;
+        _explosionRange = explosionRange;
+        _explosionDamage = explosionDamage;
+        _isPenetrate = isPenetrate;
+        _duration = duration;
+        _delayPerAttack = delayPerAttack;
+    }
     [SerializeField]
     protected float _coolTime;
     [SerializeField]

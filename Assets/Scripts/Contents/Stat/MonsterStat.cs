@@ -12,12 +12,35 @@ public class MonsterStat : CreatureStat
     protected float _attackRange;
     [SerializeField]
     protected float _attackInterval;
+    [SerializeField]
+    protected bool _isImmortal;
+    [SerializeField]
+    protected bool _useBerserk = false;
+    bool isOnBerserk = false;
+    [SerializeField]
+    protected bool _useSuicideBombing = false;
+
 
     public int Exp { get { return _exp; } set { _exp = value; } }
     public float DetectRange { get { return _detectRange; } set { _detectRange = value; } }
     public float AttackRange { get { return _attackRange; } set { _attackRange = value; } }
     public float AttackInterval { get { return _attackInterval; } set { _attackInterval = value; } }
-
+    public bool IsImmortal { get { return _isImmortal; } set { _isImmortal = value; } }
+    public float ShieldHp 
+    { 
+        get 
+        {
+            MonsterShield shieldSkill = GetComponentInChildren<MonsterShield>();
+            if (shieldSkill == null) return 0;
+            else return GetComponentInChildren<MonsterShield>().ShieldHp;
+        }
+        set 
+        {
+            MonsterShield shieldSkill = GetComponentInChildren<MonsterShield>();
+            if (shieldSkill == null) return;
+            GetComponentInChildren<MonsterShield>().ShieldHp = value;
+        }
+    }
 
     private void Start()
     {
@@ -39,17 +62,38 @@ public class MonsterStat : CreatureStat
         _attackRange = stat.attackRange;
         _attackInterval = stat.attackInterval;
         _detectRange = stat.detectRange;
+        _useBerserk = true;
+        _useSuicideBombing = true;
     }
 
     public override void OnAttacked(BaseController attacker, float damage)
     {
-        this.Hp -= damage;
+        if (IsImmortal) return;
 
+        float resultDamage = ShieldHp - damage;
+        if (resultDamage >= 0f)
+        {
+            ShieldHp = resultDamage;
+            return;
+        }
+        this.Hp += resultDamage;
+        if (_useBerserk && !isOnBerserk)
+        {
+            isOnBerserk = true;
+            _damage *= 2;
+            _moveSpeed *= 2;
+        }
         if (this.Hp <= 0)
         {
             Hp = 0;
+            if (_useSuicideBombing)
+            {
+                if(Vector3.Distance(this.transform.position, attacker.transform.position)<= 10f)
+                {
+                    attacker.Stat.OnAttacked(GetComponent<BaseController>(), 100);
+                }
+            }
             OnDead(attacker);
-            
         }
     }
 

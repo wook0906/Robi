@@ -27,8 +27,8 @@ public class PlayerController : BaseController
         State = CreatureState.Idle;
         camTransform = Camera.main.transform;
         _stat = gameObject.AddComponent<PlayerStat>();
-        _activeSkillDispatcher = new ActiveSkillDispatcher();
-        _activeSkillDispatcher.Init(this);
+        _attackSkillDispatcher = new ActiveSkillDispatcher();
+        _attackSkillDispatcher.Init(this);
         body = transform.Find("Model").transform.Find("Robi").transform.Find("Body").gameObject;
 
 
@@ -142,7 +142,7 @@ public class PlayerController : BaseController
 
         foreach (var item in attackSkills)
         {
-            _activeSkillDispatcher.Add(0f, item);
+            _attackSkillDispatcher.Add(0f, item);
         }
 
     }
@@ -172,7 +172,7 @@ public class PlayerController : BaseController
                 break;
         }
 
-        _activeSkillDispatcher.Update(Time.deltaTime);
+        _attackSkillDispatcher.Update(Time.deltaTime);
         //if (Input.GetKeyDown(KeyCode.D))
         //{
         //    GameObject.FindObjectOfType<DroneSkill>().UseSkill();

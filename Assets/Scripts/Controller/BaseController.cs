@@ -6,10 +6,12 @@ using static Define;
 public abstract class BaseController : MonoBehaviour
 {
     protected CreatureStat _stat;
+    public CreatureStat Stat { get { return _stat; } }
     protected Vector3 moveDir;
 
-    protected ActiveSkillDispatcher _activeSkillDispatcher;
-    public ActiveSkillDispatcher ActiveSkillDispatcher { get { return _activeSkillDispatcher; } }
+    protected ActiveSkillDispatcher _attackSkillDispatcher;
+    public ActiveSkillDispatcher AttackSkillDispatcher { get { return _attackSkillDispatcher; } }
+
 
     //public float attackRange = 6f;
     //public float delayPerAttack = 1f;

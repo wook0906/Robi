@@ -16,9 +16,10 @@ public class MonsterController : BaseController
 
     private void Start()
     {
-        Init();
         _stat = gameObject.AddComponent<MonsterStat>();
         State = Define.CreatureState.Move;
+        Init();
+        
 
     }
 
@@ -53,7 +54,7 @@ public class MonsterController : BaseController
                 break;
         }
 
-        _activeSkillDispatcher.Update(Time.deltaTime);
+        _attackSkillDispatcher.Update(Time.deltaTime);
 
 
     }
@@ -112,8 +113,8 @@ public class MonsterController : BaseController
         //moveDir = (target.transform.position - transform.position);
         chaseStartDir = (target.transform.position - transform.position).normalized;
 
-        _activeSkillDispatcher = new ActiveSkillDispatcher();
-        _activeSkillDispatcher.Init(this);
+        _attackSkillDispatcher = new ActiveSkillDispatcher();
+        _attackSkillDispatcher.Init(this);
 
 
     }

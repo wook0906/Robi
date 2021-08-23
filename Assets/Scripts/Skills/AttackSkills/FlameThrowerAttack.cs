@@ -47,7 +47,7 @@ public class FlameThrowerAttack : AttackSkillBase
         }
         _muzzleTransform.GetComponent<ParticleSystem>().Stop();
         _owner.State = Define.CreatureState.Idle;
-        _owner.ActiveSkillDispatcher.Add(Stat.CoolTime, this);
+        _owner.AttackSkillDispatcher.Add(Stat.CoolTime, this);
     }
 
 

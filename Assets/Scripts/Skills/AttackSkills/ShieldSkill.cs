@@ -65,7 +65,7 @@ public class ShieldSkill : AttackSkillBase
     public override void OnFire()
     {
         //Debug.Log("Fire");
-        _owner.ActiveSkillDispatcher.Add(Stat.CoolTime, this);
+        _owner.AttackSkillDispatcher.Add(Stat.CoolTime, this);
     }
 
     

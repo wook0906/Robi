@@ -52,7 +52,7 @@ public class LaserAttack : AttackSkillBase
     {
         Debug.Log("Fire");
         _owner.State = CreatureState.Idle;
-        _owner.ActiveSkillDispatcher.Add(Stat.CoolTime, this);
+        _owner.AttackSkillDispatcher.Add(Stat.CoolTime, this);
     }
 
     public override void OnHit(GameObject target, Projectile projectile)
