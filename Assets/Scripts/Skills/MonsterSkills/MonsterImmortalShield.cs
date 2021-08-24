@@ -14,10 +14,10 @@ public class MonsterImmortalShield : AttackSkillBase
     [SerializeField]
     public bool IsImmortal
     {
-        get { return ownerStat.IsImmortal; }
+        get { return ownerStat.IsOnImmortal; }
         set
         {
-            ownerStat.IsImmortal = value;
+            ownerStat.IsOnImmortal = value;
             if (!value)
             {
                 effect.SetActive(false);

@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 5023715920938353977}
   - component: {fileID: 4469472235941636627}
   - component: {fileID: -2321582102138985397}
+  - component: {fileID: 6720486848327106112}
   m_Layer: 8
   m_Name: F01
   m_TagString: Enemy
@@ -160,6 +161,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _state: 0
+  attackSkills:
+  - {fileID: 6401125545066083565, guid: 727140cffb083f5428ede6fbcb06dd7e, type: 3}
+  - {fileID: 2958279941111583423, guid: 1ee353153f5463547a3cc3a2ccc1fd40, type: 3}
+  - {fileID: 7734165953811397192, guid: abc3bc672f351594ea7b0b5fd0e91675, type: 3}
+  - {fileID: 7063552980661191508, guid: 929f14198b3232644bd57590968f3419, type: 3}
+  - {fileID: 4047777350931945911, guid: cf76bb48ac6c1fb4999b13697953292b, type: 3}
+--- !u!114 &6720486848327106112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6089480087024509905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cc8670702dd441d899f9ac2d6cff67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _level: 0
+  _hp: 0
+  _maxHp: 0
+  _hpRecoveryPerSecond: 0
+  _damage: 0
+  _moveSpeed: 0
+  _exp: 0
+  _detectRange: 0
+  _attackRange: 0
+  _attackInterval: 0
+  _useBerserk: 0
+  _useSuicideBombing: 0
+  _useImmortal: 0
+  _useShield: 0
 --- !u!1 &6601275189707950240
 GameObject:
   m_ObjectHideFlags: 0

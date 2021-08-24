@@ -16,11 +16,9 @@ public class MonsterController : BaseController
 
     private void Start()
     {
-        _stat = gameObject.AddComponent<MonsterStat>();
+        _stat = gameObject.GetOrAddComponent<MonsterStat>();
         State = Define.CreatureState.Move;
         Init();
-        
-
     }
 
     void Update()
@@ -116,6 +114,33 @@ public class MonsterController : BaseController
         _attackSkillDispatcher = new ActiveSkillDispatcher();
         _attackSkillDispatcher.Init(this);
 
+        for (int i = 0; i < attackSkills.Count; i++)
+        {
+            AttackSkillBase skill = Instantiate(attackSkills[i], transform.position, Quaternion.identity, transform);
+            skill.Init(this, null, null);
+            skill.name = attackSkills[i].name;
+            _attackSkillDispatcher.Add(0f, skill);
+            Debug.Log($"Add {attackSkills[i].name}");
+        }
+
+        MonsterStat stat = _stat as MonsterStat;
+
+        if (stat._useImmortal)
+        {
+            GameObject go = new GameObject() { name = "MonsterImmortal" };
+            go.transform.parent = transform;
+            go.transform.localPosition = Vector3.zero;
+            MonsterImmortalShield immortal = go.AddComponent<MonsterImmortalShield>();
+            immortal.Init(this, null, null);
+        }
+        if (stat._useShield)
+        {
+            GameObject go = new GameObject() { name = "MonsterShield" };
+            go.transform.parent = transform;
+            go.transform.localPosition = Vector3.zero;
+            MonsterShield shield = go.AddComponent<MonsterShield>();
+            shield.Init(this, null, null);
+        }
 
     }
 

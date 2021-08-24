@@ -12,20 +12,22 @@ public class MonsterStat : CreatureStat
     protected float _attackRange;
     [SerializeField]
     protected float _attackInterval;
-    [SerializeField]
-    protected bool _isImmortal;
+    
+    
     [SerializeField]
     protected bool _useBerserk = false;
     bool isOnBerserk = false;
     [SerializeField]
     protected bool _useSuicideBombing = false;
-
+    public bool _useImmortal;
+    bool _isOnImmortal;
+    public bool _useShield;
 
     public int Exp { get { return _exp; } set { _exp = value; } }
     public float DetectRange { get { return _detectRange; } set { _detectRange = value; } }
     public float AttackRange { get { return _attackRange; } set { _attackRange = value; } }
     public float AttackInterval { get { return _attackInterval; } set { _attackInterval = value; } }
-    public bool IsImmortal { get { return _isImmortal; } set { _isImmortal = value; } }
+    public bool IsOnImmortal { get { return _isOnImmortal; } set { _isOnImmortal = value; } }
     public float ShieldHp 
     { 
         get 
@@ -62,13 +64,11 @@ public class MonsterStat : CreatureStat
         _attackRange = stat.attackRange;
         _attackInterval = stat.attackInterval;
         _detectRange = stat.detectRange;
-        _useBerserk = true;
-        _useSuicideBombing = true;
     }
 
     public override void OnAttacked(BaseController attacker, float damage)
     {
-        if (IsImmortal) return;
+        if (IsOnImmortal) return;
 
         float resultDamage = ShieldHp - damage;
         if (resultDamage >= 0f)

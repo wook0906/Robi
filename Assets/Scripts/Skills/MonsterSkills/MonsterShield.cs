@@ -41,6 +41,8 @@ public class MonsterShield : AttackSkillBase
         settings = effect.GetComponent<ParticleSystem>().main;
 
         settings.startColor = new Color(0f, 0.5764706f, 1f, 0.4901961f);
+
+        UseSkill();
     }
 
     public override bool UseSkill()

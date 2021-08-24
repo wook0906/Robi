@@ -40,7 +40,6 @@ public class ActiveSkillDispatcher
 
     private BaseController _owner;
     private ActiveSkillList _skillList;
-    private ActiveSkillList _nonAttackSkillList;
 
     public void Init(BaseController owner)
     {

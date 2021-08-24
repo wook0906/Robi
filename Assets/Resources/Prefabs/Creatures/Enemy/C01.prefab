@@ -75,8 +75,9 @@ GameObject:
   - component: {fileID: 7515162677856047809}
   - component: {fileID: 5023715920938353977}
   - component: {fileID: 4469472235941636627}
+  - component: {fileID: 7542671935731518517}
   m_Layer: 8
-  m_Name: Enemy1
+  m_Name: C01
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -129,10 +130,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f635a6cdbb874f188f301fae02321e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 6
-  delayPerAttack: 1
-  lastAttackTime: 0
   _state: 0
+  attackSkills: []
 --- !u!54 &5023715920938353977
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -163,6 +162,32 @@ CapsuleCollider:
   m_Height: 3.07
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &7542671935731518517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6089480087024509905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cc8670702dd441d899f9ac2d6cff67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _level: 0
+  _hp: 0
+  _maxHp: 0
+  _hpRecoveryPerSecond: 0
+  _damage: 0
+  _moveSpeed: 0
+  _exp: 0
+  _detectRange: 0
+  _attackRange: 0
+  _attackInterval: 0
+  _useBerserk: 0
+  _useSuicideBombing: 0
+  _useImmortal: 0
+  _useShield: 1
 --- !u!1 &6601275189707950240
 GameObject:
   m_ObjectHideFlags: 0
