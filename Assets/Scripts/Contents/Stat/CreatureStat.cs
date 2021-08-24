@@ -13,8 +13,6 @@ public class CreatureStat : MonoBehaviour
     [SerializeField]
     protected float _hpRecoveryPerSecond;
     [SerializeField]
-    protected int _damage;
-    [SerializeField]
     protected float _moveSpeed;
     
 
@@ -22,7 +20,6 @@ public class CreatureStat : MonoBehaviour
     public virtual float Hp { get { return _hp; } set { _hp = value; } }
     public float MaxHp { get { return _maxHp; } set { _maxHp = value; } }
     public float HpRecoveryPerSecond { get { return _hpRecoveryPerSecond; } set { _hpRecoveryPerSecond = value; } }
-    public int Damage { get { return _damage; } set { _damage = value; } }
     public float MoveSpeed { get { return _moveSpeed; } set { _moveSpeed = value; } }
  
 

@@ -131,7 +131,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _state: 0
-  attackSkills: []
 --- !u!54 &5023715920938353977
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -178,16 +177,22 @@ MonoBehaviour:
   _hp: 0
   _maxHp: 0
   _hpRecoveryPerSecond: 0
-  _damage: 0
   _moveSpeed: 0
-  _exp: 0
+  _damage: 0
+  _defense: 0
   _detectRange: 0
   _attackRange: 0
   _attackInterval: 0
+  _exp: 0
+  _normalAttack: 1
+  _launchBomb: 1
+  _missile: 1
+  _immortalDuration: 0
+  _immortalCoolTime: 0
   _useBerserk: 0
   _useSuicideBombing: 0
   _useImmortal: 0
-  _useShield: 1
+  _useShield: 0
 --- !u!1 &6601275189707950240
 GameObject:
   m_ObjectHideFlags: 0

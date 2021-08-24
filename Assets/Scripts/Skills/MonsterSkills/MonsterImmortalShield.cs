@@ -5,7 +5,6 @@ using static Define;
 
 public class MonsterImmortalShield : AttackSkillBase
 {
-
     protected GameObject effect;
     protected ParticleSystem particle;
     protected ParticleSystem.MainModule settings;
@@ -58,9 +57,9 @@ public class MonsterImmortalShield : AttackSkillBase
         while (true)
         {
             IsImmortal = true;
-            yield return new WaitForSeconds(Stat.Duration);
+            yield return new WaitForSeconds(ownerStat._immortalDuration);
             IsImmortal = false;
-            yield return new WaitForSeconds(Stat.CoolTime);
+            yield return new WaitForSeconds(ownerStat._immortalCoolTime);
         }
     }
 

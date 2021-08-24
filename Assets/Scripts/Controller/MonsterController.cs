@@ -12,11 +12,11 @@ public class MonsterController : BaseController
 
     protected Vector3 chaseStartDir;
 
-    public List<AttackSkillBase> attackSkills = new List<AttackSkillBase>();
-
+    MonsterStat stat;
     private void Start()
     {
         _stat = gameObject.GetOrAddComponent<MonsterStat>();
+        stat = _stat as MonsterStat;
         State = Define.CreatureState.Move;
         Init();
     }
@@ -48,6 +48,9 @@ public class MonsterController : BaseController
                 break;
             case Define.CreatureState.Dragged:
                 break;
+            case Define.CreatureState.Controlled:
+                //외부 요인으로 인해 자동으로 상태해제 될 때까지 아무것도 하지 않는다. 
+                break;
             default:
                 break;
         }
@@ -68,11 +71,11 @@ public class MonsterController : BaseController
                 if (shield.ShieldLevel > 0)
                     shield.ShieldLevel--;
                 else
-                    collision.GetComponent<CreatureStat>().OnAttacked(this, _stat.Damage);
+                    collision.GetComponent<CreatureStat>().OnAttacked(this, stat.Damage);
             }
             else
             {
-                collision.GetComponent<CreatureStat>().OnAttacked(this, _stat.Damage);
+                collision.GetComponent<CreatureStat>().OnAttacked(this, stat.Damage);
             }
             Managers.Object.RemoveMonster(this);
             Destroy(gameObject);
@@ -113,35 +116,7 @@ public class MonsterController : BaseController
 
         _attackSkillDispatcher = new ActiveSkillDispatcher();
         _attackSkillDispatcher.Init(this);
-
-        for (int i = 0; i < attackSkills.Count; i++)
-        {
-            AttackSkillBase skill = Instantiate(attackSkills[i], transform.position, Quaternion.identity, transform);
-            skill.Init(this, null, null);
-            skill.name = attackSkills[i].name;
-            _attackSkillDispatcher.Add(0f, skill);
-            Debug.Log($"Add {attackSkills[i].name}");
-        }
-
-        MonsterStat stat = _stat as MonsterStat;
-
-        if (stat._useImmortal)
-        {
-            GameObject go = new GameObject() { name = "MonsterImmortal" };
-            go.transform.parent = transform;
-            go.transform.localPosition = Vector3.zero;
-            MonsterImmortalShield immortal = go.AddComponent<MonsterImmortalShield>();
-            immortal.Init(this, null, null);
-        }
-        if (stat._useShield)
-        {
-            GameObject go = new GameObject() { name = "MonsterShield" };
-            go.transform.parent = transform;
-            go.transform.localPosition = Vector3.zero;
-            MonsterShield shield = go.AddComponent<MonsterShield>();
-            shield.Init(this, null, null);
-        }
-
+     
     }
 
 

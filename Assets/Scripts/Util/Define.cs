@@ -4,10 +4,49 @@ using UnityEngine;
 
 public static class Define
 {
-    public enum Monsters
+    public enum CharacterType
     {
-        F01,
+        Robi,
+        Toug,
+        Warri,
+        Seshu,
+        Thief,
+        MAX,
+    }
+    public enum MonsterType
+    {
         C01,
+        C02,
+        C03,
+        C04,
+        C05,
+        C06,
+        C07,
+
+        F01,
+        F02,
+        F03,
+        F04,
+        F05,
+        F06,
+        F07,
+        
+        EC01,
+        EC02,
+        EC03,
+        EC04,
+        EC05,
+        EC06,
+        EC07,
+
+        EF01,
+        EF02,
+        EF03,
+        EF04,
+        EF05,
+        EF06,
+        EF07,
+
         MAX,
     }
     public enum MonsterAttackType
@@ -55,6 +94,7 @@ public static class Define
         ComebackHome,
         Knockback,
         Dragged,
+        Controlled,
     }
     public enum MonsterSkillType
     {

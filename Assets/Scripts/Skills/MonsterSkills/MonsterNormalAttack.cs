@@ -11,7 +11,6 @@ public class MonsterNormalAttack : AttackSkillBase
         gameObject.AddComponent<SkillStat>().SetStat(_type);
         base.Init(owner, muzzleTransform, parent);
         _prefab = Resources.Load<GameObject>("Prefabs/Projectiles/NormalAttackProjectile");
-        
         //TODO: 각 스킬의 특성에 따른 추가 로직을 넣어줘야할 듯함...
     }
 
@@ -23,7 +22,7 @@ public class MonsterNormalAttack : AttackSkillBase
         if (target == null)
             return false;
 
-        GameObject projectileGO = GameObject.Instantiate(_prefab, _parent);
+        GameObject projectileGO = Instantiate(_prefab, _parent);
         projectileGO.transform.rotation = Quaternion.identity;
         if (_muzzleTransform == null)
             projectileGO.transform.position = _owner.CenterPosition;

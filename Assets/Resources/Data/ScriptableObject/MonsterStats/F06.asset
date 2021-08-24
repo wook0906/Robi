@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beb343d9e9664f046ab998f53fde3b18, type: 3}
+  m_Name: F06
+  m_EditorClassIdentifier: 
+  monsterType: 12
+  _maxHp: 8000
+  _atk: 800
+  _def: 0
+  _moveSpeed: 1
+  _attackRange: 9
+  _detectRange: 0
+  _exp: 0
+  _useShield: 0
+  _useImmortal: 1
+  _immortalDuration: 2
+  _immortalCoolTime: 5
+  _useBerserk: 0
+  _useSuicideBombing: 0
+  _useSkills:
+  - {fileID: 7734165953811397192, guid: abc3bc672f351594ea7b0b5fd0e91675, type: 3}
+  - {fileID: 7063552980661191508, guid: 929f14198b3232644bd57590968f3419, type: 3}
+  isNeedNumOfProjectileSetupPerSkills: 1
+  normalAttack: 0
+  launchBomb: 2
+  missile: 4

@@ -10,7 +10,7 @@ public class MonsterSpawner : MonoBehaviour
     private Camera cam;
     PlayerController player;
 
-    Define.Monsters spawnMonsterType;
+    Define.MonsterType spawnMonsterType;
 
     private IEnumerator Start()
     {
@@ -34,7 +34,7 @@ public class MonsterSpawner : MonoBehaviour
         yield return new WaitForSeconds(3f);
         while(true)
         {
-            //GameObject enemyGO = Managers.Resource.Instantiate($"Creatures/Enemy/{(Define.Monsters)Random.Range((int)Define.Monsters.F01,(int)Define.Monsters.MAX)}");
+            //GameObject enemyGO = Managers.Resource.Instantiate($"Creatures/Enemy/{(Define.MonsterType)Random.Range((int)Define.MonsterType.C01,(int)Define.MonsterType.MAX)}");
             GameObject enemyGO = Managers.Resource.Instantiate($"Creatures/Enemy/F01");
             Vector3 pos = cam.transform.position + (Random.onUnitSphere * radius);
             pos.z = 0f;

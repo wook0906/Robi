@@ -4,30 +4,41 @@ using UnityEngine;
 
 public class MonsterStat : CreatureStat
 {
+    protected BaseController owner;
+
     [SerializeField]
-    protected int _exp;
+    protected int _damage;
+    [SerializeField]
+    protected float _defense;
     [SerializeField]
     protected float _detectRange;
     [SerializeField]
     protected float _attackRange;
     [SerializeField]
     protected float _attackInterval;
-    
-    
     [SerializeField]
+    protected int _exp;
+    
+    public int _normalAttack = 1;
+    public int _launchBomb = 1;
+    public int _missile = 1;
+    public int _immortalDuration;
+    public int _immortalCoolTime;
+
     protected bool _useBerserk = false;
     bool isOnBerserk = false;
-    [SerializeField]
     protected bool _useSuicideBombing = false;
-    public bool _useImmortal;
+    protected bool _useImmortal;
     bool _isOnImmortal;
-    public bool _useShield;
+    protected bool _useShield;
 
-    public int Exp { get { return _exp; } set { _exp = value; } }
+    public int Damage { get { return _damage; } set { _damage = value; } }
+    public float Defense { get { return _defense; } set { _defense = value; } }
     public float DetectRange { get { return _detectRange; } set { _detectRange = value; } }
     public float AttackRange { get { return _attackRange; } set { _attackRange = value; } }
     public float AttackInterval { get { return _attackInterval; } set { _attackInterval = value; } }
     public bool IsOnImmortal { get { return _isOnImmortal; } set { _isOnImmortal = value; } }
+    public int Exp { get { return _exp; } set { _exp = value; } }
     public float ShieldHp 
     { 
         get 
@@ -47,23 +58,64 @@ public class MonsterStat : CreatureStat
     private void Start()
     {
         _level = 1;
-        SetStat(_level);
+        SetStat();
     }
 
-    public void SetStat(int level)
+    public void SetStat()
     {
-        Dictionary<int, Data.CreatureStat> dict = Managers.Data.MonsterStatDict;
-        Data.CreatureStat stat = dict[level];
+        //Dictionary<int, Data.CreatureStat> dict = Managers.Data.MonsterStatDict;
+        Dictionary<Define.MonsterType, MonsterStatData> dict = Managers.Data.monsterStatDict;
+        MonsterStatData stat = dict[(Define.MonsterType)System.Enum.Parse(typeof(Define.MonsterType),name)];
+        owner = GetComponent<BaseController>();
 
-        _hp = stat.maxHp;
-        _maxHp = stat.maxHp;
-        _damage = stat.damage;
-        _hpRecoveryPerSecond = stat.hpRecoveryPerSecond;
-        _moveSpeed = stat.speed;
-        _exp = stat.totalExp;
-        _attackRange = stat.attackRange;
-        _attackInterval = stat.attackInterval;
-        _detectRange = stat.detectRange;
+        _hp = stat._maxHp;
+        _maxHp = stat._maxHp;
+        _damage = stat._atk;
+        _defense = stat._def;
+        _moveSpeed = stat._moveSpeed;
+        _attackRange = stat._attackRange;
+        _detectRange = stat._detectRange;
+        _exp = stat._exp;
+        _useBerserk = stat._useBerserk;
+        _useImmortal = stat._useImmortal;
+        _useShield = stat._useShield;
+        _useSuicideBombing = stat._useSuicideBombing;
+
+        _normalAttack = stat.normalAttack;
+        _launchBomb = stat.launchBomb;
+        _missile = stat.missile;
+        _immortalDuration = stat._immortalDuration;
+        _immortalCoolTime = stat._immortalCoolTime;
+
+
+
+        if (_useImmortal)
+        {
+            GameObject go = new GameObject() { name = "MonsterImmortal" };
+            go.transform.parent = transform;
+            go.transform.localPosition = Vector3.zero;
+            MonsterImmortalShield immortal = go.AddComponent<MonsterImmortalShield>();
+            immortal.Init(owner, null, null);
+        }
+        if (_useShield)
+        {
+            GameObject go = new GameObject() { name = "MonsterShield" };
+            go.transform.parent = transform;
+            go.transform.localPosition = Vector3.zero;
+            MonsterShield shield = go.AddComponent<MonsterShield>();
+            shield.Init(owner, null, null);
+        }
+
+        if (stat._useSkills.Count == 0) return;
+
+        foreach (var item in stat._useSkills)
+        {
+            AttackSkillBase skill = Instantiate(item, transform.position, Quaternion.identity, transform);
+            skill.Init(owner, null, null);
+            skill.name = item.name;
+            owner.AttackSkillDispatcher.Add(0, item);
+        }
+        
     }
 
     public override void OnAttacked(BaseController attacker, float damage)

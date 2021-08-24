@@ -6,6 +6,8 @@ using UnityEngine;
 public class PlayerStat : CreatureStat
 {
     [SerializeField]
+    protected float _atkCoefficient;
+    [SerializeField]
     protected int _exp;
     [SerializeField]
     protected int _gold;
@@ -22,26 +24,27 @@ public class PlayerStat : CreatureStat
             //Debug.Log($"Exp:{_exp}");
             int level = Level;
 
-            Data.CreatureStat stat;
-            if (Managers.Data.PlayerStatDict.TryGetValue(level + 1, out stat) == false)
-                return;
+            //Data.CreatureStat stat;
+            //if (Managers.Data.characterStatDict.TryGetValue(level + 1, out stat) == false)
+            //    return;
 
-            gameSceneUI.UpdateExpUI((float)_exp / stat.totalExp);
-            if (_exp < stat.totalExp)
-                return;
+            //gameSceneUI.UpdateExpUI((float)_exp / stat.totalExp);
+            //if (_exp < stat.totalExp)
+            //    return;
 
-            level++;
+            //level++;
 
             if (level != Level)
             {
                 //Debug.Log("Level Up!");
                 gameSceneUI.UpdateLevelUI(level);
                 Level = level;
-                SetStat(Level);
+                //SetStat(Level);
                 _exp = 0;
             }
         }
     }
+    public float AtkCoefficient { get { return _atkCoefficient; } set { _atkCoefficient = value; } }
     public int Gold { get { return _gold; } set { _gold = value; } }
 
     public override float Hp
@@ -58,21 +61,19 @@ public class PlayerStat : CreatureStat
         _level = 1;
         gameSceneUI = FindObjectOfType<GameScene_UI>();
         yield return new WaitUntil(() => gameSceneUI);
-        SetStat(_level);
+        //SetStat(_level);
     }
 
 
-    public void SetStat(int level)
+    public void SetStat(Define.CharacterType characterType)
     {
-        Dictionary<int, Data.CreatureStat> dict = Managers.Data.PlayerStatDict;
-        Data.CreatureStat stat = dict[level];
+        Dictionary<Define.CharacterType, CharacterStatData> dict = Managers.Data.characterStatDict;
+        CharacterStatData stat = dict[characterType];
 
-        Hp = stat.maxHp;
-        _maxHp = stat.maxHp;
-        _damage = stat.damage;
-        _hpRecoveryPerSecond = stat.hpRecoveryPerSecond;
-        _moveSpeed = stat.speed;
-        _exp = 0;
+        Hp = stat._maxHp;
+        _maxHp = stat._maxHp;
+        _atkCoefficient = stat._atk;
+        _moveSpeed = stat._moveSpeed;
     }
 
     public override void OnAttacked(BaseController attacker, float damage)
@@ -87,17 +88,17 @@ public class PlayerStat : CreatureStat
         Managers.Game.OnGameOver();
     }
 
-    public override string ToString()
-    {
-        StringBuilder builder = new StringBuilder();
+    //public override string ToString()
+    //{
+    //    StringBuilder builder = new StringBuilder();
 
-        builder.Append($"Level:{Level} ");
-        builder.Append($"HP:{MaxHp} ");
-        builder.Append($"Damage:{Damage} ");
-        builder.Append($"Speed:{MoveSpeed} ");
-        builder.Append($"HpRecovery:{HpRecoveryPerSecond} ");
-        builder.Append($"TotalExp:{Exp} ");
+    //    builder.Append($"Level:{Level} ");
+    //    builder.Append($"HP:{MaxHp} ");
+    //    builder.Append($"Damage:{Damage} ");
+    //    builder.Append($"Speed:{MoveSpeed} ");
+    //    builder.Append($"HpRecovery:{HpRecoveryPerSecond} ");
+    //    builder.Append($"TotalExp:{Exp} ");
 
-        return builder.ToString();
-    }
+    //    return builder.ToString();
+    //}
 }

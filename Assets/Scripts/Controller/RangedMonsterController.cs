@@ -115,8 +115,6 @@ public class RangedMonsterController : MonsterController
 
     public void OnHit(GameObject target, Projectile projectile)
     {
-        
-
         //ParticleSystem effect = Managers.Resource.Instantiate("Effects/Explosion").GetComponent<ParticleSystem>();
         //Vector3 pos = projectile.transform.position;
         //effect.transform.position = pos;
