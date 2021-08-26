@@ -6,7 +6,7 @@ using static Define;
 public class PlayerController : BaseController
 {
     public Vector3 CameraOffset;
-    public PlayerStat Stat { get { return _stat as PlayerStat; } }
+    public PlayerStat PlayerStat { get { return _stat as PlayerStat; } }
     private Vector2 touchStartPos;
     [SerializeField]
     private Transform camTransform;
@@ -26,7 +26,8 @@ public class PlayerController : BaseController
         tileMask = LayerMask.GetMask("Tile");
         State = CreatureState.Idle;
         camTransform = Camera.main.transform;
-        _stat = gameObject.AddComponent<PlayerStat>();
+        _stat = gameObject.GetOrAddComponent<PlayerStat>();
+        PlayerStat.SetStat();
         _attackSkillDispatcher = new ActiveSkillDispatcher();
         _attackSkillDispatcher.Init(this);
         body = transform.Find("Model").transform.Find("Robi").transform.Find("Body").gameObject;
@@ -36,14 +37,13 @@ public class PlayerController : BaseController
         field = GameObject.FindGameObjectWithTag("Field").GetComponent<Field>();
         transform.rotation = Quaternion.LookRotation(Vector3.down, Vector3.back);
 
-        
+
 
         //1 기본
         GameObject normalAttack = new GameObject() { name = "NormalAttack" };
         normalAttack.transform.parent = transform;
         normalAttack.transform.localPosition = Vector3.zero;
         NormalAttack normalSkill = normalAttack.AddComponent<NormalAttack>();
-        normalAttack.AddComponent<SkillStat>().SetStat(normalSkill.Type);
         normalSkill.Init(this, null, null);
         attackSkills.Add(normalSkill);
 
@@ -52,7 +52,6 @@ public class PlayerController : BaseController
         //bombingGO.transform.parent = transform;
         //bombingGO.transform.localPosition = Vector3.zero;
         //BombingAttack bombingSkill = bombingGO.AddComponent<BombingAttack>();
-        //bombingGO.AddComponent<AttackSkillStat>();
         //bombingSkill.Init(this, null, null);
         //attackSkills.Add(bombingSkill);
 
@@ -61,7 +60,6 @@ public class PlayerController : BaseController
         //missileAttack.transform.parent = transform;
         //missileAttack.transform.localPosition = Vector3.zero;
         //MissileAttack missile = missileAttack.AddComponent<MissileAttack>();
-        //missileAttack.AddComponent<AttackSkillStat>();
         //missile.Init(this, null, null);
         //attackSkills.Add(missile);
 
@@ -69,7 +67,6 @@ public class PlayerController : BaseController
         //GameObject laserAttack = new GameObject() { name = "Laser" };
         //laserAttack.transform.parent = transform;
         //laserAttack.transform.localPosition = Vector3.zero;
-        //laserAttack.AddComponent<LaserAttackSkillStat>();
         //laserAttack.AddComponent<LaserAttack>().Init(this, null, null);
         //attackSkills.Add(laserAttack.GetComponent<LaserAttack>());
 
@@ -77,7 +74,6 @@ public class PlayerController : BaseController
         //GameObject flamethrower = new GameObject() { name = "FlameThrower" };
         //flamethrower.transform.parent = transform;
         //flamethrower.transform.localPosition = Vector3.zero;
-        //flamethrower.AddComponent<FlameThrowerAttackSkillStat>();
         //flamethrower.AddComponent<FlameThrowerAttack>().Init(this, Managers.Resource.Instantiate("Effects/Flamethrower").transform, null);
         //attackSkills.Add(flamethrower.GetComponent<FlameThrowerAttack>());
 
@@ -85,7 +81,6 @@ public class PlayerController : BaseController
         //GameObject impactWaveAttack = new GameObject() { name = "ImpactWave" };
         //impactWaveAttack.transform.parent = transform;
         //impactWaveAttack.transform.localPosition = Vector3.zero;
-        //impactWaveAttack.AddComponent<ImpactWaveAttackStat>();
         //impactWaveAttack.AddComponent<ImpactWaveAttack>().Init(this, null, null);
         //attackSkills.Add(impactWaveAttack.GetComponent<ImpactWaveAttack>());
 
@@ -93,7 +88,6 @@ public class PlayerController : BaseController
         //GameObject pulseWaveAttack = new GameObject() { name = "PulseWave" };
         //pulseWaveAttack.transform.parent = transform;
         //pulseWaveAttack.transform.localPosition = Vector3.zero;
-        //pulseWaveAttack.AddComponent<PulseWaveAttackSkillStat>();
         //pulseWaveAttack.AddComponent<PulseWaveAttack>().Init(this, null, null);
         //attackSkills.Add(pulseWaveAttack.GetComponent<PulseWaveAttack>());
 
@@ -101,7 +95,6 @@ public class PlayerController : BaseController
         //GameObject napalmAttack = new GameObject() { name = "Napalm" };
         //napalmAttack.transform.parent = transform;
         //napalmAttack.transform.localPosition = Vector3.zero;
-        //napalmAttack.AddComponent<NapalmAttackSkillStat>();
         //napalmAttack.AddComponent<NapalmAttack>().Init(this, null, null);
         //attackSkills.Add(napalmAttack.GetComponent<NapalmAttack>());
 
@@ -109,15 +102,13 @@ public class PlayerController : BaseController
         //GameObject shield = new GameObject() { name = "Shield" };
         //shield.transform.parent = transform;
         //shield.transform.localPosition = Vector3.zero;
-        //shield.AddComponent<ShieldSkillStat>();
-        //shield.AddComponent<Shield>().Init(this, null, null);
-        //attackSkills.Add(shield.GetComponent<Shield>());
+        //shield.AddComponent<ShieldSkill>().Init(this, null, null);
+        //attackSkills.Add(shield.GetComponent<ShieldSkill>());
 
         //10 드론
         //GameObject drone = new GameObject() { name = "Drone" };
         //drone.transform.parent = transform;
         //drone.transform.localPosition = Vector3.zero;
-        //drone.AddComponent<DroneSkillStat>();
         //drone.AddComponent<DroneSkill>().Init(this, null, null);
         //attackSkills.Add(drone.GetComponent<DroneSkill>());
 
@@ -125,17 +116,13 @@ public class PlayerController : BaseController
         //GameObject nuclear = new GameObject() { name = "Nuclear" };
         //nuclear.transform.parent = transform;
         //nuclear.transform.localPosition = Vector3.zero;
-        //nuclear.AddComponent<NuclearSkillStat>();
         //nuclear.AddComponent<NuclearBombAttack>().Init(this, null, null);
-        ////attackSkills.Add(nuclear.GetComponent<NuclearBombAttack>());
-        ////_activeSkillDispatcher.Add(nuclear.GetComponent<NuclearSkillStat>().CoolTime, nuclear.GetComponent<NuclearBombAttack>());
-        //_activeSkillDispatcher.Add(0, nuclear.GetComponent<NuclearBombAttack>());
+        //_attackSkillDispatcher.Add(nuclear.GetComponent<NuclearSkillStat>().CoolTime, nuclear.GetComponent<NuclearBombAttack>());
 
         //12 시공의폭풍
         //GameObject blackHole = new GameObject() { name = "BlackHole" };
         //blackHole.transform.parent = transform;
         //blackHole.transform.localPosition = Vector3.zero;
-        //blackHole.AddComponent<BlackHoleAttackSkillStat>();
         //blackHole.AddComponent<BlackHoleAttack>().Init(this, null, null);
         //attackSkills.Add(blackHole.GetComponent<BlackHoleAttack>());
 
@@ -248,7 +235,7 @@ public class PlayerController : BaseController
         MonsterController mc = controller as MonsterController;
         if (mc != null)
         {
-            Stat.Exp += mc.GetComponent<MonsterStat>().Exp;
+            PlayerStat.Exp += mc.GetComponent<MonsterStat>().Exp;
         }
     }
 

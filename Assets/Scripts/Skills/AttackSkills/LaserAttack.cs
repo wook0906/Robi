@@ -9,6 +9,7 @@ public class LaserAttack : AttackSkillBase
     {
         _type = AttackSkillType.PlayerLaser;
         base.Init(owner, muzzleTransform, parent);
+        Stat.InitSkillStat(_type);
         _prefab = Resources.Load<GameObject>("Prefabs/Laser");
     }
 
@@ -25,7 +26,7 @@ public class LaserAttack : AttackSkillBase
                 continue;
 
             //Debug.Log($"Target:{target.name}");
-            Debug.DrawRay(transform.position, (target.transform.position - transform.position).normalized * 5f, Color.red, 1f);
+            Debug.DrawRay(transform.position, (target.GetComponent<BaseController>().CenterPosition - _owner.CenterPosition).normalized * Stat.AttackRange, Color.red, 1f);
             GameObject projectileGO = GameObject.Instantiate(_prefab, _parent);
             projectileGO.transform.rotation = Quaternion.identity;
             if (_muzzleTransform == null)

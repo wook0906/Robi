@@ -7,8 +7,8 @@ public class MonsterBombing : AttackSkillBase
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
         _type = Define.AttackSkillType.MonsterBombing;
-        gameObject.AddComponent<SkillStat>().SetStat(_type);
         base.Init(owner, muzzleTransform, parent);
+        Stat.InitSkillStat(_type);
         _prefab = Resources.Load<GameObject>("Prefabs/Projectiles/BombingAttackProjectile");
     }
 

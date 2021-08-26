@@ -7,8 +7,8 @@ public class Projectile : MonoBehaviour
 {
     private BaseController _owner;
     //private GameObject _target;
-    private int _damage;
-    public int Damage { get { return _damage; } }
+    private float _damage;
+    public float Damage { get { return _damage; } }
     private float _attackRange;
     public float AttackRange { get { return _attackRange; } }
     private float _speed;
@@ -57,7 +57,7 @@ public class Projectile : MonoBehaviour
     //    _targetTag = target.tag;
     //}
 
-    public void Init(BaseController onwer, Vector3 targetPos, int damage,
+    public void Init(BaseController onwer, Vector3 targetPos, float damage,
         float attackRange, float speed, bool isExplode,
         float explosionRange, float explosionDamage, bool isPenetrate, float duration, LayerMask targetLayer)
     {
@@ -87,7 +87,7 @@ public class Projectile : MonoBehaviour
         float deltaDist = Speed * Time.fixedDeltaTime;
         transform.rotation = Quaternion.LookRotation(_toTarget, Vector3.back);
         float dist = (_targetPos - transform.position).magnitude;
-        //deltaDist = Mathf.Clamp(deltaDist, 0, dist);
+        deltaDist = Mathf.Clamp(deltaDist, 0, dist);
         transform.position += _toTarget * _speed * Time.deltaTime;
         //_rigid.MovePosition(transform.position + _toTarget * deltaDist);
         if (_attackRange > 0)
@@ -109,14 +109,14 @@ public class Projectile : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        //else
-        //{
-        //    //if (dist < 0.1f)
-        //    //{
-        //    //    OnHit(null, this);
-        //    //    Destroy(gameObject);
-        //    //}
-        //}
+        else
+        {
+            if (dist < 0.1f)
+            {
+                OnArrive(transform.position, this);
+                Destroy(gameObject);
+            }
+        }
         if (_duration > 0)
         {
             durationTimer += Time.deltaTime;

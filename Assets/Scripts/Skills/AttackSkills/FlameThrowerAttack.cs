@@ -8,6 +8,7 @@ public class FlameThrowerAttack : AttackSkillBase
     {
         _type = Define.AttackSkillType.FlameThrower;
         base.Init(owner, muzzleTransform, parent);
+        Stat.InitSkillStat(_type);
         _muzzleTransform.transform.SetParent(owner.transform);
         _muzzleTransform.transform.localRotation = Quaternion.Euler(Vector3.zero);
     }

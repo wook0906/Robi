@@ -15,14 +15,21 @@ public class MonsterStatData : ScriptableObject
     [Tooltip("0 이면 무한대")]
     public float _detectRange;
     public int _exp;
-    public bool _useShield;
-    public bool _useImmortal;
+
+    public bool _useSkill;
+    public bool _normalAttack;
+    public bool _missile;
+    public bool _laser;
+    public bool _launchBomb;
+    public bool _bombing;
+    public bool _shield;
+    public bool _immortal;
     public int _immortalDuration = 0;
     public int _immortalCoolTime = 0;
-    public bool _useBerserk;
-    public bool _useSuicideBombing;
+    public bool _berserk;
+    public bool _suicideBombing;
 
-    public List<AttackSkillBase> _useSkills;
+    //public List<AttackSkillBase> _useSkills;
 
     public bool isNeedNumOfProjectileSetupPerSkills = false;
     public int normalAttack = 1;
@@ -44,21 +51,31 @@ public class MonsterStatDataEditor : Editor
         statData._attackRange = EditorGUILayout.FloatField("Attack Range", statData._attackRange);
         statData._detectRange = EditorGUILayout.FloatField("Detect Range", statData._detectRange);
         statData._exp = EditorGUILayout.IntField("Exp", statData._exp);
-        statData._useShield = EditorGUILayout.Toggle("Use Shield", statData._useShield);
-        statData._useImmortal = EditorGUILayout.Toggle("Use Immortal", statData._useImmortal);
-        if (statData._useImmortal)
+        statData._useSkill = EditorGUILayout.Toggle("Use Skill", statData._useSkill);
+
+        if (statData._useSkill)
         {
-            statData._immortalDuration = EditorGUILayout.IntField("Immortal Duration", statData._immortalDuration);
-            statData._immortalCoolTime = EditorGUILayout.IntField("Immortal CoolTime", statData._immortalCoolTime);
+            statData._shield = EditorGUILayout.Toggle("Use Shield", statData._shield);
+            statData._immortal = EditorGUILayout.Toggle("Use Immortal", statData._immortal);
+            if(statData._shield)
+                statData._immortal = false;
+            if (statData._immortal)
+            {
+                statData._immortalDuration = EditorGUILayout.IntField("Immortal Duration", statData._immortalDuration);
+                statData._immortalCoolTime = EditorGUILayout.IntField("Immortal CoolTime", statData._immortalCoolTime);
+                statData._shield = false;
+            }
+            statData._berserk = EditorGUILayout.Toggle("Use Berserk", statData._berserk);
+            statData._suicideBombing = EditorGUILayout.Toggle("Use SuicideBombing", statData._suicideBombing);
+            statData._normalAttack = EditorGUILayout.Toggle("Use NormalAttack", statData._normalAttack);
+            statData._missile = EditorGUILayout.Toggle("Use Missile", statData._missile);
+            statData._laser = EditorGUILayout.Toggle("Use Laser", statData._laser);
+            statData._launchBomb = EditorGUILayout.Toggle("Use LaunchBomb", statData._launchBomb);
+            statData._bombing = EditorGUILayout.Toggle("Use Bombing", statData._bombing);
+            statData.isNeedNumOfProjectileSetupPerSkills = EditorGUILayout.Toggle("isNeedNumOfProjectileSetupPerSkills", statData.isNeedNumOfProjectileSetupPerSkills);
         }
-        statData._useBerserk = EditorGUILayout.Toggle("Use Berserk", statData._useBerserk);
-        statData._useSuicideBombing = EditorGUILayout.Toggle("Use SuicideBombing", statData._useSuicideBombing);
+        
 
-        serializedObject.Update();
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("_useSkills"),true);
-        serializedObject.ApplyModifiedProperties();
-
-        statData.isNeedNumOfProjectileSetupPerSkills = EditorGUILayout.Toggle("isNeedNumOfProjectileSetupPerSkills",statData.isNeedNumOfProjectileSetupPerSkills);
         if (statData.isNeedNumOfProjectileSetupPerSkills)
         {
             statData.normalAttack = EditorGUILayout.IntField("Normal attack", statData.normalAttack);

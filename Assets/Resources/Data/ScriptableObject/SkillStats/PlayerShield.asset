@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerShield
   m_EditorClassIdentifier: 
   SkillType: 9
-  _coolTime: 0
+  _coolTime: 10
   _damage: 0
   _attackRange: 0
   _numOfProjectilePerBurst: 0
@@ -24,3 +24,4 @@ MonoBehaviour:
   _isPenetrate: 0
   _duration: 0
   _delayPerAttack: 0
+  _bulletPrefab: {fileID: 0}

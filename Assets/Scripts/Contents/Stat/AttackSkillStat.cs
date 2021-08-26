@@ -46,31 +46,30 @@ public class AttackSkillStat : MonoBehaviour
     public float Duration { get { return _duration; } set { _duration = value; } }
     public float DelayPerAttack { get { return _delayPerAttack; } set { _delayPerAttack = value; } }
 
-    private SkillStatData _skill;
-    private void Start()
-    {
-        _skill = GetComponent<SkillStatData>();
-        _level = 1;
-        SetStat(_skill.SkillType);
-    }
+    //private SkillStatData _skill;
+    //private void Start()
+    //{
+    //    _level = 1;
+    //    SetStat(_skill.SkillType);
+    //}
 
-    public void SetStat(Define.AttackSkillType skillType)
-    {
-        Dictionary<Define.AttackSkillType, SkillStatData> dict = Managers.Data.skillStatDict;
-        //Data.AttackSkillStat stat = dict[skillType];
-        SkillStatData stat = dict[skillType];
+    //public void SetStat(Define.AttackSkillType skillType)
+    //{
+    //    Dictionary<Define.AttackSkillType, SkillStatData> dict = Managers.Data.skillStatDict;
+    //    //Data.AttackSkillStat stat = dict[skillType];
+    //    SkillStatData stat = dict[skillType];
 
-        _coolTime = stat._coolTime;
-        _damage = stat._damage;
-        _attackRange = stat._attackRange;
-        //_useCount = stat.useCount;
-        _numOfProjectilePerBurst = stat._numOfProjectilePerBurst;
-        _speed = stat._speed;
-        _isExplode = stat._isExplode;
-        _explosionDamage = stat._explosionDamage;
-        _explosionRange = stat._explosionRange;
-        _isPenetrate = stat._isPenetrate;
-        _duration = stat._duration;
-        _delayPerAttack = stat._delayPerAttack;
-    }
+    //    _coolTime = stat._coolTime;
+    //    _damage = stat._damage;
+    //    _attackRange = stat._attackRange;
+    //    //_useCount = stat.useCount;
+    //    _numOfProjectilePerBurst = stat._numOfProjectilePerBurst;
+    //    _speed = stat._speed;
+    //    _isExplode = stat._isExplode;
+    //    _explosionDamage = stat._explosionDamage;
+    //    _explosionRange = stat._explosionRange;
+    //    _isPenetrate = stat._isPenetrate;
+    //    _duration = stat._duration;
+    //    _delayPerAttack = stat._delayPerAttack;
+    //}
 }

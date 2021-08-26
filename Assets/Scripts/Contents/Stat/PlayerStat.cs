@@ -53,7 +53,8 @@ public class PlayerStat : CreatureStat
         set
         {
             _hp = value;
-            gameSceneUI.UpdateHpUI(_hp / _maxHp);
+            if(gameSceneUI)
+                gameSceneUI.UpdateHpUI(_hp / _maxHp);
         }
     }
     private IEnumerator Start()
@@ -61,14 +62,13 @@ public class PlayerStat : CreatureStat
         _level = 1;
         gameSceneUI = FindObjectOfType<GameScene_UI>();
         yield return new WaitUntil(() => gameSceneUI);
-        //SetStat(_level);
     }
 
 
-    public void SetStat(Define.CharacterType characterType)
+    public void SetStat()
     {
         Dictionary<Define.CharacterType, CharacterStatData> dict = Managers.Data.characterStatDict;
-        CharacterStatData stat = dict[characterType];
+        CharacterStatData stat = dict[(Define.CharacterType)System.Enum.Parse(typeof(Define.CharacterType), name)];
 
         Hp = stat._maxHp;
         _maxHp = stat._maxHp;

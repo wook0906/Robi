@@ -9,7 +9,8 @@ public class BlackHoleAttack : AttackSkillBase
     {
         _type = AttackSkillType.BlackHole;
         base.Init(owner, muzzleTransform, parent);
-        _prefab = Resources.Load<GameObject>("Prefabs/Projectiles/BlackHoleProjectile");
+        Stat.InitSkillStat(_type);
+        _prefab = Stat._bulletPrefab;
     }
 
     public override bool UseSkill()
@@ -27,7 +28,7 @@ public class BlackHoleAttack : AttackSkillBase
 
 
         BlackHoleProjectile projectile = blackHoleGO.GetComponent<BlackHoleProjectile>();
-        projectile.Init(_owner, target, Stat as BlackHoleAttackSkillStat);
+        projectile.Init(_owner, target, Stat);
         projectile.DragToCenter();
 
         projectile.OnKill -= OnKill;

@@ -14,11 +14,11 @@ public class MonsterSpawner : MonoBehaviour
 
     private IEnumerator Start()
     {
-        while (GameObject.Find("Player") == null)
+        while (GameObject.FindGameObjectWithTag("Player") == null)
         {
             yield return null;
         }
-        player = GameObject.Find("Player").GetComponent<PlayerController>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         float horizentalSize = Camera.main.orthographicSize * 2f * ((float)Screen.width / Screen.height);
         rightTopPos = new Vector2(horizentalSize * 0.5f, Camera.main.orthographicSize);
         //Debug.Log(rightTopPos);

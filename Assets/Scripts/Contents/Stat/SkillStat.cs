@@ -5,9 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class SkillStat : MonoBehaviour
 {
-    public SkillStat() { }
+    public SkillStat() {}
     public SkillStat(float coolTime, int damage, float attackRange, int numOfProjectilePerBurst, float speed, bool isExplode, float explosionRange, int explosionDamage, bool isPenetrate, float duration, float delayPerAttack)
-    { 
+    {
         _coolTime = coolTime;
         _damage = damage;
         _attackRange = attackRange;
@@ -20,14 +20,13 @@ public class SkillStat : MonoBehaviour
         _duration = duration;
         _delayPerAttack = delayPerAttack;
     }
+    protected int level;
     [SerializeField]
     protected float _coolTime;
     [SerializeField]
     protected int _damage;
     [SerializeField]
     protected float _attackRange;
-    //[SerializeField]
-    //protected int _useCount;
     [SerializeField]
     protected int _numOfProjectilePerBurst;
     [SerializeField]
@@ -44,12 +43,12 @@ public class SkillStat : MonoBehaviour
     protected float _duration;
     [SerializeField]
     protected float _delayPerAttack;
+    [HideInInspector]
+    public GameObject _bulletPrefab;
 
-    //public int Level { get { return _level; } set { _level = value; } }
     public float CoolTime { get { return _coolTime; } set { _coolTime = value; } }
     public int Damage { get { return _damage; } set { _damage = value; } }
     public float AttackRange { get { return _attackRange; } set { _attackRange = value; } }
-    //public int UseCount { get { return _useCount; } set { _useCount = value; } }
     public int NumOfProjectilePerBurst { get { return _numOfProjectilePerBurst; } set { _numOfProjectilePerBurst = value; } }
     public float Speed { get { return _speed; } set { _speed = value; } }
     public bool IsExplode { get { return _isExplode; } set { _isExplode = value; } }
@@ -59,15 +58,12 @@ public class SkillStat : MonoBehaviour
     public float Duration { get { return _duration; } set { _duration = value; } }
     public float DelayPerAttack { get { return _delayPerAttack; } set { _delayPerAttack = value; } }
 
-    public void SetStat(Define.AttackSkillType skillType)
+    public void InitSkillStat(Define.AttackSkillType skillType)
     {
         Dictionary<Define.AttackSkillType, SkillStatData> dict = Managers.Data.skillStatDict;
-        foreach (var item in dict)
-        {
-            //Debug.Log($"{item.Key}, {item.Value}");
-        }
-        SkillStatData stat = dict[skillType];
 
+        SkillStatData stat = dict[skillType];
+        level = 1;
         _coolTime = stat._coolTime;
         _damage = stat._damage;
         _attackRange = stat._attackRange;
@@ -80,5 +76,12 @@ public class SkillStat : MonoBehaviour
         _isPenetrate = stat._isPenetrate;
         _duration = stat._duration;
         _delayPerAttack = stat._delayPerAttack;
+        _bulletPrefab = stat._bulletPrefab;
+    }
+
+    public virtual void LevelUp(Define.SkillGrade grade)
+    {
+        if (level >= 7) return;
+        level++;
     }
 }

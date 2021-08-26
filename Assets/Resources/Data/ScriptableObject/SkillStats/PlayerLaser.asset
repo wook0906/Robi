@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: PlayerLaser
   m_EditorClassIdentifier: 
   SkillType: 3
-  _coolTime: 0
-  _damage: 0
+  _coolTime: 1
+  _damage: 1500
   _attackRange: 0
-  _numOfProjectilePerBurst: 0
+  _numOfProjectilePerBurst: 1
   _speed: 0
   _isExplode: 0
   _explosionRange: 0
   _explosionDamage: 0
-  _isPenetrate: 0
+  _isPenetrate: 1
   _duration: 0
   _delayPerAttack: 0
+  _bulletPrefab: {fileID: 0}

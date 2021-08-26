@@ -5,5 +5,5 @@ using UnityEngine;
 public class BlackHoleAttackSkillStat : SkillStat
 {
     private float _maxAttackRange;
-    public float MaxAttackRange { get { return _maxAttackRange; } }
+    public float MaxAttackRange { get { return _maxAttackRange; } set { _maxAttackRange = value; } }
 }

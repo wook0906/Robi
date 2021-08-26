@@ -11,6 +11,7 @@ public class ImpactWaveAttack : AttackSkillBase
     {
         _type = AttackSkillType.ImpactWave;
         base.Init(owner, muzzleTransform, parent);
+        Stat.InitSkillStat(_type);
         _prefab = Managers.Resource.Load<GameObject>("Prefabs/Effects/ImpactWave");
         hitEffect = Managers.Resource.Load<GameObject>("Prefabs/Effects/ImpactWaveHit");
     }

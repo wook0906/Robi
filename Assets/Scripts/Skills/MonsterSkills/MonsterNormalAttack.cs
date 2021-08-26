@@ -5,13 +5,15 @@ using static Define;
 
 public class MonsterNormalAttack : AttackSkillBase
 {
+    
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
         _type = AttackSkillType.MonsterNormal;
-        gameObject.AddComponent<SkillStat>().SetStat(_type);
         base.Init(owner, muzzleTransform, parent);
-        _prefab = Resources.Load<GameObject>("Prefabs/Projectiles/NormalAttackProjectile");
+        Stat.InitSkillStat(_type);
+        _prefab = Stat._bulletPrefab;
         //TODO: 각 스킬의 특성에 따른 추가 로직을 넣어줘야할 듯함...
+        
     }
 
     public override bool UseSkill()
@@ -21,7 +23,6 @@ public class MonsterNormalAttack : AttackSkillBase
 
         if (target == null)
             return false;
-
         GameObject projectileGO = Instantiate(_prefab, _parent);
         projectileGO.transform.rotation = Quaternion.identity;
         if (_muzzleTransform == null)

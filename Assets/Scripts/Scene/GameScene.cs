@@ -28,7 +28,7 @@ public class GameScene : BaseScene
         monsterSpawner = Managers.Resource.Instantiate("Core/MonsterSpawner");
         yield return new WaitUntil(() => monsterSpawner);
 
-        player = Managers.Resource.Instantiate("Core/Player");
+        player = Managers.Resource.Instantiate("Creatures/Character/Robi");
         yield return new WaitUntil(() => player);
     }
     public override void Clear()

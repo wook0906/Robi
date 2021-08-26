@@ -8,6 +8,7 @@ public class PulseWaveAttack : AttackSkillBase
     {
         _type = AttackSkillType.PulseWave;
         base.Init(owner, muzzleTransform, parent);
+        Stat.InitSkillStat(_type);
     }
 
     public override bool UseSkill()

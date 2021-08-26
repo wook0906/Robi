@@ -11,6 +11,7 @@ public class NuclearBombAttack : AttackSkillBase
     {
         _type = AttackSkillType.NuclearBomb;
         base.Init(owner, muzzleTransform, parent);
+        Stat.InitSkillStat(_type);
         nuclearFadeImage = GameObject.Find("NuclearFade").GetComponent<Image>();
     }
 

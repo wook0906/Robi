@@ -26,4 +26,5 @@ public class SkillStatData : ScriptableObject
     public float _duration;
     [Tooltip("한 공격 싸이클에서 발사될 투사체가 여러개일 때, 발사 사이의 간격")]
     public float _delayPerAttack;
+    public GameObject _bulletPrefab;
 }

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: ImpactWave
   m_EditorClassIdentifier: 
   SkillType: 2
-  _coolTime: 0
-  _damage: 0
-  _attackRange: 0
+  _coolTime: 8
+  _damage: 1000
+  _attackRange: 3
   _numOfProjectilePerBurst: 0
   _speed: 0
   _isExplode: 0
@@ -24,3 +24,4 @@ MonoBehaviour:
   _isPenetrate: 0
   _duration: 0
   _delayPerAttack: 0
+  _bulletPrefab: {fileID: 0}

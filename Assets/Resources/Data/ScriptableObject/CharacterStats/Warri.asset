@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: baf0529dd6bac8445a43556642cda792, type: 3}
-  m_Name: TougStatData
+  m_Name: Warri
   m_EditorClassIdentifier: 
-  characterType: 1
-  _maxHp: 1500
-  _atk: 1
-  _def: 100
-  _moveSpeed: 0.8
+  characterType: 2
+  _maxHp: 800
+  _atk: 1.6
+  _def: 30
+  _moveSpeed: 1.2
   _itemRootingRangeRadius: 1
   _expAcquirePercentage: 1

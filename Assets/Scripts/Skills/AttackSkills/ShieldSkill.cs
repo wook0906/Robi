@@ -47,11 +47,13 @@ public class ShieldSkill : AttackSkillBase
     }
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
-        _type = AttackSkillType.Shield;
+        _type = AttackSkillType.PlayerShield;
         base.Init(owner, muzzleTransform, parent);
+        Stat.InitSkillStat(_type);
         effect = Managers.Resource.Instantiate("Effects/ShieldEffect");
+        effect.transform.position = owner.CenterPosition;
         effect.transform.SetParent(owner.transform);
-        effect.transform.localPosition = Vector3.zero;
+        
     }
 
     public override bool UseSkill()

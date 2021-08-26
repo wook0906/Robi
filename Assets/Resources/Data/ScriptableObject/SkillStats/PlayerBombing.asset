@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff51f414c4b446c458ebd2932381cbfd, type: 3}
   m_Name: PlayerBombing
   m_EditorClassIdentifier: 
-  SkillType: 17
-  _coolTime: 0
+  SkillType: 8
+  _coolTime: 20
   _damage: 0
-  _attackRange: 0
-  _numOfProjectilePerBurst: 0
-  _speed: 0
-  _isExplode: 0
-  _explosionRange: 0
-  _explosionDamage: 0
+  _attackRange: 10
+  _numOfProjectilePerBurst: 4
+  _speed: 10
+  _isExplode: 1
+  _explosionRange: 2
+  _explosionDamage: 600
   _isPenetrate: 0
-  _duration: 0
-  _delayPerAttack: 0
+  _duration: 5
+  _delayPerAttack: 0.5
+  _bulletPrefab: {fileID: 0}

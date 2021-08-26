@@ -7,8 +7,9 @@ public class MissileAttack : AttackSkillBase
 {
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
-        _type = AttackSkillType.Missile;
+        _type = AttackSkillType.PlayerMissile;
         base.Init(owner, muzzleTransform, parent);
+        Stat.InitSkillStat(_type);
         _prefab = Resources.Load<GameObject>("Prefabs/Projectiles/MissileAttackProjectile");
     }
 

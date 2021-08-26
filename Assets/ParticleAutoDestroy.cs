@@ -33,7 +33,7 @@ public class ParticleAutoDestroy : MonoBehaviour
         //{
 
         //}
-
+        if (!particleSystem) return;
         if (!particleSystem.IsAlive(true))
         {
             Managers.Resource.Destroy(this.gameObject);

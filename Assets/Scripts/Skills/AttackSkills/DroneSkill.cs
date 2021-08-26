@@ -12,6 +12,7 @@ public class DroneSkill : AttackSkillBase
     {
         _type = AttackSkillType.Drone;
         base.Init(owner, muzzleTransform, parent);
+        Stat.InitSkillStat(_type);
         _prefab = Managers.Resource.Load<GameObject>("Prefabs/Drone");
         dronePos[0] = new Vector3(1, 1, 0);
         dronePos[1] = new Vector3(-1, 1, 0);

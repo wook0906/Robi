@@ -7,6 +7,7 @@ public abstract class AttackSkillBase : ActiveSkill
 {
     protected AttackSkillType _type;
     public AttackSkillType Type { get { return _type; } }
+    [SerializeField]
     protected GameObject _prefab;
 
     //[SerializeField]
@@ -14,7 +15,7 @@ public abstract class AttackSkillBase : ActiveSkill
     //public AttackSkillStat Stat { get { return _stat; } }
     [SerializeField]
     protected SkillStat _stat;
-    public SkillStat Stat { get { return _stat; } }
+    public SkillStat Stat { get { return _stat; } set { _stat = value; } }
 
     virtual public string Description
     {
@@ -28,7 +29,7 @@ public abstract class AttackSkillBase : ActiveSkill
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
         base.Init(owner, muzzleTransform, parent);
-        _stat = GetComponent<SkillStat>();
+        Stat = gameObject.GetOrAddComponent<SkillStat>();
     }
 
     public override bool UseSkill()

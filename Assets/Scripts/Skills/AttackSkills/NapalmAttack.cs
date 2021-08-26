@@ -10,6 +10,7 @@ public class NapalmAttack : AttackSkillBase
     {
         _type = AttackSkillType.Napalm;
         base.Init(owner, muzzleTransform, parent);
+        Stat.InitSkillStat(_type);
         _prefab = Resources.Load<GameObject>("Prefabs/Projectiles/NapalmAttackProjectile");
         _wideAreaAttackPrefab = Resources.Load<GameObject>("Prefabs/WideAreaAttack");
     }
@@ -78,6 +79,7 @@ public class NapalmAttack : AttackSkillBase
         Debug.Log($"Missile Explosion! Hit {count} monsters");
 
         GameObject wideAreaAttackGO = Instantiate(_wideAreaAttackPrefab);
+        wideAreaAttackPos.z -= 0.2f;
         wideAreaAttackGO.transform.position = wideAreaAttackPos;
         wideAreaAttackGO.GetComponent<WideAreaAttack>().Init(_owner, Mathf.RoundToInt(Stat.ExplosionDamage * 0.3f),
             Stat.ExplosionRange, Stat.Duration, Stat.DelayPerAttack);

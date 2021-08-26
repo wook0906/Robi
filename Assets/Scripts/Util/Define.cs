@@ -4,6 +4,13 @@ using UnityEngine;
 
 public static class Define
 {
+    public enum SkillGrade
+    {
+        Common,
+        Rare,
+        Unique
+    }
+
     public enum CharacterType
     {
         Robi,
@@ -106,12 +113,12 @@ public static class Define
         FlameThrower,
         ImpactWave,
         PlayerLaser,
-        Missile,
+        PlayerMissile,
         Napalm,
         PulseWave,
         NuclearBomb,
-        Bombing,
-        Shield,
+        PlayerBombing,
+        PlayerShield,
         Drone,
         BlackHole,
         PlayerMax,

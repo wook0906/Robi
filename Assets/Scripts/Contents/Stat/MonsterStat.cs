@@ -28,9 +28,7 @@ public class MonsterStat : CreatureStat
     protected bool _useBerserk = false;
     bool isOnBerserk = false;
     protected bool _useSuicideBombing = false;
-    protected bool _useImmortal;
     bool _isOnImmortal;
-    protected bool _useShield;
 
     public int Damage { get { return _damage; } set { _damage = value; } }
     public float Defense { get { return _defense; } set { _defense = value; } }
@@ -76,10 +74,8 @@ public class MonsterStat : CreatureStat
         _attackRange = stat._attackRange;
         _detectRange = stat._detectRange;
         _exp = stat._exp;
-        _useBerserk = stat._useBerserk;
-        _useImmortal = stat._useImmortal;
-        _useShield = stat._useShield;
-        _useSuicideBombing = stat._useSuicideBombing;
+        _useBerserk = stat._berserk;
+        _useSuicideBombing = stat._suicideBombing;
 
         _normalAttack = stat.normalAttack;
         _launchBomb = stat.launchBomb;
@@ -88,8 +84,8 @@ public class MonsterStat : CreatureStat
         _immortalCoolTime = stat._immortalCoolTime;
 
 
-
-        if (_useImmortal)
+        #region skill Entry
+        if (stat._immortal)
         {
             GameObject go = new GameObject() { name = "MonsterImmortal" };
             go.transform.parent = transform;
@@ -97,7 +93,7 @@ public class MonsterStat : CreatureStat
             MonsterImmortalShield immortal = go.AddComponent<MonsterImmortalShield>();
             immortal.Init(owner, null, null);
         }
-        if (_useShield)
+        if (stat._shield)
         {
             GameObject go = new GameObject() { name = "MonsterShield" };
             go.transform.parent = transform;
@@ -106,16 +102,53 @@ public class MonsterStat : CreatureStat
             shield.Init(owner, null, null);
         }
 
-        if (stat._useSkills.Count == 0) return;
-
-        foreach (var item in stat._useSkills)
+        if (stat._normalAttack)
         {
-            AttackSkillBase skill = Instantiate(item, transform.position, Quaternion.identity, transform);
-            skill.Init(owner, null, null);
-            skill.name = item.name;
-            owner.AttackSkillDispatcher.Add(0, item);
+            GameObject go = new GameObject() { name = "MonsterNormalAttack" };
+            go.transform.parent = transform;
+            go.transform.localPosition = Vector3.zero;
+            MonsterNormalAttack monsterNormalAttack = go.AddComponent<MonsterNormalAttack>();
+            monsterNormalAttack.Init(owner, null, null);
+            owner.AttackSkillDispatcher.Add(0f, monsterNormalAttack);
         }
-        
+        if (stat._missile)
+        {
+            GameObject go = new GameObject() { name = "MonsterMissile" };
+            go.transform.parent = transform;
+            go.transform.localPosition = Vector3.zero;
+            MonsterMissile monsterMissile = go.AddComponent<MonsterMissile>();
+            monsterMissile.Init(owner, null, null);
+            owner.AttackSkillDispatcher.Add(0f, monsterMissile);
+        }
+        if (stat._laser)
+        {
+            GameObject go = new GameObject() { name = "MonsterLaser" };
+            go.transform.parent = transform;
+            go.transform.localPosition = Vector3.zero;
+            MonsterLaserAttack monsterLaser = go.AddComponent<MonsterLaserAttack>();
+            monsterLaser.Init(owner, null, null);
+            owner.AttackSkillDispatcher.Add(0f, monsterLaser);
+        }
+        if (stat._launchBomb)
+        {
+            GameObject go = new GameObject() { name = "MonsterLaunchBomb" };
+            go.transform.parent = transform;
+            go.transform.localPosition = Vector3.zero;
+            MonsterLaunchBomb monsterLaunchBomb = go.AddComponent<MonsterLaunchBomb>();
+            monsterLaunchBomb.Init(owner, null, null);
+            owner.AttackSkillDispatcher.Add(0f, monsterLaunchBomb);
+        }
+        if (stat._bombing)
+        {
+            GameObject go = new GameObject() { name = "MonsterBombing" };
+            go.transform.parent = transform;
+            go.transform.localPosition = Vector3.zero;
+            MonsterBombing monsterBombing = go.AddComponent<MonsterBombing>();
+            monsterBombing.Init(owner, null, null);
+            owner.AttackSkillDispatcher.Add(0f, monsterBombing);
+        }
+        #endregion
+
     }
 
     public override void OnAttacked(BaseController attacker, float damage)
