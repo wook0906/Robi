@@ -11,7 +11,9 @@ public class PlayerStat : CreatureStat
     protected int _exp;
     [SerializeField]
     protected int _gold;
-
+    [SerializeField]
+    protected int _totalExp;
+    
     private GameScene_UI gameSceneUI;
 
     public int Exp
@@ -24,24 +26,22 @@ public class PlayerStat : CreatureStat
             //Debug.Log($"Exp:{_exp}");
             int level = Level;
 
-            //Data.CreatureStat stat;
-            //if (Managers.Data.characterStatDict.TryGetValue(level + 1, out stat) == false)
-            //    return;
+            gameSceneUI.UpdateExpUI((float)_exp / _totalExp);
+            if (_exp < _totalExp)
+                return;
 
-            //gameSceneUI.UpdateExpUI((float)_exp / stat.totalExp);
-            //if (_exp < stat.totalExp)
-            //    return;
+            level++;
 
-            //level++;
-
+            _totalExp = RenewTotalExp(level);
             if (level != Level)
             {
-                //Debug.Log("Level Up!");
+                Managers.UI.ShowPopupUI<LevelUp_Popup>();
                 gameSceneUI.UpdateLevelUI(level);
+                
                 Level = level;
-                //SetStat(Level);
                 _exp = 0;
             }
+            
         }
     }
     public float AtkCoefficient { get { return _atkCoefficient; } set { _atkCoefficient = value; } }
@@ -74,6 +74,7 @@ public class PlayerStat : CreatureStat
         _maxHp = stat._maxHp;
         _atkCoefficient = stat._atk;
         _moveSpeed = stat._moveSpeed;
+        _totalExp = 110;
     }
 
     public override void OnAttacked(BaseController attacker, float damage)
@@ -101,4 +102,12 @@ public class PlayerStat : CreatureStat
 
     //    return builder.ToString();
     //}
+    int RenewTotalExp(int level)
+    {
+        int a = 1;
+        int b = 1;
+        int c = 0;
+        int X = level * 10;
+        return a * (X * X) + b * X + c;
+    }
 }

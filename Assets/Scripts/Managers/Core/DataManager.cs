@@ -10,6 +10,7 @@ public interface ILoader<Key, Value>
 
 public class DataManager
 {
+    
     //public Dictionary<int, Data.CreatureStat> PlayerStatDict { get; private set; } = new Dictionary<int, Data.CreatureStat>();
     //public Dictionary<int, Data.CreatureStat> MonsterStatDict { get; private set; } = new Dictionary<int, Data.CreatureStat>();
     //public Dictionary<int, Data.AttackSkillStat>[] AttackSkillDicts { get; private set; } = new Dictionary<int, Data.AttackSkillStat>[(int)AttackSkillType.PlayerMax];
@@ -53,4 +54,5 @@ public class DataManager
         TextAsset textAsset = Managers.Resource.Load<TextAsset>($"Data/{path}");
         return JsonUtility.FromJson<Loader>(textAsset.text);
     }
+    
 }

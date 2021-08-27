@@ -145,7 +145,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.7
-  m_Height: 3.07
+  m_Height: 8
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &-2321582102138985397
@@ -178,7 +178,6 @@ MonoBehaviour:
   _maxHp: 0
   _hpRecoveryPerSecond: 0
   _moveSpeed: 0
-  monsterType: 7
   _damage: 0
   _defense: 0
   _detectRange: 0

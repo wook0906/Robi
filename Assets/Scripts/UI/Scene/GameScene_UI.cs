@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class GameScene_UI : SceneUI
 {
-    DateTime GameStartTime;
+    //DateTime GameStartTime;
+    double timer;
     Text timerText;
     Image hpBar;
     Image expBar;
@@ -29,7 +30,7 @@ public class GameScene_UI : SceneUI
 
     public override void Init()
     {
-        GameStartTime = DateTime.Now;
+        timer = 0f;
 
         Bind<Image>(typeof(Images));
         Bind<Text>(typeof(Texts));
@@ -73,8 +74,8 @@ public class GameScene_UI : SceneUI
     }
     private void Update()
     {
-        TimeSpan elapsedTime = DateTime.Now - GameStartTime;
-        timerText.text = elapsedTime.ToString(@"mm\:ss");
+        timer += Time.deltaTime;
+        timerText.text = System.TimeSpan.FromSeconds(timer).ToString(@"mm\:ss");
     }
 
 }

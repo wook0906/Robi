@@ -15,10 +15,10 @@ public class PlayerController : BaseController
     [SerializeField]
     private Field field;
     private LayerMask tileMask;
-    private GameObject body;
+    [HideInInspector]
+    public GameObject body;
 
     public List<Transform> launchPoints;
-
 
     #region Unity Function
     private void Start()
@@ -40,12 +40,12 @@ public class PlayerController : BaseController
 
 
         //1 기본
-        GameObject normalAttack = new GameObject() { name = "NormalAttack" };
-        normalAttack.transform.parent = transform;
-        normalAttack.transform.localPosition = Vector3.zero;
-        NormalAttack normalSkill = normalAttack.AddComponent<NormalAttack>();
-        normalSkill.Init(this, null, null);
-        attackSkills.Add(normalSkill);
+        //GameObject normalAttack = new GameObject() { name = "NormalAttack" };
+        //normalAttack.transform.parent = transform;
+        //normalAttack.transform.localPosition = Vector3.zero;
+        //NormalAttack normalSkill = normalAttack.AddComponent<NormalAttack>();
+        //normalSkill.Init(this, null, null);
+        //attackSkills.Add(normalSkill);
 
         //2 지원폭격
         //GameObject bombingGO = new GameObject() { name = "Bombing" };
@@ -64,11 +64,11 @@ public class PlayerController : BaseController
         //attackSkills.Add(missile);
 
         //4 레이저
-        //GameObject laserAttack = new GameObject() { name = "Laser" };
-        //laserAttack.transform.parent = transform;
-        //laserAttack.transform.localPosition = Vector3.zero;
-        //laserAttack.AddComponent<LaserAttack>().Init(this, null, null);
-        //attackSkills.Add(laserAttack.GetComponent<LaserAttack>());
+        GameObject laserAttack = new GameObject() { name = "LaserAttack" };
+        laserAttack.transform.parent = transform;
+        laserAttack.transform.localPosition = Vector3.zero;
+        laserAttack.AddComponent<LaserAttack>().Init(this, null, null);
+        attackSkills.Add(laserAttack.GetComponent<LaserAttack>());
 
         //5 화염방사
         //GameObject flamethrower = new GameObject() { name = "FlameThrower" };

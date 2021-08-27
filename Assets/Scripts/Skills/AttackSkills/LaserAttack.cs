@@ -5,49 +5,43 @@ using static Define;
 
 public class LaserAttack : AttackSkillBase
 {
+    PlayerController ownerPlayer;
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
+        ownerPlayer = owner as PlayerController;
         _type = AttackSkillType.PlayerLaser;
-        base.Init(owner, muzzleTransform, parent);
+        base.Init(ownerPlayer, ownerPlayer.launchPoints[(int)LaunchPointType.RS], parent);
         Stat.InitSkillStat(_type);
-        _prefab = Resources.Load<GameObject>("Prefabs/Laser");
+        _prefab = Resources.Load<GameObject>("Prefabs/Projectiles/PlayerLaser");
     }
 
     public override bool UseSkill()
     {
-        GameObject[] targets = SearchTargets(Stat.NumOfProjectilePerBurst);
-        if (targets == null)
+        GameObject target = SearchTarget();
+        if (target == null)
             return false;
-
         _owner.State = Define.CreatureState.Attack;
-        foreach (var target in targets)
-        {
-            if (target == null)
-                continue;
 
-            //Debug.Log($"Target:{target.name}");
-            Debug.DrawRay(transform.position, (target.GetComponent<BaseController>().CenterPosition - _owner.CenterPosition).normalized * Stat.AttackRange, Color.red, 1f);
-            GameObject projectileGO = GameObject.Instantiate(_prefab, _parent);
-            projectileGO.transform.rotation = Quaternion.identity;
-            if (_muzzleTransform == null)
-                projectileGO.transform.position = _owner.transform.position;
-            else
-                projectileGO.transform.position = _muzzleTransform.position;
+        Vector3 targetPos = target.GetComponent<BaseController>().CenterPosition;
 
-            Projectile projectile = projectileGO.GetComponent<Projectile>();
-            projectile.Init(_owner, target.GetComponent<BaseController>().CenterPosition, Stat.Damage, Stat.AttackRange,
-                Stat.Speed, Stat.IsExplode, Stat.ExplosionRange, Stat.ExplosionDamage,
-                Stat.IsPenetrate,Stat.Duration, LayerMask.NameToLayer("Enemy"));
+        //Debug.Log($"Target:{target.name}");
+        Debug.DrawRay(transform.position, (targetPos - _owner.CenterPosition).normalized * Stat.AttackRange, Color.red, 1f);
+        GameObject projectileGO = GameObject.Instantiate(_prefab, ownerPlayer.launchPoints[(int)LaunchPointType.RS]);
+        if (_muzzleTransform == null)
+            projectileGO.transform.position = _owner.CenterPosition;
+        else
+            projectileGO.transform.position = _muzzleTransform.position;
 
-            projectile.OnHit -= OnHit;
-            projectile.OnHit += OnHit;
-            projectile.OnKill -= OnKill;
-            projectile.OnKill += OnKill;
-        }
-        
+        LaserProjectile projectile = projectileGO.GetComponent<LaserProjectile>();
+        projectile.Init(_owner, Stat.Damage, Stat.Duration, LayerMask.NameToLayer("Enemy"));
+
+        projectile.OnHit -= OnHit;
+        projectile.OnHit += OnHit;
+
         OnFire();
         return true;
     }
+
 
     public override void OnFire()
     {
@@ -56,13 +50,9 @@ public class LaserAttack : AttackSkillBase
         _owner.AttackSkillDispatcher.Add(Stat.CoolTime, this);
     }
 
-    public override void OnHit(GameObject target, Projectile projectile)
+    public void OnHit(GameObject target, LaserProjectile projectile)
     {
         Debug.Log($"Hit target:{target.name}");
     }
 
-    public override void OnKill(GameObject target)
-    {
-        Debug.Log($"Kill target:{target.name}");
-    }
 }
