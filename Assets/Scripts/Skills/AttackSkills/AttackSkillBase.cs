@@ -29,7 +29,7 @@ public abstract class AttackSkillBase : ActiveSkill
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
         base.Init(owner, muzzleTransform, parent);
-        Stat = gameObject.GetOrAddComponent<SkillStat>();
+        Stat = gameObject.GetComponent<SkillStat>();
     }
 
     public override bool UseSkill()
@@ -121,4 +121,9 @@ public abstract class AttackSkillBase : ActiveSkill
         }
         return closetTargets.ToArray();
     }
+    public virtual void LevelUp(Define.SkillGrade grade)
+    {
+
+    }
+
 }

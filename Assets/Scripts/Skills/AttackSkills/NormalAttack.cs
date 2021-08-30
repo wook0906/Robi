@@ -5,11 +5,13 @@ using static Define;
 
 public class NormalAttack : AttackSkillBase
 {
+    NormalAttackStat normalAttackStat;
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
         _type = AttackSkillType.PlayerNormal;
+        normalAttackStat = gameObject.AddComponent<NormalAttackStat>();
         base.Init(owner, muzzleTransform, parent);
-        Stat.InitSkillStat(_type);
+        normalAttackStat.InitSkillStat(_type);
         _prefab = Resources.Load<GameObject>("Prefabs/Projectiles/NormalAttackProjectile");
 
         //TODO: 각 스킬의 특성에 따른 추가 로직을 넣어줘야할 듯함...
@@ -77,5 +79,9 @@ public class NormalAttack : AttackSkillBase
             return;
 
         //Debug.Log($"Kill target:{target.name}");
+    }
+    public override void LevelUp(Define.SkillGrade grade)
+    {
+        normalAttackStat.LevelUp(grade);
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class LevelUp_Popup : PopupUI
 {
+    PlayerController player;
     enum Buttons
     {
         Item1_Button,
@@ -38,10 +39,21 @@ public class LevelUp_Popup : PopupUI
         Get<Button>((int)Buttons.Item2_Button).onClick.AddListener(OnClickSkillButton);
         Get<Button>((int)Buttons.Item3_Button).onClick.AddListener(OnClickSkillButton);
 
+        GameScene gameScene = Managers.Scene.CurrentScene as GameScene;
+        player = gameScene.player.GetComponent<PlayerController>();
+
         Time.timeScale = 0f;
     }
     void OnClickSkillButton()
     {
+        foreach (var item in player.attackSkills)
+        {
+            if (item.Stat.SkillType == Define.AttackSkillType.PlayerNormal)
+            {
+                item.LevelUp(Define.SkillGrade.Unique);
+                Debug.Log("skill LevelUp~");
+            }
+        }
         ClosePopupUI();
         Time.timeScale = 1f;
     }

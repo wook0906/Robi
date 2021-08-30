@@ -113,7 +113,8 @@ public class Projectile : MonoBehaviour
         {
             if (dist < 0.1f)
             {
-                OnArrive(transform.position, this);
+                if(OnArrive!=null)
+                    OnArrive(transform.position, this);
                 Destroy(gameObject);
             }
         }

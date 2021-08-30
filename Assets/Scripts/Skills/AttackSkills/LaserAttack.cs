@@ -6,13 +6,17 @@ using static Define;
 public class LaserAttack : AttackSkillBase
 {
     PlayerController ownerPlayer;
+    LaserAttackSkillStat laserStat;
+
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
         ownerPlayer = owner as PlayerController;
         _type = AttackSkillType.PlayerLaser;
+        laserStat = gameObject.AddComponent<LaserAttackSkillStat>();
         base.Init(ownerPlayer, ownerPlayer.launchPoints[(int)LaunchPointType.RS], parent);
-        Stat.InitSkillStat(_type);
+        laserStat.InitSkillStat(_type);
         _prefab = Resources.Load<GameObject>("Prefabs/Projectiles/PlayerLaser");
+        
     }
 
     public override bool UseSkill()
@@ -33,7 +37,7 @@ public class LaserAttack : AttackSkillBase
             projectileGO.transform.position = _muzzleTransform.position;
 
         LaserProjectile projectile = projectileGO.GetComponent<LaserProjectile>();
-        projectile.Init(_owner, Stat.Damage, Stat.Duration, LayerMask.NameToLayer("Enemy"));
+        projectile.Init(_owner, Stat.Damage, Stat.Duration, LayerMask.NameToLayer("Enemy"), laserStat.laserScale);
 
         projectile.OnHit -= OnHit;
         projectile.OnHit += OnHit;
@@ -54,5 +58,9 @@ public class LaserAttack : AttackSkillBase
     {
         Debug.Log($"Hit target:{target.name}");
     }
-
+    
+    public override void LevelUp(Define.SkillGrade grade)
+    {
+        laserStat.LevelUp(grade);
+    }
 }

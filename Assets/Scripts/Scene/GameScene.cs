@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameScene : BaseScene
 {
-    GameObject player;
+    public GameObject player;
     GameObject field;
     GameObject sceneUI;
     GameObject monsterSpawner;
