@@ -6,17 +6,21 @@ public class DroneController : BaseController
 {
     Transform owner;
     Vector3 offset;
-    SkillStat stat;
+    DroneSkillStat stat;
 
     float attackDelayTimer = 0;
     GameObject _projectilePrefab;
 
-    public void Init(Transform owner, Vector3 offset, SkillStat stat)
+    public void Init(Transform owner, Vector3 offset, DroneSkillStat stat)
     {
         this.owner = owner;
         this.offset = offset;
         this.stat = stat;
         _projectilePrefab = Managers.Resource.Load<GameObject>("Prefabs/Projectiles/NormalAttackProjectile");
+    }
+    public void SetStat(DroneSkillStat stat)
+    {
+        this.stat = stat;
     }
     private void LateUpdate()
     {
@@ -40,7 +44,7 @@ public class DroneController : BaseController
         projectileGo.transform.position = transform.position;
 
         Projectile projectile = projectileGo.GetComponent<Projectile>();
-        projectile.Init(this, target.GetComponent<BaseController>().CenterPosition, stat.Damage, stat.AttackRange, stat.Speed*2f, stat.IsExplode, stat.ExplosionRange, stat.ExplosionDamage, stat.IsPenetrate,stat.Duration, LayerMask.NameToLayer("Enemy"));
+        projectile.Init(owner.GetComponent<BaseController>(), target.GetComponent<BaseController>().CenterPosition, stat.Damage, stat.AttackRange, stat.Speed*2f, stat.IsExplode, stat.ExplosionRange, stat.ExplosionDamage, stat.IsPenetrate,stat.Duration, LayerMask.NameToLayer("Enemy"));
         
 
         projectile.OnHit -= OnHit;

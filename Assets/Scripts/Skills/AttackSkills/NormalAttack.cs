@@ -6,6 +6,7 @@ using static Define;
 public class NormalAttack : AttackSkillBase
 {
     NormalAttackStat normalAttackStat;
+
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
         _type = AttackSkillType.PlayerNormal;

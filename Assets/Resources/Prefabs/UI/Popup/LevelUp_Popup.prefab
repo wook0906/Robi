@@ -820,7 +820,7 @@ GameObject:
   - component: {fileID: 5336805749062709855}
   - component: {fileID: 5336805749062709854}
   m_Layer: 5
-  m_Name: LevelUp_Popup
+  m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

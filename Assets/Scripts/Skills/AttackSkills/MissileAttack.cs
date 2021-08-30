@@ -5,11 +5,14 @@ using static Define;
 
 public class MissileAttack : AttackSkillBase
 {
+    MissileAttackStat missileStat;
+
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
         _type = AttackSkillType.PlayerMissile;
+        missileStat = gameObject.AddComponent<MissileAttackStat>();
         base.Init(owner, muzzleTransform, parent);
-        Stat.InitSkillStat(_type);
+        missileStat.InitSkillStat(_type);
         _prefab = Resources.Load<GameObject>("Prefabs/Projectiles/MissileAttackProjectile");
     }
 
@@ -79,5 +82,9 @@ public class MissileAttack : AttackSkillBase
             count++;
         }
         Debug.Log($"Missile Explosion! Hit {count} monsters");
+    }
+    public override void LevelUp(Define.SkillGrade grade)
+    {
+        missileStat.LevelUp(grade);
     }
 }

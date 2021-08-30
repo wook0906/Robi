@@ -4,11 +4,17 @@ using UnityEngine;
 using static Define;
 public class PulseWaveAttack : AttackSkillBase
 {
+    PulseWaveAttackSkillStat pulseWaveStat;
+    GameObject hitEffectPrefab;
+
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
         _type = AttackSkillType.PulseWave;
+        pulseWaveStat = gameObject.AddComponent<PulseWaveAttackSkillStat>();
         base.Init(owner, muzzleTransform, parent);
-        Stat.InitSkillStat(_type);
+        pulseWaveStat.InitSkillStat(_type);
+        _prefab = Managers.Resource.Load<GameObject>("Prefabs/Effects/PulseWave");
+        hitEffectPrefab = Managers.Resource.Load<GameObject>("Prefabs/Effects/PulseWaveHit");
     }
 
     public override bool UseSkill()
@@ -22,11 +28,11 @@ public class PulseWaveAttack : AttackSkillBase
         {
             if (target == null)
                 continue;
-            GameObject effect = Managers.Resource.Instantiate("Effects/PulseWave");
+            GameObject effect = Instantiate(_prefab);
             effect.transform.position = _owner.GetComponent<PlayerController>().launchPoints[(int)Define.LaunchPointType.Head].position;
             effect.transform.rotation = Quaternion.LookRotation((target.GetComponent<BaseController>().CenterPosition - _owner.transform.position).normalized, Vector3.back);
             effect.GetComponent<LineRenderer>().SetPosition(1, new Vector3(0,0, Vector3.Distance(target.GetComponent<BaseController>().CenterPosition, _owner.transform.position)));
-            effect = Managers.Resource.Instantiate("Effects/PulseWaveHit");
+            effect = Instantiate(hitEffectPrefab);
             effect.transform.position = target.GetComponent<BaseController>().CenterPosition;
 
             //Debug.Log($"[PulseWave]Hit Target:{target.name}");
@@ -54,5 +60,9 @@ public class PulseWaveAttack : AttackSkillBase
     public override void OnKill(GameObject target)
     {
         Debug.Log($"Kill target:{target.name}");
+    }
+    public override void LevelUp(Define.SkillGrade grade)
+    {
+        pulseWaveStat.LevelUp(grade);
     }
 }

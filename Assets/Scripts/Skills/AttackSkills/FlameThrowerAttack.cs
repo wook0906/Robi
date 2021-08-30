@@ -4,13 +4,21 @@ using UnityEngine;
 
 public class FlameThrowerAttack : AttackSkillBase
 {
+    PlayerController player;
+    FlameThrowerAttackSkillStat flameThrowerStat;
+
+    ParticleSystem effect;
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
+        player = owner as PlayerController;
         _type = Define.AttackSkillType.FlameThrower;
+        flameThrowerStat = gameObject.AddComponent<FlameThrowerAttackSkillStat>();
         base.Init(owner, muzzleTransform, parent);
-        Stat.InitSkillStat(_type);
-        _muzzleTransform.transform.SetParent(owner.transform);
-        _muzzleTransform.transform.localRotation = Quaternion.Euler(Vector3.zero);
+        flameThrowerStat.InitSkillStat(_type);
+        effect = Managers.Resource.Instantiate("Effects/Flamethrower").GetComponent<ParticleSystem>();
+        effect.transform.position = player.launchPoints[(int)Define.LaunchPointType.Waist].position;
+        effect.transform.SetParent(player.transform);
+        effect.transform.localRotation = Quaternion.Euler(Vector3.zero);
     }
 
     public override bool UseSkill()
@@ -23,7 +31,7 @@ public class FlameThrowerAttack : AttackSkillBase
 
     private IEnumerator Fire()
     {
-        _muzzleTransform.GetComponent<ParticleSystem>().Play();
+        effect.GetComponent<ParticleSystem>().Play();
 
         int attackCount = (int)(Stat.Duration / Stat.DelayPerAttack);
 
@@ -33,10 +41,10 @@ public class FlameThrowerAttack : AttackSkillBase
 
             foreach (Collider collider in colliders)
             {
-                Vector3 targetDir = (collider.transform.position - this.transform.position).normalized;
-                float angle = Vector3.Angle(targetDir, -transform.up);
+                Vector3 targetDir = (collider.GetComponent<BaseController>().CenterPosition - _owner.CenterPosition).normalized;
+                float angle = Vector3.Angle(targetDir, transform.up);
 
-                if (angle <= 30f && collider.GetComponent<CreatureStat>())
+                if (angle <= flameThrowerStat.targetAngle && collider.GetComponent<CreatureStat>())
                 {
                     collider.GetComponent<CreatureStat>().OnAttacked(_owner, Stat.Damage);
                     OnHit(collider.gameObject, null);
@@ -46,7 +54,7 @@ public class FlameThrowerAttack : AttackSkillBase
             attackCount--;
             yield return new WaitForSeconds(Stat.DelayPerAttack);
         }
-        _muzzleTransform.GetComponent<ParticleSystem>().Stop();
+        effect.Stop();
         _owner.State = Define.CreatureState.Idle;
         _owner.AttackSkillDispatcher.Add(Stat.CoolTime, this);
     }
@@ -60,5 +68,8 @@ public class FlameThrowerAttack : AttackSkillBase
         Gizmos.color = new Color(1f, 1f, 0f, 0.2f);
         Gizmos.DrawSphere(transform.position, Stat.AttackRange * 2f);
     }
-
+    public override void LevelUp(Define.SkillGrade grade)
+    {
+        flameThrowerStat.LevelUp(grade);
+    }
 }

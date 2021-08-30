@@ -7,12 +7,18 @@ public class DroneSkill : AttackSkillBase
 {
     int numOfDrone = 0;
     Vector3[] dronePos = new Vector3[6];
-    
+
+    DroneSkillStat droneSkillStat;
+
+    List<DroneController> drones;
+
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
         _type = AttackSkillType.Drone;
+        droneSkillStat = gameObject.AddComponent<DroneSkillStat>();
         base.Init(owner, muzzleTransform, parent);
-        Stat.InitSkillStat(_type);
+        droneSkillStat.InitSkillStat(_type);
+        drones = new List<DroneController>();
         _prefab = Managers.Resource.Load<GameObject>("Prefabs/Drone");
         dronePos[0] = new Vector3(1, 1, 0);
         dronePos[1] = new Vector3(-1, 1, 0);
@@ -24,16 +30,25 @@ public class DroneSkill : AttackSkillBase
 
     public override bool UseSkill()
     {
+        foreach (var item in drones)
+            item.SetStat(droneSkillStat);
+
         DroneController drone = Instantiate(_prefab).GetComponent<DroneController>();
-        drone.Init(_owner.transform, dronePos[numOfDrone], Stat);
+        drones.Add(drone);
+        drone.Init(_owner.transform, dronePos[numOfDrone], droneSkillStat);
         numOfDrone++;
 
         return true;
     }
 
+
     public override void OnFire()
     {
         //Debug.Log("Fire");
         _owner.AttackSkillDispatcher.Add(Stat.CoolTime, this);
+    }
+    public override void LevelUp(Define.SkillGrade grade)
+    {
+        droneSkillStat.LevelUp(grade);
     }
 }

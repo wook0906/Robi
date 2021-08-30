@@ -5,12 +5,14 @@ using static Define;
 
 public class NapalmAttack : AttackSkillBase
 {
-    private GameObject _wideAreaAttackPrefab; 
+    private GameObject _wideAreaAttackPrefab;
+    NapalmAttackSkillStat napalmStat;
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
         _type = AttackSkillType.Napalm;
+        napalmStat = gameObject.AddComponent<NapalmAttackSkillStat>();
         base.Init(owner, muzzleTransform, parent);
-        Stat.InitSkillStat(_type);
+        napalmStat.InitSkillStat(_type);
         _prefab = Resources.Load<GameObject>("Prefabs/Projectiles/NapalmAttackProjectile");
         _wideAreaAttackPrefab = Resources.Load<GameObject>("Prefabs/WideAreaAttack");
     }
@@ -83,5 +85,9 @@ public class NapalmAttack : AttackSkillBase
         wideAreaAttackGO.transform.position = wideAreaAttackPos;
         wideAreaAttackGO.GetComponent<WideAreaAttack>().Init(_owner, Mathf.RoundToInt(Stat.ExplosionDamage * 0.3f),
             Stat.ExplosionRange, Stat.Duration, Stat.DelayPerAttack);
+    }
+    public override void LevelUp(Define.SkillGrade grade)
+    {
+        napalmStat.LevelUp(grade);
     }
 }

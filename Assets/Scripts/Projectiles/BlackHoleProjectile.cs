@@ -11,11 +11,11 @@ public class BlackHoleProjectile : MonoBehaviour
     private float durationTimer;
 
     //AttackSkillStat _stat;
-    SkillStat _stat;
+    BlackHoleAttackSkillStat _stat;
     private string _targetTag;
     GameObject effectPrefab;
 
-    Vector3 targetScale;
+    Vector3 maxScale;
 
     public Action<GameObject, BlackHoleProjectile> OnHit;
     public Action<GameObject> OnKill;
@@ -32,7 +32,7 @@ public class BlackHoleProjectile : MonoBehaviour
 
     //    effectPrefab = Managers.Resource.Load<GameObject>("Prefabs/Effects/BlackHoleExplosion");
     //}
-    public void Init(BaseController onwer, GameObject target, SkillStat stat)
+    public void Init(BaseController onwer, GameObject target, BlackHoleAttackSkillStat stat)
     {
         _owner = onwer;
         _target = target;
@@ -40,23 +40,23 @@ public class BlackHoleProjectile : MonoBehaviour
         _stat = stat;
         _targetTag = target.tag;
 
-        targetScale = transform.localScale * 3f;
+        maxScale = transform.localScale * 3f;
 
         effectPrefab = Managers.Resource.Load<GameObject>("Prefabs/Effects/BlackHoleExplosion");
     }
     public void DragToCenter()
     {
-        Collider[] colls = Physics.OverlapSphere(transform.position, (_stat.AttackRange * 2.5f) * transform.localScale.x, 1 << 8);
+        Collider[] colls = Physics.OverlapSphere(transform.position, (transform.localScale.x * 4.5f) / 2f , 1 << 8);
         foreach (var item in colls)
         {
             MonsterController monster = item.GetComponent<MonsterController>();
             monster.State = Define.CreatureState.Dragged;
             //damage를 흡입력으로 사용함.
-            float deltaDist = (_stat.Damage/5f) * transform.localScale.x * Time.fixedDeltaTime;
-            Vector3 dir = (transform.position - item.transform.position);
-            if (dir.magnitude <= (_stat.AttackRange / 2f) * transform.localScale.x)
+            float deltaDist = (_stat.Damage/5f) * transform.localScale.x * Time.deltaTime;
+            Vector3 dir = (transform.position - monster.CenterPosition);
+            if (dir.magnitude <= (transform.localScale.x / 2f))
             {
-                Instantiate(effectPrefab, transform.position,Quaternion.identity);
+                Instantiate(effectPrefab, monster.CenterPosition, Quaternion.identity);
                 item.GetComponent<CreatureStat>().OnAttacked(_owner, Mathf.Infinity);
                 continue;
             }
@@ -71,7 +71,7 @@ public class BlackHoleProjectile : MonoBehaviour
         durationTimer += Time.deltaTime;
 
         if (durationTimer <= _stat.Duration - 1)
-            transform.localScale = Vector3.LerpUnclamped(transform.localScale, targetScale, Time.deltaTime);
+            transform.localScale = Vector3.LerpUnclamped(transform.localScale, maxScale, Time.deltaTime);
         else
             transform.localScale = Vector3.LerpUnclamped(transform.localScale, Vector3.zero, Time.deltaTime * 2f);
         if (durationTimer >= _stat.Duration)
@@ -79,7 +79,7 @@ public class BlackHoleProjectile : MonoBehaviour
     }
     private void OnDestroy()
     {
-        foreach (var item in Physics.OverlapSphere(transform.position, (_stat.AttackRange * 2.5f) * targetScale.x, 1 << 8))
+        foreach (var item in Physics.OverlapSphere(transform.position, (maxScale.x * 4.5f) / 2f, 1 << 8))
         {
             item.GetComponent<MonsterController>().State = Define.CreatureState.Move;
         }
@@ -87,8 +87,8 @@ public class BlackHoleProjectile : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = new Color(0f,0f, 1f, 0.2f);
-        Gizmos.DrawSphere(transform.position, (_stat.AttackRange * 2.5f) * targetScale.x);
+        Gizmos.DrawSphere(transform.position, (transform.localScale.x * 4.5f) / 2f);
         Gizmos.color = new Color(1f, 0f, 1f, 0.2f);
-        Gizmos.DrawSphere(transform.position, _stat.AttackRange / 2f);
+        Gizmos.DrawSphere(transform.position, (transform.localScale.x) / 2f);
     }
 }

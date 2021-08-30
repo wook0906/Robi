@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class BombingAttack : AttackSkillBase
 {
+    BombingAttackStat bombingAttackStat;
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
         _type = Define.AttackSkillType.PlayerBombing;
+        bombingAttackStat = gameObject.AddComponent<BombingAttackStat>();
         base.Init(owner, muzzleTransform, parent);
-        Stat.InitSkillStat(_type);
+        bombingAttackStat.InitSkillStat(_type);
         _prefab = Resources.Load<GameObject>("Prefabs/Projectiles/BombingAttackProjectile");
     }
 
@@ -90,5 +92,9 @@ public class BombingAttack : AttackSkillBase
             stat.OnAttacked(_owner, projectile.ExplosionDamage);
             count++;
         }
+    }
+    public override void LevelUp(Define.SkillGrade grade)
+    {
+        bombingAttackStat.LevelUp(grade);
     }
 }

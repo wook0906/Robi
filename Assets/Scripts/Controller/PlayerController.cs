@@ -56,12 +56,12 @@ public class PlayerController : BaseController
         //attackSkills.Add(bombingSkill);
 
         //3 미사일
-        //GameObject missileAttack = new GameObject() { name = "Missle" };
-        //missileAttack.transform.parent = transform;
-        //missileAttack.transform.localPosition = Vector3.zero;
-        //MissileAttack missile = missileAttack.AddComponent<MissileAttack>();
-        //missile.Init(this, null, null);
-        //attackSkills.Add(missile);
+        GameObject missileAttack = new GameObject() { name = "Missle" };
+        missileAttack.transform.parent = transform;
+        missileAttack.transform.localPosition = Vector3.zero;
+        MissileAttack missile = missileAttack.AddComponent<MissileAttack>();
+        missile.Init(this, null, null);
+        attackSkills.Add(missile);
 
         //4 레이저
         //GameObject laserAttack = new GameObject() { name = "LaserAttack" };
@@ -74,7 +74,7 @@ public class PlayerController : BaseController
         //GameObject flamethrower = new GameObject() { name = "FlameThrower" };
         //flamethrower.transform.parent = transform;
         //flamethrower.transform.localPosition = Vector3.zero;
-        //flamethrower.AddComponent<FlameThrowerAttack>().Init(this, Managers.Resource.Instantiate("Effects/Flamethrower").transform, null);
+        //flamethrower.AddComponent<FlameThrowerAttack>().Init(this, null, null);
         //attackSkills.Add(flamethrower.GetComponent<FlameThrowerAttack>());
 
         //6 충격파
@@ -117,7 +117,7 @@ public class PlayerController : BaseController
         //nuclear.transform.parent = transform;
         //nuclear.transform.localPosition = Vector3.zero;
         //nuclear.AddComponent<NuclearBombAttack>().Init(this, null, null);
-        //_attackSkillDispatcher.Add(nuclear.GetComponent<NuclearSkillStat>().CoolTime, nuclear.GetComponent<NuclearBombAttack>());
+        //attackSkills.Add(nuclear.GetComponent<NuclearBombAttack>());
 
         //12 시공의폭풍
         //GameObject blackHole = new GameObject() { name = "BlackHole" };
@@ -129,6 +129,11 @@ public class PlayerController : BaseController
 
         foreach (var item in attackSkills)
         {
+            if (item.Type == AttackSkillType.NuclearBomb)
+            {
+                _attackSkillDispatcher.Add(item.Stat.CoolTime, item);
+                continue;
+            }
             _attackSkillDispatcher.Add(0f, item);
         }
 

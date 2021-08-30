@@ -41,7 +41,7 @@ public class SkillStat : MonoBehaviour
     [SerializeField]
     protected float _explosionRange;
     [SerializeField]
-    protected int _explosionDamage;
+    protected float _explosionDamage;
     [SerializeField]
     protected bool _isPenetrate;
     [SerializeField]
@@ -68,7 +68,7 @@ public class SkillStat : MonoBehaviour
     public float Speed { get { return _speed; } set { _speed = value; } }
     public bool IsExplode { get { return _isExplode; } set { _isExplode = value; } }
     public float ExplosionRange { get { return _explosionRange; } set { _explosionRange = value; } }
-    public int ExplosionDamage { get { return _explosionDamage; } set { _explosionDamage = value; } }
+    public float ExplosionDamage { get { return _explosionDamage; } set { _explosionDamage = value; } }
     public bool IsPenetrate { get { return _isPenetrate; } set { _isPenetrate = value; } }
     public float Duration { get { return _duration; } set { _duration = value; } }
     public float DelayPerAttack { get { return _delayPerAttack; } set { _delayPerAttack = value; } }

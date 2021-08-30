@@ -8,7 +8,8 @@ public static class Define
     {
         Common,
         Rare,
-        Unique
+        Unique,
+        Max
     }
 
     public enum CharacterType

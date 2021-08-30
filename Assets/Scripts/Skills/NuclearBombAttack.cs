@@ -7,11 +7,13 @@ using static Define;
 public class NuclearBombAttack : AttackSkillBase
 {
     Image nuclearFadeImage;
+    NuclearSkillStat nuclearStat;
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
         _type = AttackSkillType.NuclearBomb;
+        nuclearStat = gameObject.AddComponent<NuclearSkillStat>(); 
         base.Init(owner, muzzleTransform, parent);
-        Stat.InitSkillStat(_type);
+        nuclearStat.InitSkillStat(_type);
         nuclearFadeImage = GameObject.Find("NuclearFade").GetComponent<Image>();
     }
 
@@ -67,5 +69,9 @@ public class NuclearBombAttack : AttackSkillBase
     public override void OnKill(GameObject target)
     {
 
+    }
+    public override void LevelUp(Define.SkillGrade grade)
+    {
+        nuclearStat.LevelUp(grade);
     }
 }

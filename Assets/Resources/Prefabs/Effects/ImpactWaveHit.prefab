@@ -9608,6 +9608,7 @@ GameObject:
   - component: {fileID: 6107255624906290260}
   - component: {fileID: 6107896605301136684}
   - component: {fileID: 6279043188354755774}
+  - component: {fileID: 6831878914630536161}
   m_Layer: 0
   m_Name: ImpactWaveHit
   m_TagString: Untagged
@@ -14419,6 +14420,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &6831878914630536161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6198913700523615300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc22ab8cdf6459d4596f301471a254f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6198963445990656694
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,12 +6,14 @@ using static Define;
 public class ImpactWaveAttack : AttackSkillBase
 {
     GameObject hitEffect;
+    ImpactWaveAttackStat impactWaveStat;
 
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
         _type = AttackSkillType.ImpactWave;
+        impactWaveStat = gameObject.AddComponent<ImpactWaveAttackStat>();
         base.Init(owner, muzzleTransform, parent);
-        Stat.InitSkillStat(_type);
+        impactWaveStat.InitSkillStat(_type);
         _prefab = Managers.Resource.Load<GameObject>("Prefabs/Effects/ImpactWave");
         hitEffect = Managers.Resource.Load<GameObject>("Prefabs/Effects/ImpactWaveHit");
     }
@@ -44,16 +46,19 @@ public class ImpactWaveAttack : AttackSkillBase
     }
     public override bool UseSkill()
     {
-        
         GameObject[] targets = SearchTargets();
-        if (targets == null)
-            return false;
-        if (targets.Length == 0)
-            return false;
+
+        Instantiate(_prefab, _owner.CenterPosition, Quaternion.identity);
+
+        if (targets == null || targets.Length == 0)
+        {
+            OnFire();
+            return true;
+        }
 
         _owner.State = Define.CreatureState.Attack;
 
-        Instantiate(_prefab, _owner.transform.position, Quaternion.identity);
+       
 
         foreach (var target in targets)
         {
@@ -93,5 +98,9 @@ public class ImpactWaveAttack : AttackSkillBase
 
         Gizmos.color = new Color(1f, 1f, 0f, 0.2f);
         Gizmos.DrawSphere(transform.position, Stat.AttackRange);
+    }
+    public override void LevelUp(Define.SkillGrade grade)
+    {
+        impactWaveStat.LevelUp(grade);
     }
 }

@@ -15,14 +15,14 @@ MonoBehaviour:
   SkillType: 11
   _coolTime: 2
   _damage: 1
-  _attackRange: 2
+  _attackRange: 1
   _numOfProjectilePerBurst: 1
   _speed: 0
   _isExplode: 0
   _explosionRange: 0
   _explosionDamage: 0
   _isPenetrate: 0
-  _duration: 0
+  _duration: 5
   _delayPerAttack: 0
   _bulletPrefab: {fileID: 8230217700011522832, guid: 2699020570e2e0d42afc3799815d206f,
     type: 3}

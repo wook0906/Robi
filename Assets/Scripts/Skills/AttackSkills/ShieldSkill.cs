@@ -45,11 +45,14 @@ public class ShieldSkill : AttackSkillBase
             }
         }
     }
+
+    ShieldSkillStat shieldStat;
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
         _type = AttackSkillType.PlayerShield;
+        shieldStat = gameObject.AddComponent<ShieldSkillStat>();
         base.Init(owner, muzzleTransform, parent);
-        Stat.InitSkillStat(_type);
+        shieldStat.InitSkillStat(_type);
         effect = Managers.Resource.Instantiate("Effects/ShieldEffect");
         effect.transform.position = owner.CenterPosition;
         effect.transform.SetParent(owner.transform);
@@ -69,6 +72,10 @@ public class ShieldSkill : AttackSkillBase
         //Debug.Log("Fire");
         _owner.AttackSkillDispatcher.Add(Stat.CoolTime, this);
     }
+    public override void LevelUp(Define.SkillGrade grade)
+    {
+        shieldStat.LevelUp(grade);
+    }
 
-    
+
 }
