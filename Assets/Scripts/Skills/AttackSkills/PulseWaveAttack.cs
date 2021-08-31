@@ -9,7 +9,7 @@ public class PulseWaveAttack : AttackSkillBase
 
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
-        _type = AttackSkillType.PulseWave;
+        _type = SkillType.PulseWave;
         pulseWaveStat = gameObject.AddComponent<PulseWaveAttackSkillStat>();
         base.Init(owner, muzzleTransform, parent);
         pulseWaveStat.InitSkillStat(_type);

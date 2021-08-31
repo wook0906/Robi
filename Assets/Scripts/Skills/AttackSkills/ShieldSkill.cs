@@ -49,7 +49,7 @@ public class ShieldSkill : AttackSkillBase
     ShieldSkillStat shieldStat;
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
-        _type = AttackSkillType.PlayerShield;
+        _type = SkillType.PlayerShield;
         shieldStat = gameObject.AddComponent<ShieldSkillStat>();
         base.Init(owner, muzzleTransform, parent);
         shieldStat.InitSkillStat(_type);

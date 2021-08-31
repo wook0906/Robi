@@ -24,7 +24,7 @@ public class PulseWaveAttackSkillStat : SkillStat
         if(Level % 2 == 1)
             NumOfProjectilePerBurst++;
     }
-    public override void InitSkillStat(Define.AttackSkillType skillType)
+    public override void InitSkillStat(Define.SkillType skillType)
     {
         base.InitSkillStat(skillType);
         _commonDamageCoefficients = Damage * 0.05f;

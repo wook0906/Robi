@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "SkillStatData")]
 public class SkillStatData : ScriptableObject
 {
-    public Define.AttackSkillType SkillType;
+    public Define.SkillType SkillType;
     [Tooltip("0이면 1회성 스킬로 간주")]
     public float _coolTime;
     [Tooltip("0이면 owner의 능력치에 따름")]

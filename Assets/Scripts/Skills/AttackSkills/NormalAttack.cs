@@ -9,7 +9,7 @@ public class NormalAttack : AttackSkillBase
 
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
-        _type = AttackSkillType.PlayerNormal;
+        _type = SkillType.PlayerNormal;
         normalAttackStat = gameObject.AddComponent<NormalAttackStat>();
         base.Init(owner, muzzleTransform, parent);
         normalAttackStat.InitSkillStat(_type);

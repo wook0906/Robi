@@ -27,7 +27,7 @@ public class MissileAttackStat : SkillStat
         if (Level == 4 || Level == 7)
             NumOfProjectilePerBurst++;
     }
-    public override void InitSkillStat(Define.AttackSkillType skillType)
+    public override void InitSkillStat(Define.SkillType skillType)
     {
         base.InitSkillStat(skillType);
         _commonDamageCoefficients = ExplosionDamage * 0.1f;

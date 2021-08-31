@@ -104,11 +104,7 @@ public static class Define
         Dragged,
         Controlled,
     }
-    public enum MonsterSkillType
-    {
-        
-    }
-    public enum AttackSkillType
+    public enum SkillType
     {
         PlayerNormal,
         FlameThrower,
@@ -133,6 +129,23 @@ public static class Define
         MonsterShield,
         MonsterImmortalShield,
         MonsterMax,
+
+        ATKIncrease,
+        MaxHPIncrease,
+        DEFIncrease,
+        MoveSpeedIncrease,
+        ProjectileIncrease,
+        ExpIncrease,
+        CoolTimeIncrease,
+        RootRangeIncrease,
+        HPRecoveryAssistIncrease,
+        EnemyHpDownIncrease,
+        HPRecoveryAmountIncrease,
+        DurationIncrease,
+        RangeIncrease,
+        HPRecoveryPerSecIncrease,
+        PassiveMax,
+
     }
 
     public enum Scene

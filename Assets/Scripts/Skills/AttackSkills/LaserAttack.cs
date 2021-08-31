@@ -11,7 +11,7 @@ public class LaserAttack : AttackSkillBase
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
         ownerPlayer = owner as PlayerController;
-        _type = AttackSkillType.PlayerLaser;
+        _type = SkillType.PlayerLaser;
         laserStat = gameObject.AddComponent<LaserAttackSkillStat>();
         base.Init(ownerPlayer, ownerPlayer.launchPoints[(int)LaunchPointType.RS], parent);
         laserStat.InitSkillStat(_type);

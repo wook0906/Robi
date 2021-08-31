@@ -14,7 +14,7 @@ public class DroneSkill : AttackSkillBase
 
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
-        _type = AttackSkillType.Drone;
+        _type = SkillType.Drone;
         droneSkillStat = gameObject.AddComponent<DroneSkillStat>();
         base.Init(owner, muzzleTransform, parent);
         droneSkillStat.InitSkillStat(_type);

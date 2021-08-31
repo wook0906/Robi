@@ -29,7 +29,7 @@ public class BlackHoleAttackSkillStat : SkillStat
 
         Duration += (NumOfRare * _rareDurationCoefficients) + (NumOfUnique * _uniqueDurationCoefficients);
     }
-    public override void InitSkillStat(Define.AttackSkillType skillType)
+    public override void InitSkillStat(Define.SkillType skillType)
     {
         base.InitSkillStat(skillType);
         _commonCooltimeCoefficients = CoolTime * 0.02f;

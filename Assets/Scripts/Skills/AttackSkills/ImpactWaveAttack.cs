@@ -10,7 +10,7 @@ public class ImpactWaveAttack : AttackSkillBase
 
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
-        _type = AttackSkillType.ImpactWave;
+        _type = SkillType.ImpactWave;
         impactWaveStat = gameObject.AddComponent<ImpactWaveAttackStat>();
         base.Init(owner, muzzleTransform, parent);
         impactWaveStat.InitSkillStat(_type);

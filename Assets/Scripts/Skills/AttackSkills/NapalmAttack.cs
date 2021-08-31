@@ -9,7 +9,7 @@ public class NapalmAttack : AttackSkillBase
     NapalmAttackSkillStat napalmStat;
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
-        _type = AttackSkillType.Napalm;
+        _type = SkillType.Napalm;
         napalmStat = gameObject.AddComponent<NapalmAttackSkillStat>();
         base.Init(owner, muzzleTransform, parent);
         napalmStat.InitSkillStat(_type);

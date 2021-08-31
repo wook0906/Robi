@@ -7,7 +7,7 @@ public class BombingAttack : AttackSkillBase
     BombingAttackStat bombingAttackStat;
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
-        _type = Define.AttackSkillType.PlayerBombing;
+        _type = Define.SkillType.PlayerBombing;
         bombingAttackStat = gameObject.AddComponent<BombingAttackStat>();
         base.Init(owner, muzzleTransform, parent);
         bombingAttackStat.InitSkillStat(_type);

@@ -22,7 +22,7 @@ public class ShieldSkillStat : SkillStat
 
 
     }
-    public override void InitSkillStat(Define.AttackSkillType skillType)
+    public override void InitSkillStat(Define.SkillType skillType)
     {
         base.InitSkillStat(skillType);
         _commonCoolTimeCoefficients = ExplosionDamage * 0.02f;

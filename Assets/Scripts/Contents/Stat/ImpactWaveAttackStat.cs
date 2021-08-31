@@ -26,7 +26,7 @@ public class ImpactWaveAttackStat : SkillStat
 
         AttackRange += (NumOfRare * _rareRangeCoefficients) + (NumOfUnique * _uniqueRangeCoefficients);
     }
-    public override void InitSkillStat(Define.AttackSkillType skillType)
+    public override void InitSkillStat(Define.SkillType skillType)
     {
         base.InitSkillStat(skillType);
         _commonDamageCoefficients = Damage * 0.1f;

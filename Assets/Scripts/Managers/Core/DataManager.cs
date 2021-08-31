@@ -11,27 +11,20 @@ public interface ILoader<Key, Value>
 public class DataManager
 {
     
-    //public Dictionary<int, Data.CreatureStat> PlayerStatDict { get; private set; } = new Dictionary<int, Data.CreatureStat>();
-    //public Dictionary<int, Data.CreatureStat> MonsterStatDict { get; private set; } = new Dictionary<int, Data.CreatureStat>();
-    //public Dictionary<int, Data.AttackSkillStat>[] AttackSkillDicts { get; private set; } = new Dictionary<int, Data.AttackSkillStat>[(int)AttackSkillType.PlayerMax];
-
-    public Dictionary<Define.AttackSkillType, SkillStatData> skillStatDict { get; private set; } = new Dictionary<AttackSkillType, SkillStatData>();
+    public Dictionary<Define.SkillType, SkillStatData> skillStatDict { get; private set; } = new Dictionary<SkillType, SkillStatData>();
     public Dictionary<Define.CharacterType, CharacterStatData> characterStatDict { get; private set; } = new Dictionary<CharacterType, CharacterStatData>();
     public Dictionary<Define.MonsterType, MonsterStatData> monsterStatDict { get; private set; } = new Dictionary<MonsterType, MonsterStatData>();
 
+    public Dictionary<Define.SkillGrade, PassiveSkillCoefficientsData> passiveSkillCoefficients { get; private set; } = new Dictionary<SkillGrade, PassiveSkillCoefficientsData>();
+
     public void Init()
     {
-        //PlayerStatDict = LoadJson<Data.CreatureStatData, int, Data.CreatureStat>("Creatures/PlayerStatData").MakeDict();
-        //MonsterStatDict = LoadJson<Data.CreatureStatData, int, Data.CreatureStat>("Creatures/MonsterStatData").MakeDict(); 
+        for (SkillGrade i = SkillGrade.Common; i < SkillGrade.Max; i++)
+        {
+            passiveSkillCoefficients.Add(i, Managers.Resource.Load<PassiveSkillCoefficientsData>($"Data/ScriptableObject/PassiveSkillCoefficients/{i}"));
+        }
 
-        //int max = (int)AttackSkillType.MonsterMax;
-        //string[] attackTypeNames = typeof(AttackSkillType).GetEnumNames();
-        //for(int i = 0; i < max; ++i)
-        //{
-        //    AttackSkillDicts[i] = LoadJson<Data.AttackSkillStatData, int, Data.AttackSkillStat>($"Skills/{attackTypeNames[i]}SkillStatData").MakeDict();
-        //}
-
-        for (AttackSkillType skillType = AttackSkillType.PlayerNormal; skillType < AttackSkillType.MonsterMax; skillType++)
+        for (SkillType skillType = SkillType.PlayerNormal; skillType < SkillType.MonsterMax; skillType++)
         {
             skillStatDict.Add(skillType, Managers.Resource.Load<SkillStatData>($"Data/ScriptableObject/SkillStats/{skillType}"));
         }
@@ -44,9 +37,6 @@ public class DataManager
         {
             monsterStatDict.Add(monsterType, Managers.Resource.Load<MonsterStatData>($"Data/ScriptableObject/MonsterStats/{monsterType}"));
         }
-
-
-
     }
 
     Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>

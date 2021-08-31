@@ -6,7 +6,7 @@ using UnityEngine;
 public class SkillStat : MonoBehaviour
 {
     public SkillStat() {}
-    public SkillStat(Define.AttackSkillType skillType, float coolTime, int damage, float attackRange, int numOfProjectilePerBurst, float speed, bool isExplode, float explosionRange, int explosionDamage, bool isPenetrate, float duration, float delayPerAttack)
+    public SkillStat(Define.SkillType skillType, float coolTime, int damage, float attackRange, int numOfProjectilePerBurst, float speed, bool isExplode, float explosionRange, int explosionDamage, bool isPenetrate, float duration, float delayPerAttack)
     {
         this.skillType = skillType;
         _level = 1;
@@ -23,7 +23,7 @@ public class SkillStat : MonoBehaviour
         _delayPerAttack = delayPerAttack;
     }
     [SerializeField]
-    Define.AttackSkillType skillType;
+    Define.SkillType skillType;
     [SerializeField]
     protected int _level;
     [SerializeField]
@@ -59,7 +59,7 @@ public class SkillStat : MonoBehaviour
     public GameObject _bulletPrefab;
     
 
-    public Define.AttackSkillType SkillType { get { return skillType; } set { skillType = value; } }
+    public Define.SkillType SkillType { get { return skillType; } set { skillType = value; } }
     public int Level { get { return _level; } set { _level = value; } }
     public float CoolTime { get { return _coolTime; } set { _coolTime = value; } }
     public float Damage { get { return _damage; } set { _damage = value; } }
@@ -103,9 +103,9 @@ public class SkillStat : MonoBehaviour
         set { numOfUnique = value; }
     }
 
-    public virtual void InitSkillStat(Define.AttackSkillType skillType)
+    public virtual void InitSkillStat(Define.SkillType skillType)
     {
-        Dictionary<Define.AttackSkillType, SkillStatData> dict = Managers.Data.skillStatDict;
+        Dictionary<Define.SkillType, SkillStatData> dict = Managers.Data.skillStatDict;
 
         SkillStatData stat = dict[skillType];
 

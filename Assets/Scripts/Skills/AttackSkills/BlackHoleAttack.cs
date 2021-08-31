@@ -8,7 +8,7 @@ public class BlackHoleAttack : AttackSkillBase
     BlackHoleAttackSkillStat blackHoleStat;
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
-        _type = AttackSkillType.BlackHole;
+        _type = SkillType.BlackHole;
         blackHoleStat = gameObject.AddComponent<BlackHoleAttackSkillStat>();
         base.Init(owner, muzzleTransform, parent);
         blackHoleStat.InitSkillStat(_type);

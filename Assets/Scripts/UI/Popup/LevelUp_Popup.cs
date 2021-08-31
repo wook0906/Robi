@@ -11,7 +11,7 @@ public class LevelUp_Popup : PopupUI
     struct SkillInfo
     {
         public Define.SkillGrade grade;
-        public Define.AttackSkillType skillType;
+        public Define.SkillType skillType;
     }
 
     SkillInfo skill1;
@@ -50,7 +50,7 @@ public class LevelUp_Popup : PopupUI
         Bind<Text>(typeof(Texts));
 
         skillCandidateList = new List<SkillInfo>();
-        for (Define.AttackSkillType i = Define.AttackSkillType.PlayerNormal; i < Define.AttackSkillType.PlayerMax; i++)
+        for (Define.SkillType i = Define.SkillType.PlayerNormal; i < Define.SkillType.PlayerMax; i++)
         {
             SkillInfo skillInfo;
             skillInfo.grade = (Define.SkillGrade)Random.Range((int)Define.SkillGrade.Common, (int)Define.SkillGrade.Max);
@@ -117,7 +117,7 @@ public class LevelUp_Popup : PopupUI
         GameObject go;
         switch (skillInfo.skillType)
         {
-            case Define.AttackSkillType.PlayerNormal:
+            case Define.SkillType.PlayerNormal:
                 go = new GameObject() { name = "NormalAttack" };
                 go.transform.parent = player.transform;
                 go.transform.localPosition = Vector3.zero;
@@ -126,7 +126,7 @@ public class LevelUp_Popup : PopupUI
                 player.attackSkills.Add(normalSkill);
                 player.AttackSkillDispatcher.Add(1f, normalSkill);
                 break;
-            case Define.AttackSkillType.FlameThrower:
+            case Define.SkillType.FlameThrower:
                 go = new GameObject() { name = "FlameThrower" };
                 go.transform.parent = player.transform;
                 go.transform.localPosition = Vector3.zero;
@@ -135,7 +135,7 @@ public class LevelUp_Popup : PopupUI
                 player.attackSkills.Add(flameThrower);
                 player.AttackSkillDispatcher.Add(1f, flameThrower);
                 break;
-            case Define.AttackSkillType.ImpactWave:
+            case Define.SkillType.ImpactWave:
                 go = new GameObject() { name = "ImpactWave" };
                 go.transform.parent = player.transform;
                 go.transform.localPosition = Vector3.zero;
@@ -144,7 +144,7 @@ public class LevelUp_Popup : PopupUI
                 player.attackSkills.Add(impactWave);
                 player.AttackSkillDispatcher.Add(1f, impactWave);
                 break;
-            case Define.AttackSkillType.PlayerLaser:
+            case Define.SkillType.PlayerLaser:
                 go = new GameObject() { name = "LaserAttack" };
                 go.transform.parent = player.transform;
                 go.transform.localPosition = Vector3.zero;
@@ -153,7 +153,7 @@ public class LevelUp_Popup : PopupUI
                 player.attackSkills.Add(laser);
                 player.AttackSkillDispatcher.Add(1f, laser);
                 break;
-            case Define.AttackSkillType.PlayerMissile:
+            case Define.SkillType.PlayerMissile:
                 go = new GameObject() { name = "MissileAttack" };
                 go.transform.parent = player.transform;
                 go.transform.localPosition = Vector3.zero;
@@ -162,7 +162,7 @@ public class LevelUp_Popup : PopupUI
                 player.attackSkills.Add(missile);
                 player.AttackSkillDispatcher.Add(1f, missile);
                 break;
-            case Define.AttackSkillType.Napalm:
+            case Define.SkillType.Napalm:
                 go = new GameObject() { name = "Napalm" };
                 go.transform.parent = player.transform;
                 go.transform.localPosition = Vector3.zero;
@@ -171,7 +171,7 @@ public class LevelUp_Popup : PopupUI
                 player.attackSkills.Add(Napalm);
                 player.AttackSkillDispatcher.Add(1f, Napalm);
                 break;
-            case Define.AttackSkillType.PulseWave:
+            case Define.SkillType.PulseWave:
                 go = new GameObject() { name = "PulseWave" };
                 go.transform.parent = player.transform;
                 go.transform.localPosition = Vector3.zero;
@@ -180,7 +180,7 @@ public class LevelUp_Popup : PopupUI
                 player.attackSkills.Add(PulseWave);
                 player.AttackSkillDispatcher.Add(1f, PulseWave);
                 break;
-            case Define.AttackSkillType.NuclearBomb:
+            case Define.SkillType.NuclearBomb:
                 go = new GameObject() { name = "NuclearBomb" };
                 go.transform.parent = player.transform;
                 go.transform.localPosition = Vector3.zero;
@@ -189,7 +189,7 @@ public class LevelUp_Popup : PopupUI
                 player.attackSkills.Add(NuclearBomb);
                 player.AttackSkillDispatcher.Add(1f, NuclearBomb);
                 break;
-            case Define.AttackSkillType.PlayerBombing:
+            case Define.SkillType.PlayerBombing:
                 go = new GameObject() { name = "Bombing" };
                 go.transform.parent = player.transform;
                 go.transform.localPosition = Vector3.zero;
@@ -198,7 +198,7 @@ public class LevelUp_Popup : PopupUI
                 player.attackSkills.Add(Bombing);
                 player.AttackSkillDispatcher.Add(1f, Bombing);
                 break;
-            case Define.AttackSkillType.PlayerShield:
+            case Define.SkillType.PlayerShield:
                 go = new GameObject() { name = "Shield" };
                 go.transform.parent = player.transform;
                 go.transform.localPosition = Vector3.zero;
@@ -207,7 +207,7 @@ public class LevelUp_Popup : PopupUI
                 player.attackSkills.Add(Shield);
                 player.AttackSkillDispatcher.Add(1f, Shield);
                 break;
-            case Define.AttackSkillType.Drone:
+            case Define.SkillType.Drone:
                 go = new GameObject() { name = "DroneSkill" };
                 go.transform.parent = player.transform;
                 go.transform.localPosition = Vector3.zero;
@@ -216,7 +216,7 @@ public class LevelUp_Popup : PopupUI
                 player.attackSkills.Add(droneSkill);
                 player.AttackSkillDispatcher.Add(1f, droneSkill);
                 break;
-            case Define.AttackSkillType.BlackHole:
+            case Define.SkillType.BlackHole:
                 go = new GameObject() { name = "BlackHole" };
                 go.transform.parent = player.transform;
                 go.transform.localPosition = Vector3.zero;

@@ -11,7 +11,7 @@ public class FlameThrowerAttack : AttackSkillBase
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
         player = owner as PlayerController;
-        _type = Define.AttackSkillType.FlameThrower;
+        _type = Define.SkillType.FlameThrower;
         flameThrowerStat = gameObject.AddComponent<FlameThrowerAttackSkillStat>();
         base.Init(owner, muzzleTransform, parent);
         flameThrowerStat.InitSkillStat(_type);

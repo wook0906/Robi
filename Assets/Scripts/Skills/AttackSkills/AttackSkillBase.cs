@@ -5,8 +5,8 @@ using static Define;
 
 public abstract class AttackSkillBase : ActiveSkill
 {
-    protected AttackSkillType _type;
-    public AttackSkillType Type { get { return _type; } }
+    protected SkillType _type;
+    public SkillType Type { get { return _type; } }
     [SerializeField]
     protected GameObject _prefab;
 

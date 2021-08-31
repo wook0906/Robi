@@ -7,7 +7,7 @@ public class MonsterLaunchBomb : AttackSkillBase
 {
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
-        _type = AttackSkillType.MonsterLaunchBomb;
+        _type = SkillType.MonsterLaunchBomb;
         //gameObject.AddComponent<SkillStat>().SetStat(_type);
         base.Init(owner, muzzleTransform, parent);
         Stat.InitSkillStat(_type);

@@ -33,7 +33,7 @@ public class NapalmAttackSkillStat : SkillStat
             (NumOfRare * _rareContinuousDamage) +
             (NumOfUnique * _uniqueContinuousDamage);
     }
-    public override void InitSkillStat(Define.AttackSkillType skillType)
+    public override void InitSkillStat(Define.SkillType skillType)
     {
         base.InitSkillStat(skillType);
         _commonDamageCoefficients = ExplosionDamage * 0.05f;

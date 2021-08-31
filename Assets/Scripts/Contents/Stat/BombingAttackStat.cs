@@ -27,7 +27,7 @@ public class BombingAttackStat : SkillStat
         NumOfProjectilePerBurst += (int)(NumOfUnique * _uniqueAdditionalPerBurst);
       
     }
-    public override void InitSkillStat(Define.AttackSkillType skillType)
+    public override void InitSkillStat(Define.SkillType skillType)
     {
         base.InitSkillStat(skillType);
         _commonDamageCoefficients = ExplosionDamage * 0.1f;

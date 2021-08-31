@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7a629496e1934a4db87a1ffbf3804c6, type: 3}
+  m_Name: Common
+  m_EditorClassIdentifier: 
+  ATKIncrease: 0.1
+  MaxHPIncrease: 0.1
+  DEFIncrease: 0.1
+  MoveSpeedIncrease: 0.05
+  ProjectileIncrease: 0.05
+  ExpIncrease: 0.05
+  CoolTimeIncrease: 0.05
+  RootRangeIncrease: 0.1
+  HPRecoveryAssistIncrease: 0.05
+  EnemyHpDownIncrease: 0.03
+  HPRecoveryAmountIncrease: 0.05
+  DurationIncrease: 0.05
+  RangeIncrease: 0.05
+  HPRecoveryPerSecIncrease: 0.001

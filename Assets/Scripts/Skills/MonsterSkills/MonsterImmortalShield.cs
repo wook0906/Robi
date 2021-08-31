@@ -28,7 +28,7 @@ public class MonsterImmortalShield : AttackSkillBase
 
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
-        _type = AttackSkillType.MonsterImmortalShield;
+        _type = SkillType.MonsterImmortalShield;
         gameObject.AddComponent<SkillStat>().InitSkillStat(_type);
         base.Init(owner, muzzleTransform, parent);
         effect = Managers.Resource.Instantiate("Effects/ShieldEffect");

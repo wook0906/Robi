@@ -9,7 +9,7 @@ public class MissileAttack : AttackSkillBase
 
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
-        _type = AttackSkillType.PlayerMissile;
+        _type = SkillType.PlayerMissile;
         missileStat = gameObject.AddComponent<MissileAttackStat>();
         base.Init(owner, muzzleTransform, parent);
         missileStat.InitSkillStat(_type);

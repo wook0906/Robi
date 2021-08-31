@@ -30,7 +30,7 @@ public class MonsterShield : AttackSkillBase
     
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
-        _type = AttackSkillType.MonsterShield;
+        _type = SkillType.MonsterShield;
         gameObject.AddComponent<SkillStat>().InitSkillStat(_type);
         base.Init(owner, muzzleTransform, parent);
         effect = Managers.Resource.Instantiate("Effects/ShieldEffect");
