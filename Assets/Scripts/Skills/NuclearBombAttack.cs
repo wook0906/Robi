@@ -25,7 +25,8 @@ public class NuclearBombAttack : AttackSkillBase
     }
     IEnumerator CorUseSkill()
     {
-        //화면 Fadeout
+        Debug.Log($"{_type} Fired. #Info : CoolTime : {Stat.CoolTime}, Damage : {Stat.Damage}, AttackRange : {Stat.AttackRange}, NumOfProjectilePerBurst {Stat.NumOfProjectilePerBurst}, Speed : {Stat.Speed}, IsExplode : {Stat.IsExplode}, ExplosionRange : {Stat.ExplosionRange}, ExplosionDamage : {Stat.ExplosionDamage}, isPernerate : {Stat.IsPenetrate}, Duration : {Stat.Duration}, DelayPerAttack : {Stat.DelayPerAttack}");
+
         float alpha = 0f;
         while (alpha <= 0.99f)
         {

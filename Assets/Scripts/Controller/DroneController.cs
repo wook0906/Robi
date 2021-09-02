@@ -6,7 +6,7 @@ public class DroneController : BaseController
 {
     Transform owner;
     Vector3 offset;
-    DroneSkillStat stat;
+    DroneSkillStat droneSKillStat;
 
     float attackDelayTimer = 0;
     GameObject _projectilePrefab;
@@ -15,12 +15,12 @@ public class DroneController : BaseController
     {
         this.owner = owner;
         this.offset = offset;
-        this.stat = stat;
+        this.droneSKillStat = stat;
         _projectilePrefab = Managers.Resource.Load<GameObject>("Prefabs/Projectiles/NormalAttackProjectile");
     }
     public void SetStat(DroneSkillStat stat)
     {
-        this.stat = stat;
+        this.droneSKillStat = stat;
     }
     private void LateUpdate()
     {
@@ -30,13 +30,15 @@ public class DroneController : BaseController
         {
             this.transform.rotation = Quaternion.LookRotation((target.transform.position - transform.position).normalized, Vector3.back);
         }
-        if (Time.time - attackDelayTimer > stat.CoolTime)
+        if (Time.time - attackDelayTimer > droneSKillStat.CoolTime)
         {
             Attack(target);
         }
     }
     void Attack(GameObject target)
     {
+        Debug.Log($"Drone Controller Fired. #Info : CoolTime : {droneSKillStat.CoolTime}, Damage : {droneSKillStat.Damage}, AttackRange : {droneSKillStat.AttackRange}, NumOfProjectilePerBurst {droneSKillStat.NumOfProjectilePerBurst}, Speed : {droneSKillStat.Speed}, IsExplode : {droneSKillStat.IsExplode}, ExplosionRange : {droneSKillStat.ExplosionRange}, ExplosionDamage : {droneSKillStat.ExplosionDamage}, isPernerate : {droneSKillStat.IsPenetrate}, Duration : {droneSKillStat.Duration}, DelayPerAttack : {droneSKillStat.DelayPerAttack}");
+
         if (target == null) return;
 
         attackDelayTimer = Time.time;
@@ -44,7 +46,7 @@ public class DroneController : BaseController
         projectileGo.transform.position = transform.position;
 
         Projectile projectile = projectileGo.GetComponent<Projectile>();
-        projectile.Init(owner.GetComponent<BaseController>(), target.GetComponent<BaseController>().CenterPosition, stat.Damage, stat.AttackRange, stat.Speed*2f, stat.IsExplode, stat.ExplosionRange, stat.ExplosionDamage, stat.IsPenetrate,stat.Duration, LayerMask.NameToLayer("Enemy"));
+        projectile.Init(owner.GetComponent<BaseController>(), target.GetComponent<BaseController>().CenterPosition, droneSKillStat.Damage, droneSKillStat.AttackRange, droneSKillStat.Speed*2f, droneSKillStat.IsExplode, droneSKillStat.ExplosionRange, droneSKillStat.ExplosionDamage, droneSKillStat.IsPenetrate,droneSKillStat.Duration, LayerMask.NameToLayer("Enemy"));
         
 
         projectile.OnHit -= OnHit;

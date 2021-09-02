@@ -4,29 +4,25 @@ using UnityEngine;
 
 public class CreatureStat : MonoBehaviour
 {
-    [SerializeField]
-    protected int _level;
+    
     [SerializeField]
     protected float _hp;
     [SerializeField]
     protected float _maxHp;
     [SerializeField]
-    protected float _hpRecoveryPerSecond;
-    [SerializeField]
     protected float _moveSpeed;
     
 
-    public int Level { get { return _level; } set { _level = value; } }
     public virtual float Hp { get { return _hp; } set { _hp = value; } }
-    public float MaxHp { get { return _maxHp; } set { _maxHp = value; } }
-    public float HpRecoveryPerSecond { get { return _hpRecoveryPerSecond; } set { _hpRecoveryPerSecond = value; } }
-    public float MoveSpeed { get { return _moveSpeed; } set { _moveSpeed = value; } }
+    public virtual float MaxHp { get { return _maxHp; } set { _maxHp = value; } }
+    public virtual float MoveSpeed { get { return _moveSpeed; } set { _moveSpeed = value; } }
  
 
-    private void Start()
+    protected virtual void Update()
     {
-        _level = 1;
+
     }
+   
 
     public virtual void OnAttacked(BaseController attacker, float damage)
     {

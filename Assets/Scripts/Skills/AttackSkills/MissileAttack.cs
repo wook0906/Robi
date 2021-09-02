@@ -48,14 +48,14 @@ public class MissileAttack : AttackSkillBase
 
     public override void OnFire()
     {
-        Debug.Log("Fire");
         _owner.State = CreatureState.Idle;
         _owner.AttackSkillDispatcher.Add(Stat.CoolTime, this);
     }
 
     public override void OnHit(GameObject target, Projectile projectile)
     {
-        Debug.Log("미사일 폭발!");
+        Debug.Log($"{_type} Fired. #Info : CoolTime : {Stat.CoolTime}, Damage : {Stat.Damage}, AttackRange : {Stat.AttackRange}, NumOfProjectilePerBurst {Stat.NumOfProjectilePerBurst}, Speed : {Stat.Speed}, IsExplode : {Stat.IsExplode}, ExplosionRange : {Stat.ExplosionRange}, ExplosionDamage : {Stat.ExplosionDamage}, isPernerate : {Stat.IsPenetrate}, Duration : {Stat.Duration}, DelayPerAttack : {Stat.DelayPerAttack}");
+
         //Debug.Log($"Hit target:{target.name}", this);
         //TODO: 나중에 타켓 레이어를 미리 Init 함수에서 셋팅할 수 있게해서 targetLayer의
         // 물체들만 걸리게하자!
@@ -81,7 +81,6 @@ public class MissileAttack : AttackSkillBase
             stat.OnAttacked(_owner, projectile.ExplosionDamage);
             count++;
         }
-        Debug.Log($"Missile Explosion! Hit {count} monsters");
     }
     public override void LevelUp(Define.SkillGrade grade)
     {

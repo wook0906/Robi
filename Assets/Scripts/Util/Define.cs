@@ -118,17 +118,7 @@ public static class Define
         PlayerShield,
         Drone,
         BlackHole,
-        PlayerMax,
-
-        MonsterNormal,
-        MonsterLaser,
-        MonsterLaser2,
-        MonsterLaunchBomb,
-        MonsterBombing,
-        MonsterMissile,
-        MonsterShield,
-        MonsterImmortalShield,
-        MonsterMax,
+        PlayerActiveSkillMax,
 
         ATKIncrease,
         MaxHPIncrease,
@@ -144,8 +134,17 @@ public static class Define
         DurationIncrease,
         RangeIncrease,
         HPRecoveryPerSecIncrease,
-        PassiveMax,
+        PlayerPassiveSkillMax,
 
+        MonsterNormal,
+        MonsterLaser,
+        MonsterLaser2,
+        MonsterLaunchBomb,
+        MonsterBombing,
+        MonsterMissile,
+        MonsterShield,
+        MonsterImmortalShield,
+        MonsterMax,
     }
 
     public enum Scene

@@ -21,6 +21,7 @@ public class LaserAttack : AttackSkillBase
 
     public override bool UseSkill()
     {
+        Debug.Log($"{_type} Fired. #Info : CoolTime : {Stat.CoolTime}, Damage : {Stat.Damage}, AttackRange : {Stat.AttackRange}, NumOfProjectilePerBurst {Stat.NumOfProjectilePerBurst}, Speed : {Stat.Speed}, IsExplode : {Stat.IsExplode}, ExplosionRange : {Stat.ExplosionRange}, ExplosionDamage : {Stat.ExplosionDamage}, isPernerate : {Stat.IsPenetrate}, Duration : {Stat.Duration}, DelayPerAttack : {Stat.DelayPerAttack}");
         GameObject target = SearchTarget();
         if (target == null)
             return false;
@@ -49,7 +50,6 @@ public class LaserAttack : AttackSkillBase
 
     public override void OnFire()
     {
-        Debug.Log("Fire");
         _owner.State = CreatureState.Idle;
         _owner.AttackSkillDispatcher.Add(Stat.CoolTime, this);
     }

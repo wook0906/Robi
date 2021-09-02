@@ -15,13 +15,13 @@ public class DataManager
     public Dictionary<Define.CharacterType, CharacterStatData> characterStatDict { get; private set; } = new Dictionary<CharacterType, CharacterStatData>();
     public Dictionary<Define.MonsterType, MonsterStatData> monsterStatDict { get; private set; } = new Dictionary<MonsterType, MonsterStatData>();
 
-    public Dictionary<Define.SkillGrade, PassiveSkillCoefficientsData> passiveSkillCoefficients { get; private set; } = new Dictionary<SkillGrade, PassiveSkillCoefficientsData>();
+    public Dictionary<Define.SkillGrade, PassiveSkillCoefficientsData> passiveSkillCoefficientDict { get; private set; } = new Dictionary<SkillGrade, PassiveSkillCoefficientsData>();
 
     public void Init()
     {
         for (SkillGrade i = SkillGrade.Common; i < SkillGrade.Max; i++)
         {
-            passiveSkillCoefficients.Add(i, Managers.Resource.Load<PassiveSkillCoefficientsData>($"Data/ScriptableObject/PassiveSkillCoefficients/{i}"));
+            passiveSkillCoefficientDict.Add(i, Managers.Resource.Load<PassiveSkillCoefficientsData>($"Data/ScriptableObject/PassiveSkillCoefficients/{i}"));
         }
 
         for (SkillType skillType = SkillType.PlayerNormal; skillType < SkillType.MonsterMax; skillType++)

@@ -24,13 +24,15 @@ public class FlameThrowerAttack : AttackSkillBase
     public override bool UseSkill()
     {
         _owner.State = Define.CreatureState.Attack;
-        Debug.Log("화염방사 사용");
         StartCoroutine(Fire());
         return true;
     }
 
     private IEnumerator Fire()
     {
+        Debug.Log($"{_type} Fired. #Info : CoolTime : {Stat.CoolTime}, Damage : {Stat.Damage}, AttackRange : {Stat.AttackRange}, NumOfProjectilePerBurst {Stat.NumOfProjectilePerBurst}, Speed : {Stat.Speed}, IsExplode : {Stat.IsExplode}, ExplosionRange : {Stat.ExplosionRange}, ExplosionDamage : {Stat.ExplosionDamage}, isPernerate : {Stat.IsPenetrate}, Duration : {Stat.Duration}, DelayPerAttack : {Stat.DelayPerAttack}");
+
+
         effect.GetComponent<ParticleSystem>().Play();
 
         int attackCount = (int)(Stat.Duration / Stat.DelayPerAttack);
@@ -46,6 +48,7 @@ public class FlameThrowerAttack : AttackSkillBase
 
                 if (angle <= flameThrowerStat.targetAngle && collider.GetComponent<CreatureStat>())
                 {
+                    Debug.Log($"{angle} , {flameThrowerStat.targetAngle}");
                     collider.GetComponent<CreatureStat>().OnAttacked(_owner, Stat.Damage);
                     OnHit(collider.gameObject, null);
                 }

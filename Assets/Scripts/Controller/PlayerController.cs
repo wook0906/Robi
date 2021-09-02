@@ -12,6 +12,8 @@ public class PlayerController : BaseController
     private Transform camTransform;
     
     public List<AttackSkillBase> attackSkills = new List<AttackSkillBase>();
+    public PassiveSkills passiveSkill;
+
     [SerializeField]
     private Field field;
     private LayerMask tileMask;
@@ -20,7 +22,13 @@ public class PlayerController : BaseController
 
     public List<Transform> launchPoints;
 
+    private GameObject itemRooter;
     #region Unity Function
+    public void Awake()
+    {
+        passiveSkill = new PassiveSkills();
+        passiveSkill.Init();
+    }
     private void Start()
     {
         tileMask = LayerMask.GetMask("Tile");
@@ -28,15 +36,17 @@ public class PlayerController : BaseController
         camTransform = Camera.main.transform;
         _stat = gameObject.GetOrAddComponent<PlayerStat>();
         PlayerStat.SetStat();
+        passiveSkill._playerstat = PlayerStat;
         _attackSkillDispatcher = new ActiveSkillDispatcher();
         _attackSkillDispatcher.Init(this);
         body = transform.Find("Model").transform.Find("Robi").transform.Find("Body").gameObject;
-
+        
 
 
         field = GameObject.FindGameObjectWithTag("Field").GetComponent<Field>();
         transform.rotation = Quaternion.LookRotation(Vector3.down, Vector3.back);
-
+        itemRooter = Managers.Resource.Instantiate("ItemRooter");
+        itemRooter.GetComponent<ItemRooter>().Init(this, 1f);
 
 
         //1 기본
@@ -190,6 +200,10 @@ public class PlayerController : BaseController
     }
     #endregion
 
+    public void SetItemRootRange(float radius)
+    {
+        itemRooter.GetComponent<ItemRooter>().SetRadius(radius);
+    }
 
 
     #region Helper Method

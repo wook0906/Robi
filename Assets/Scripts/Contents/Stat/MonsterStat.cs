@@ -30,6 +30,21 @@ public class MonsterStat : CreatureStat
     protected bool _useSuicideBombing = false;
     bool _isOnImmortal;
 
+
+    public override float MaxHp
+    {
+        get { return _maxHp; }
+        set
+        {
+            float maxHp = value - (value * MonsterController.target.GetComponent<PlayerController>().passiveSkill.skillDict[Define.SkillType.EnemyHpDownIncrease]);
+            _maxHp = maxHp;
+        }
+    }
+    public override float Hp
+    {
+        get { return _hp; }
+        set { _hp = value; }
+    }
     public int Damage { get { return _damage; } set { _damage = value; } }
     public float Defense { get { return _defense; } set { _defense = value; } }
     public float DetectRange { get { return _detectRange; } set { _detectRange = value; } }
@@ -55,19 +70,18 @@ public class MonsterStat : CreatureStat
 
     private void Start()
     {
-        _level = 1;
-        SetStat();
+        InitStat();
     }
 
-    public void SetStat()
+    public void InitStat()
     {
         //Dictionary<int, Data.CreatureStat> dict = Managers.Data.MonsterStatDict;
         Dictionary<Define.MonsterType, MonsterStatData> dict = Managers.Data.monsterStatDict;
         MonsterStatData stat = dict[(Define.MonsterType)System.Enum.Parse(typeof(Define.MonsterType),name)];
         owner = GetComponent<BaseController>();
-
-        _hp = stat._maxHp;
-        _maxHp = stat._maxHp;
+        
+        MaxHp = stat._maxHp;
+        _hp = _maxHp;
         _damage = stat._atk;
         _defense = stat._def;
         _moveSpeed = stat._moveSpeed;
@@ -151,6 +165,11 @@ public class MonsterStat : CreatureStat
 
     }
 
+    public void SetStat()
+    {
+
+    }
+
     public override void OnAttacked(BaseController attacker, float damage)
     {
         if (IsOnImmortal) return;
@@ -165,8 +184,8 @@ public class MonsterStat : CreatureStat
         if (_useBerserk && !isOnBerserk)
         {
             isOnBerserk = true;
-            _damage *= 2;
-            _moveSpeed *= 2;
+            Damage *= 2;
+            MoveSpeed *= 2;
         }
         if (this.Hp <= 0)
         {

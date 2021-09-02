@@ -57,20 +57,23 @@ public class SkillStat : MonoBehaviour
 
     [HideInInspector]
     public GameObject _bulletPrefab;
-    
+
+    [SerializeField]
+    protected BaseController _owner;
 
     public Define.SkillType SkillType { get { return skillType; } set { skillType = value; } }
     public int Level { get { return _level; } set { _level = value; } }
-    public float CoolTime { get { return _coolTime; } set { _coolTime = value; } }
-    public float Damage { get { return _damage; } set { _damage = value; } }
-    public float AttackRange { get { return _attackRange; } set { _attackRange = value; } }
-    public int NumOfProjectilePerBurst { get { return _numOfProjectilePerBurst; } set { _numOfProjectilePerBurst = value; } }
+    public virtual float CoolTime { get { return _coolTime; } set { _coolTime = value; } }
+    public virtual float Damage { get { return _damage; } set { _damage = value; } }
+    public virtual float AttackRange { get { return _attackRange; } set { _attackRange = value; } }
+    public virtual int NumOfProjectilePerBurst { get { return _numOfProjectilePerBurst; } set { _numOfProjectilePerBurst = value; } }
+    public virtual float Duration { get { return _duration; } set { _duration = value; } }
+    public virtual float ExplosionRange { get { return _explosionRange; } set { _explosionRange = value; } }
+    public virtual float ExplosionDamage { get { return _explosionDamage; } set { _explosionDamage = value; } }
+
     public float Speed { get { return _speed; } set { _speed = value; } }
     public bool IsExplode { get { return _isExplode; } set { _isExplode = value; } }
-    public float ExplosionRange { get { return _explosionRange; } set { _explosionRange = value; } }
-    public float ExplosionDamage { get { return _explosionDamage; } set { _explosionDamage = value; } }
     public bool IsPenetrate { get { return _isPenetrate; } set { _isPenetrate = value; } }
-    public float Duration { get { return _duration; } set { _duration = value; } }
     public float DelayPerAttack { get { return _delayPerAttack; } set { _delayPerAttack = value; } }
     public int NumOfCommon 
     { 
@@ -124,6 +127,8 @@ public class SkillStat : MonoBehaviour
         _duration = stat._duration;
         _delayPerAttack = stat._delayPerAttack;
         _bulletPrefab = stat._bulletPrefab;
+
+        _owner = transform.root.GetComponent<BaseController>();
     }
 
     public virtual void LevelUp(Define.SkillGrade grade)

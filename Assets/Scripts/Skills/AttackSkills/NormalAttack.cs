@@ -33,6 +33,7 @@ public class NormalAttack : AttackSkillBase
     }
     IEnumerator Fire(Vector3 targetPos)
     {
+        Debug.Log($"{_type} Fired. #Info : CoolTime : {Stat.CoolTime}, Damage : {Stat.Damage}, AttackRange : {Stat.AttackRange}, NumOfProjectilePerBurst {Stat.NumOfProjectilePerBurst}, Speed : {Stat.Speed}, IsExplode : {Stat.IsExplode}, ExplosionRange : {Stat.ExplosionRange}, ExplosionDamage : {Stat.ExplosionDamage}, isPernerate : {Stat.IsPenetrate}, Duration : {Stat.Duration}, DelayPerAttack : {Stat.DelayPerAttack}");
         PlayerStat playerStat = _owner.Stat as PlayerStat;
         for (int i = 0; i < Stat.NumOfProjectilePerBurst; i++)
         {

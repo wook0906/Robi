@@ -46,6 +46,7 @@ public class ImpactWaveAttack : AttackSkillBase
     }
     public override bool UseSkill()
     {
+        Debug.Log($"{_type} Fired. #Info : CoolTime : {Stat.CoolTime}, Damage : {Stat.Damage}, AttackRange : {Stat.AttackRange}, NumOfProjectilePerBurst {Stat.NumOfProjectilePerBurst}, Speed : {Stat.Speed}, IsExplode : {Stat.IsExplode}, ExplosionRange : {Stat.ExplosionRange}, ExplosionDamage : {Stat.ExplosionDamage}, isPernerate : {Stat.IsPenetrate}, Duration : {Stat.Duration}, DelayPerAttack : {Stat.DelayPerAttack}");
         GameObject[] targets = SearchTargets();
 
         Instantiate(_prefab, _owner.CenterPosition, Quaternion.identity);
@@ -76,7 +77,7 @@ public class ImpactWaveAttack : AttackSkillBase
 
     public override void OnFire()
     {
-        Debug.Log("Fire");
+
         _owner.State = CreatureState.Idle;
         _owner.AttackSkillDispatcher.Add(Stat.CoolTime, this);
     }

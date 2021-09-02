@@ -19,6 +19,7 @@ public class NapalmAttack : AttackSkillBase
 
     public override bool UseSkill()
     {
+        Debug.Log($"{_type} Fired. #Info : CoolTime : {Stat.CoolTime}, Damage : {Stat.Damage}, AttackRange : {Stat.AttackRange}, NumOfProjectilePerBurst {Stat.NumOfProjectilePerBurst}, Speed : {Stat.Speed}, IsExplode : {Stat.IsExplode}, ExplosionRange : {Stat.ExplosionRange}, ExplosionDamage : {Stat.ExplosionDamage}, isPernerate : {Stat.IsPenetrate}, Duration : {Stat.Duration}, DelayPerAttack : {Stat.DelayPerAttack}");
         GameObject target = SearchTarget();
 
         if (target == null)
@@ -33,10 +34,11 @@ public class NapalmAttack : AttackSkillBase
         else
             napalmGO.transform.position = _muzzleTransform.position;
 
+        PlayerController owner = _owner as PlayerController;
         Projectile projectile = napalmGO.GetComponent<Projectile>();
-        projectile.Init(_owner, target.GetComponent<BaseController>().CenterPosition, Stat.Damage, Stat.AttackRange,
-            Stat.Speed, Stat.IsExplode, Stat.ExplosionRange, Stat.ExplosionDamage,
-            Stat.IsPenetrate, Stat.Duration, LayerMask.NameToLayer("Enemy"));
+        projectile.Init(_owner, target.GetComponent<BaseController>().CenterPosition, napalmStat.Damage * (1f + owner.passiveSkill.skillDict[SkillType.ATKIncrease]), napalmStat.AttackRange,
+            napalmStat.Speed, napalmStat.IsExplode, napalmStat.ExplosionRange, napalmStat.ExplosionDamage,
+            napalmStat.IsPenetrate, napalmStat.Duration, LayerMask.NameToLayer("Enemy"));
 
         projectile.OnHit -= OnHit;
         projectile.OnHit += OnHit;
@@ -49,9 +51,9 @@ public class NapalmAttack : AttackSkillBase
 
     public override void OnFire()
     {
-        Debug.Log("Fire");
+
         _owner.State = CreatureState.Idle;
-        _owner.AttackSkillDispatcher.Add(Stat.CoolTime, this);
+        _owner.AttackSkillDispatcher.Add(napalmStat.CoolTime, this);
     }
 
     public override void OnHit(GameObject target, Projectile projectile)
@@ -78,13 +80,12 @@ public class NapalmAttack : AttackSkillBase
             stat.OnAttacked(_owner, projectile.ExplosionDamage);
             count++;
         }
-        Debug.Log($"Missile Explosion! Hit {count} monsters");
 
         GameObject wideAreaAttackGO = Instantiate(_wideAreaAttackPrefab);
         wideAreaAttackPos.z -= 0.2f;
         wideAreaAttackGO.transform.position = wideAreaAttackPos;
-        wideAreaAttackGO.GetComponent<WideAreaAttack>().Init(_owner, Mathf.RoundToInt(Stat.ExplosionDamage * 0.3f),
-            Stat.ExplosionRange, Stat.Duration, Stat.DelayPerAttack);
+        wideAreaAttackGO.GetComponent<WideAreaAttack>().Init(_owner, Mathf.RoundToInt(napalmStat.ExplosionDamage * 0.3f),
+            napalmStat.ExplosionRange, napalmStat.Duration, napalmStat.DelayPerAttack);
     }
     public override void LevelUp(Define.SkillGrade grade)
     {

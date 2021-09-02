@@ -22,6 +22,7 @@ public class BombingAttack : AttackSkillBase
 
     private IEnumerator Fire()
     {
+        Debug.Log($"{_type} Fired. #Info : CoolTime : {Stat.CoolTime}, Damage : {Stat.Damage}, AttackRange : {Stat.AttackRange}, NumOfProjectilePerBurst {Stat.NumOfProjectilePerBurst}, Speed : {Stat.Speed}, IsExplode : {Stat.IsExplode}, ExplosionRange : {Stat.ExplosionRange}, ExplosionDamage : {Stat.ExplosionDamage}, isPernerate : {Stat.IsPenetrate}, Duration : {Stat.Duration}, DelayPerAttack : {Stat.DelayPerAttack}");
         int attackCount = (int)(Stat.Duration / Stat.DelayPerAttack);
         while (attackCount > 0)
         {
@@ -56,7 +57,6 @@ public class BombingAttack : AttackSkillBase
 
     public override void OnHit(GameObject target, Projectile projectile)
     {
-        Debug.Log("폭격 폭발!");
         ParticleSystem effect = Managers.Resource.Instantiate("Effects/Explosion").GetComponent<ParticleSystem>();
         Vector3 pos = projectile.transform.position;
         pos.z -= Stat.ExplosionRange;
