@@ -200,7 +200,7 @@ public class PlayerController : BaseController
     }
     #endregion
 
-    public void SetItemRootRange(float radius)
+    public void SetItemRooterRange(float radius)
     {
         itemRooter.GetComponent<ItemRooter>().SetRadius(radius);
     }
@@ -251,11 +251,14 @@ public class PlayerController : BaseController
 
     public override void OnKilled(BaseController controller)
     {
-        MonsterController mc = controller as MonsterController;
-        if (mc != null)
-        {
-            PlayerStat.Exp += mc.GetComponent<MonsterStat>().Exp;
-        }
+        //MonsterController mc = controller as MonsterController;
+        //if (mc != null)
+        //{
+        //    float resultExp = (mc.GetComponent<MonsterStat>().Exp * PlayerStat.ExpAssist) * (1f + passiveSkill.skillDict[Define.SkillType.ExpIncrease]);
+        //    Debug.Log($"Get Exp:{resultExp}");
+
+        //    PlayerStat.Exp += resultExp;
+        //}
     }
 
     public void LookAtClosestEnemy()

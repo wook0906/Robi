@@ -21,16 +21,6 @@ public class PlayerStat : CreatureStat
     protected int _gold;
     [SerializeField]
     protected int _totalExp;
-    [SerializeField]
-    protected float _projectileIncreaseValue;
-    [SerializeField]
-    protected float _coolTimeDecrease;
-    [SerializeField]
-    protected float _durationIncrease;
-    [SerializeField]
-    protected float _attackRangeIncrease;
-
-    
     private GameScene_UI gameSceneUI;
     float hpRecoveryTimeStamp = 0f;
     PlayerController owner;
@@ -59,10 +49,9 @@ public class PlayerStat : CreatureStat
         get { return _exp; }
         set
         {
-            float inputValue = (value * _expAssist) * (1 + owner.passiveSkill.skillDict[Define.SkillType.ExpIncrease]);
+            float inputValue = value;
             _exp = inputValue;
 
-            //Debug.Log($"Exp:{_exp}");
             int level = Level;
 
             gameSceneUI.UpdateExpUI((float)_exp / _totalExp);
@@ -112,11 +101,7 @@ public class PlayerStat : CreatureStat
                 gameSceneUI.UpdateHpUI(_hp / _maxHp);
         }
     }
-    public float ProjectileIncreaseValue
-    {
-        get { return _projectileIncreaseValue; }
-        set { _projectileIncreaseValue = value; }
-    }
+    
     public float HpRecoveryPerSecond 
     { 
         get 
@@ -125,9 +110,7 @@ public class PlayerStat : CreatureStat
             return hpRecoveryPerSecond;
         }
     }
-    public float CoolTimeDecrease { get { return _coolTimeDecrease; } set { _coolTimeDecrease = value; } }
-    public float DurationIncrease { get { return _durationIncrease; } set { _durationIncrease = value; } }
-    public float AttackRangeIncrease { get { return _attackRangeIncrease; } set { _attackRangeIncrease = value; } }
+    public float ExpAssist { get { return _expAssist; } set { _expAssist = value; } }
     private IEnumerator Start()
     {
         owner = GetComponent<PlayerController>();
@@ -140,7 +123,6 @@ public class PlayerStat : CreatureStat
         if (Time.time - hpRecoveryTimeStamp > 1f)
         {
             hpRecoveryTimeStamp = Time.time;
-            Debug.Log($"Hp Recover {HpRecoveryPerSecond}");
             HpRecovery(HpRecoveryPerSecond);
         }
         
@@ -174,6 +156,7 @@ public class PlayerStat : CreatureStat
     }
     public void HpRecovery(float value)
     {
+        Debug.Log($"Hp Recover {value * (1f + owner.passiveSkill.skillDict[Define.SkillType.HPRecoveryAmountIncrease])}");
         this.Hp += value * (1f + owner.passiveSkill.skillDict[Define.SkillType.HPRecoveryAmountIncrease]);
     }
 
@@ -262,53 +245,50 @@ public class PassiveSkills
                 break;
             case Define.SkillType.MoveSpeedIncrease:
                 skillDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].MoveSpeedIncrease;
-                _playerstat.MoveSpeed *= skillDict[skillType];
-                //Done
+                _playerstat.MoveSpeed *= (1f + skillDict[skillType]);
+                //Check
                 break;
             case Define.SkillType.ProjectileIncrease:
                 skillDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].ProjectileIncrease;
-                _playerstat.ProjectileIncreaseValue *= skillDict[skillType];
+                
                 //Done
                 break;
             case Define.SkillType.ExpIncrease:
                 skillDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].ExpIncrease;
-                //Done
+                //Check
                 break;
             case Define.SkillType.CoolTimeIncrease:
                 skillDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].CoolTimeIncrease;
-                _playerstat.CoolTimeDecrease *= skillDict[skillType];
                 //Check
                 break;
             case Define.SkillType.RootRangeIncrease:
                 skillDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].RootRangeIncrease;
-                _playerstat.GetComponent<PlayerController>().SetItemRootRange(1f + skillDict[skillType]);
-                //Done
+                _playerstat.GetComponent<PlayerController>().SetItemRooterRange(1f + skillDict[skillType]);
+                //Check
                 break;
             case Define.SkillType.HPRecoveryAssistIncrease:
                 skillDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].HPRecoveryAssistIncrease;
-                //Done
+                //Check
                 break;
             case Define.SkillType.EnemyHpDownIncrease:
                 skillDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].EnemyHpDownIncrease;
-                //TODO
+                //Check
                 break;
             case Define.SkillType.HPRecoveryAmountIncrease:
                 skillDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].HPRecoveryAmountIncrease;
-                //Done
+                //Check
                 break;
             case Define.SkillType.DurationIncrease:
                 skillDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].DurationIncrease;
-                _playerstat.DurationIncrease *= skillDict[skillType];
-                //Done
+                //Check
                 break;
             case Define.SkillType.RangeIncrease:
                 skillDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].RangeIncrease;
-                _playerstat.AttackRangeIncrease *= skillDict[skillType];
-                //Done
+                //Check
                 break;
             case Define.SkillType.HPRecoveryPerSecIncrease:
                 skillDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].HPRecoveryPerSecIncrease;
-                //Done
+                //Check
                 break;
             default:
                 Debug.LogError($"Passive skill LevelUp Error");

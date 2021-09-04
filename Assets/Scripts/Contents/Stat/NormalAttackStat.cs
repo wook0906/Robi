@@ -45,8 +45,10 @@ public class NormalAttackStat : SkillStat
         get
         {
             PlayerController player = _owner as PlayerController;
-            int numOfProjectilePerBurst = _numOfProjectilePerBurst + Mathf.RoundToInt(_numOfProjectilePerBurst * (1f + player.passiveSkill.skillDict[Define.SkillType.ProjectileIncrease]));
+            int numOfProjectilePerBurst = _numOfProjectilePerBurst + Mathf.RoundToInt(_numOfProjectilePerBurst * player.passiveSkill.skillDict[Define.SkillType.ProjectileIncrease]);
 
+            //Debug.Log($"원래는 {_numOfProjectilePerBurst}발 쏘는데, {(float)(_numOfProjectilePerBurst * player.passiveSkill.skillDict[Define.SkillType.ProjectileIncrease])}의 반올림인 {Mathf.RoundToInt(_numOfProjectilePerBurst * player.passiveSkill.skillDict[Define.SkillType.ProjectileIncrease])}을 더해서 {numOfProjectilePerBurst}발 발사함");
+            
             return numOfProjectilePerBurst;
         }
         set { _numOfProjectilePerBurst = value; }

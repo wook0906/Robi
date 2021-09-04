@@ -203,10 +203,14 @@ public class MonsterStat : CreatureStat
 
     protected override void OnDead(BaseController attacker)
     {
-        PlayerStat stat = attacker.GetComponent<PlayerStat>();
-        if(stat != null)
+        PlayerStat playerStat = attacker.GetComponent<PlayerStat>();
+        if(playerStat != null)
         {
-            stat.Exp += _exp;
+            float resultExp = (Exp * playerStat.ExpAssist) * (1f + playerStat.GetComponent<PlayerController>().passiveSkill.skillDict[Define.SkillType.ExpIncrease]);
+
+            Debug.Log($"Get Exp:{resultExp}");
+
+            playerStat.Exp += resultExp;
         }
         Managers.Object.RemoveMonster(GetComponent<MonsterController>());
         Destroy(gameObject);

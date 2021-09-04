@@ -52,7 +52,7 @@ public class FlameThrowerAttackSkillStat : SkillStat
         get
         {
             PlayerController player = _owner as PlayerController;
-            int numOfProjectilePerBurst = _numOfProjectilePerBurst + Mathf.RoundToInt(_numOfProjectilePerBurst * (1f + player.passiveSkill.skillDict[Define.SkillType.ProjectileIncrease]));
+            int numOfProjectilePerBurst = _numOfProjectilePerBurst + Mathf.RoundToInt(_numOfProjectilePerBurst * player.passiveSkill.skillDict[Define.SkillType.ProjectileIncrease]);
 
             return numOfProjectilePerBurst;
         }
