@@ -66,12 +66,12 @@ public class PlayerController : BaseController
         //attackSkills.Add(bombingSkill);
 
         //3 미사일
-        GameObject missileAttack = new GameObject() { name = "Missle" };
-        missileAttack.transform.parent = transform;
-        missileAttack.transform.localPosition = Vector3.zero;
-        MissileAttack missile = missileAttack.AddComponent<MissileAttack>();
-        missile.Init(this, null, null);
-        attackSkills.Add(missile);
+        //GameObject missileAttack = new GameObject() { name = "Missle" };
+        //missileAttack.transform.parent = transform;
+        //missileAttack.transform.localPosition = Vector3.zero;
+        //MissileAttack missile = missileAttack.AddComponent<MissileAttack>();
+        //missile.Init(this, null, null);
+        //attackSkills.Add(missile);
 
         //4 레이저
         //GameObject laserAttack = new GameObject() { name = "LaserAttack" };
@@ -151,9 +151,12 @@ public class PlayerController : BaseController
 
     private void Update()
     {
-        //Time.timeScale = Mathf.Lerp(Time.timeScale, Input.GetKey(KeyCode.LeftShift) ? 0.02f : 1, Time.unscaledDeltaTime * 30);
-        
 
+        //Time.timeScale = Mathf.Lerp(Time.timeScale, Input.GetKey(KeyCode.LeftShift) ? 0.02f : 1, Time.unscaledDeltaTime * 30);
+        //Debug.Log($"{Camera.main.ScreenToWorldPoint(new Vector3(Camera.main.pixelWidth, Camera.main.pixelHeight, 0f))}");
+
+        Vector3 screenPos = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0f));
+        //Debug.Log($"{screenPos.x + Camera.main.transform.position.x},{screenPos.y + Camera.main.transform.position.y}");
         switch (State)
         {
             case CreatureState.Idle:
