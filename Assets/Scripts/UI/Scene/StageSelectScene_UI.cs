@@ -23,10 +23,10 @@ public class StageSelectScene_UI : SceneUI
 
         if (PlayerPrefs.HasKey("SelectedMap"))
         {
-            PlayerPrefs.SetInt("SelectedMap", (int)Define.MapType.map1);
+            PlayerPrefs.SetInt("SelectedMap", (int)Define.StageType.Stage1);
         }
 
-        SetMapInfo((Define.MapType)PlayerPrefs.GetInt("SelectedMap"));
+        SetMapInfo((Define.StageType)PlayerPrefs.GetInt("SelectedMap"));
 
         Get<Button>((int)Buttons.Back_Button).onClick.AddListener(OnClickBackButton);
         Get<Button>((int)Buttons.Play_Button).onClick.AddListener(OnClickPlayButton);
@@ -50,30 +50,30 @@ public class StageSelectScene_UI : SceneUI
             mapType = 0;
         PlayerPrefs.SetInt("SelectedMap", mapType);
 
-        SetMapInfo((Define.MapType)mapType);
+        SetMapInfo((Define.StageType)mapType);
     }
     void OnClickNextMapButton()
     {
         int mapType = PlayerPrefs.GetInt("SelectedMap");
         mapType++;
-        if (mapType >= (int)Define.MapType.MaxCount)
-            mapType = (int)Define.MapType.MaxCount - 1;
+        if (mapType >= (int)Define.StageType.MaxCount)
+            mapType = (int)Define.StageType.MaxCount - 1;
 
         PlayerPrefs.SetInt("SelectedMap", mapType);
 
-        SetMapInfo((Define.MapType)mapType);
+        SetMapInfo((Define.StageType)mapType);
     }
-    void SetMapInfo(Define.MapType mapType)
+    void SetMapInfo(Define.StageType mapType)
     {
         switch (mapType)
         {
-            case Define.MapType.map1:
+            case Define.StageType.Stage1:
                 break;
-            case Define.MapType.map2:
+            case Define.StageType.Stage2:
                 break;
-            case Define.MapType.map3:
+            case Define.StageType.Stage3:
                 break;
-            case Define.MapType.map4:
+            case Define.StageType.Stage4:
                 break;
             default:
                 break;

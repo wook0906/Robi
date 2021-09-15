@@ -27,32 +27,40 @@ public class MonsterSpawner : MonoBehaviour
         rightTopPos = new Vector2(horizontalSize * 0.5f, Camera.main.orthographicSize);
         radius = rightTopPos.magnitude * 5f;
         cam = Camera.main;
+        Define.StageType stageType = (Define.StageType)PlayerPrefs.GetInt("SelectedMap");
+        StageConfigData stageData =  Managers.Data.stageConfigDataDict[stageType];
 
-        StartCoroutine(SpawnMonster());
+        StartCoroutine(Wave(stageData));
     }
 
-    private IEnumerator SpawnMonster()
+    private IEnumerator Wave(StageConfigData stageData)
     {
-        yield return new WaitForSeconds(1f);
-        while(true)
+        for (int waveStep = 0; waveStep < stageData.waves.Length; waveStep++)
         {
-           
-            //GameObject enemyGO = Managers.Resource.Instantiate($"Creatures/Enemy/{(Define.MonsterType)Random.Range((int)Define.MonsterType.C01,(int)Define.MonsterType.MAX)}");
-            GameObject enemyGO = Managers.Resource.Instantiate($"Creatures/Enemy/F01");
-            Vector2 pos;
-            do
+            Managers.UI.GetSceneUI<GameScene_UI>().UpdateWaveLevelUI(waveStep + 1);
+            for (int monsterConfigIdx = 0; monsterConfigIdx < stageData.waves[waveStep].monsterConfigs.Length; monsterConfigIdx++)
             {
-                pos = player.transform.position + (Random.onUnitSphere * radius * 2f);
+                for (int j = 0; j < stageData.waves[waveStep].monsterConfigs[monsterConfigIdx].numOfSpawn; j++)
+                {
+                    //GameObject enemyGO = Managers.Resource.Instantiate($"Creatures/Enemy/{(Define.MonsterType)Random.Range((int)Define.MonsterType.C01,(int)Define.MonsterType.MAX)}");
+                    GameObject enemyGO = Managers.Resource.Instantiate($"Creatures/Enemy/{stageData.waves[waveStep].monsterConfigs[monsterConfigIdx].mobType}");
+                    Vector2 pos;
+                    do
+                    {
+                        pos = player.transform.position + (Random.onUnitSphere * radius * 2f);
+                    }
+                    while (pos.x > field.min.x &&
+                            pos.y > field.min.y &&
+                            pos.x < field.max.x &&
+                            pos.y < field.max.y);
+                    //pos += Vector3.right * radius;
+                    //pos = Quaternion.Euler(0f, 0f, Random.Range(0, 360)) * pos;
+                    enemyGO.transform.position = pos;
+                    Managers.Object.AddMonster(enemyGO.GetComponent<MonsterController>());
+                }
             }
-            while (pos.x > field.min.x &&
-                    pos.y > field.min.y &&
-                    pos.x < field.max.x &&
-                    pos.y < field.max.y);
-            //pos += Vector3.right * radius;
-            //pos = Quaternion.Euler(0f, 0f, Random.Range(0, 360)) * pos;
-            enemyGO.transform.position = pos;
-            Managers.Object.AddMonster(enemyGO.GetComponent<MonsterController>());
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitUntil(() => Managers.Object.IsAllMonsterDead());
+            yield return new WaitForSeconds(stageData.termBetweenWaveToWave);
         }
     }
 

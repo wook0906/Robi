@@ -17,6 +17,8 @@ public class DataManager
 
     public Dictionary<Define.SkillGrade, PassiveSkillCoefficientsData> passiveSkillCoefficientDict { get; private set; } = new Dictionary<SkillGrade, PassiveSkillCoefficientsData>();
 
+    public Dictionary<Define.StageType, StageConfigData> stageConfigDataDict { get; private set; } = new Dictionary<StageType, StageConfigData>();
+
     public void Init()
     {
         for (SkillGrade i = SkillGrade.Common; i < SkillGrade.Max; i++)
@@ -36,6 +38,10 @@ public class DataManager
         for (MonsterType monsterType = MonsterType.C01; monsterType < MonsterType.MAX; monsterType++)
         {
             monsterStatDict.Add(monsterType, Managers.Resource.Load<MonsterStatData>($"Data/ScriptableObject/MonsterStats/{monsterType}"));
+        }
+        for (StageType i = StageType.Stage1; i < StageType.MaxCount; i++)
+        {
+            stageConfigDataDict.Add(i, Managers.Resource.Load<StageConfigData>($"Data/ScriptableObject/StageConfigDatas/{i}"));
         }
     }
 

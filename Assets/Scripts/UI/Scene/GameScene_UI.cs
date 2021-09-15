@@ -8,14 +8,14 @@ public class GameScene_UI : SceneUI
 {
     //DateTime GameStartTime;
     double timer;
-    Text timerText;
+    Text waveLevelText;
     Image hpBar;
     Image expBar;
     Text levelText;
 
     enum Texts
     {
-        Timer_Text,
+        WaveLevel_Text,
         Level_Text,
     }
     enum Images
@@ -47,8 +47,7 @@ public class GameScene_UI : SceneUI
         expBar.fillAmount = 0f;
         levelText = GetText((int)Texts.Level_Text);
         levelText.text = "1";
-        timerText = GetText((int)Texts.Timer_Text);
-        timerText.text = "00:00";
+        waveLevelText = GetText((int)Texts.WaveLevel_Text);
 
     }
     void OnClickPauseButton()
@@ -72,10 +71,10 @@ public class GameScene_UI : SceneUI
         if(levelText)
             GetText((int)Texts.Level_Text).text = level.ToString();
     }
-    private void Update()
+    public void UpdateWaveLevelUI(int level)
     {
-        timer += Time.deltaTime;
-        timerText.text = System.TimeSpan.FromSeconds(timer).ToString(@"mm\:ss");
+        if (waveLevelText)
+            GetText((int)Texts.WaveLevel_Text).text = level.ToString();
     }
 
 }

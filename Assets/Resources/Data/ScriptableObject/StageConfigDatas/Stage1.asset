@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3371b92c385dffd4f843c0bacbd0b14f, type: 3}
+  m_Name: Stage1
+  m_EditorClassIdentifier: 
+  waves:
+  - monsterConfigs:
+    - mobType: 0
+      numOfSpawn: 19
+  - monsterConfigs:
+    - mobType: 0
+      numOfSpawn: 43
+  - monsterConfigs:
+    - mobType: 0
+      numOfSpawn: 72
+  - monsterConfigs:
+    - mobType: 14
+      numOfSpawn: 1
+  - monsterConfigs:
+    - mobType: 7
+      numOfSpawn: 20
+    - mobType: 0
+      numOfSpawn: 60
+  - monsterConfigs:
+    - mobType: 0
+      numOfSpawn: 86
+    - mobType: 7
+      numOfSpawn: 50
+  - monsterConfigs:
+    - mobType: 0
+      numOfSpawn: 57
+    - mobType: 7
+      numOfSpawn: 114
+  - monsterConfigs:
+    - mobType: 21
+      numOfSpawn: 1
+  - monsterConfigs:
+    - mobType: 1
+      numOfSpawn: 40
+    - mobType: 0
+      numOfSpawn: 113
+  - monsterConfigs:
+    - mobType: 1
+      numOfSpawn: 60
+    - mobType: 7
+      numOfSpawn: 116
+  - monsterConfigs:
+    - mobType: 0
+      numOfSpawn: 80
+    - mobType: 1
+      numOfSpawn: 40
+    - mobType: 7
+      numOfSpawn: 80
+  - monsterConfigs:
+    - mobType: 15
+      numOfSpawn: 1
+  termBetweenWaveToWave: 3

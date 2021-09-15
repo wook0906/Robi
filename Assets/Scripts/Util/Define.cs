@@ -62,12 +62,12 @@ public static class Define
         Short,
         Long
     }
-    public enum MapType
+    public enum StageType
     {
-        map1,
-        map2,
-        map3,
-        map4,
+        Stage1,
+        Stage2,
+        Stage3,
+        Stage4,
         MaxCount
     }
     public enum Sound

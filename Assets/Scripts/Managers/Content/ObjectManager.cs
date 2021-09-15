@@ -51,4 +51,12 @@ public class ObjectManager
         _monsters.Clear();
         _monstersInScreen.Clear();
     }
+    public bool IsAllMonsterDead()
+    {
+        if(_monsters.Count  ==  0 && _monstersInScreen.Count == 0)
+        {
+            return true;
+        }
+        return false;
+    }
 }
