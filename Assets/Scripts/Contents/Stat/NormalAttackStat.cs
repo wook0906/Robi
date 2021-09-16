@@ -89,6 +89,8 @@ public class NormalAttackStat : SkillStat
     public override void InitSkillStat(Define.SkillType skillType)
     {
         base.InitSkillStat(skillType);
+
+       //TODO : 상수값 Dictionary로 빼자... 야발...
         _commonDamageCoefficients = Damage * 0.1f;
         _rareDamageCoefficients = Damage * 0.15f;
         _uniqueDamageCoefficients = Damage * 0.2f;

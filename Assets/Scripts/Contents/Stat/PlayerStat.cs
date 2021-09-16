@@ -131,8 +131,16 @@ public class PlayerStat : CreatureStat
 
     public void SetStat()
     {
-        Dictionary<Define.CharacterType, CharacterStatData> dict = Managers.Data.characterStatDict;
-        CharacterStatData stat = dict[(Define.CharacterType)System.Enum.Parse(typeof(Define.CharacterType), name)];
+        Dictionary<Define.CharacterType, CharacterStatData> dict = new Dictionary<Define.CharacterType, CharacterStatData>(Managers.Data.characterStatDict);
+        CharacterStatData stat = dict[Managers.Data.SelectedCharacter];
+        CharacterStatUpGradeInfo statUpgradeInfo = Managers.Data.charStatUpgradeDict[Managers.Data.SelectedCharacter];
+
+        stat._maxHp += (int)(statUpgradeInfo.HpUpgrade * (stat._maxHp * 0.1f));
+        stat._atk += statUpgradeInfo.AtkUpgrade * (stat._atk * 0.025f);
+        stat._def += (int)(statUpgradeInfo.DefUpgrade * (stat._def * 0.1f));
+        stat._moveSpeed += statUpgradeInfo.MoveSpeedUpgrade * 0.05f;
+        stat._itemRootingRangeRadius += statUpgradeInfo.RootRangeUpgrade * 0.05f;
+        stat._expAcquirePercentage += statUpgradeInfo.ExpUpgrade * 0.05f;
 
         _hp = stat._maxHp;
         _maxHp = stat._maxHp;
