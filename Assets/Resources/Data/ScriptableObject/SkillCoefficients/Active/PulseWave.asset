@@ -13,26 +13,33 @@ MonoBehaviour:
   m_Name: PulseWave
   m_EditorClassIdentifier: 
   common:
-    damage: 0.03
+    damage: 0.01
     explostionDamage: 0
+    continuousDamage: 0
     coolTime: 0
     explosionRange: 0
     attackRange: 0
     duration: 0
     hpRecovery: 0
+    AdditionalProjectilePerBurst: 0
   rare:
+    damage: 0.05
+    explostionDamage: 0
+    continuousDamage: 0
+    coolTime: 0
+    explosionRange: 0
+    attackRange: 0
+    duration: 0
+    hpRecovery: 0
+    AdditionalProjectilePerBurst: 0
+  unique:
     damage: 0.08
     explostionDamage: 0
+    continuousDamage: 0
     coolTime: 0.01
     explosionRange: 0
     attackRange: 0
     duration: 0
     hpRecovery: 0
-  unique:
-    damage: 0.1
-    explostionDamage: 0.02
-    coolTime: 0
-    explosionRange: 0
-    attackRange: 0
-    duration: 0
-    hpRecovery: 0
+    AdditionalProjectilePerBurst: 0
+  ProjectileAddLevel: 030000000500000007000000

@@ -15,24 +15,31 @@ MonoBehaviour:
   common:
     damage: 0.03
     explostionDamage: 0
+    continuousDamage: 0
     coolTime: 0
     explosionRange: 0
     attackRange: 0
     duration: 0
     hpRecovery: 0
+    AdditionalProjectilePerBurst: 0
   rare:
     damage: 0.08
     explostionDamage: 0
-    coolTime: 0.01
-    explosionRange: 0
-    attackRange: 0
-    duration: 0
-    hpRecovery: 0
-  unique:
-    damage: 0.1
-    explostionDamage: 0.02
+    continuousDamage: 0
     coolTime: 0
     explosionRange: 0
     attackRange: 0
-    duration: 0
+    duration: 0.1
     hpRecovery: 0
+    AdditionalProjectilePerBurst: 0
+  unique:
+    damage: 0.1
+    explostionDamage: 0
+    continuousDamage: 0
+    coolTime: 0.01
+    explosionRange: 0
+    attackRange: 0.02
+    duration: 0.3
+    hpRecovery: 0
+    AdditionalProjectilePerBurst: 0
+  ProjectileAddLevel: 
