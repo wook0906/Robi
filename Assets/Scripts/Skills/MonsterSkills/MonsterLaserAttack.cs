@@ -9,6 +9,7 @@ public class MonsterLaserAttack : AttackSkillBase
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
         _type = SkillType.MonsterLaser;
+        Stat = gameObject.AddComponent<SkillStat>();
         base.Init(owner, muzzleTransform, parent);
         Stat.InitSkillStat(_type);
         target = MonsterController.target;

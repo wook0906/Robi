@@ -111,8 +111,8 @@ public class RangedMonsterController : MonsterController
 
         if (IsPlayerInAttackRange())
             State = Define.CreatureState.Attack;
-        else if (Vector3.Distance(transform.position, target.transform.position) >= stat.DetectRange)
-            State = Define.CreatureState.Move;
+        //else if (Vector3.Distance(transform.position, target.transform.position) >= stat.DetectRange)
+        //    State = Define.CreatureState.Move;
     }
 
     public void OnHit(GameObject target, Projectile projectile)

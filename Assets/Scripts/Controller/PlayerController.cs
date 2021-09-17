@@ -139,11 +139,11 @@ public class PlayerController : BaseController
 
         foreach (var item in attackSkills)
         {
-            if (item.Type == SkillType.NuclearBomb)
-            {
-                _attackSkillDispatcher.Add(item.Stat.CoolTime, item);
-                continue;
-            }
+            //if (item.Type == SkillType.NuclearBomb)
+            //{
+            //    _attackSkillDispatcher.Add(item.Stat.CoolTime, item);
+            //    continue;
+            //}
             _attackSkillDispatcher.Add(0f, item);
         }
 

@@ -16,8 +16,8 @@ public class MonsterStatDataEditor : Editor
         statData._def = EditorGUILayout.IntField("DEF", statData._def);
         statData._moveSpeed = EditorGUILayout.FloatField("Move Speed", statData._moveSpeed);
         statData._attackRange = EditorGUILayout.FloatField("Attack Range", statData._attackRange);
-        statData._detectRange = EditorGUILayout.FloatField("Detect Range", statData._detectRange);
-        statData._exp = EditorGUILayout.IntField("Exp", statData._exp);
+        //statData._detectRange = EditorGUILayout.FloatField("Detect Range", statData._detectRange);
+        //statData._exp = EditorGUILayout.IntField("Exp", statData._exp);
         statData._useSkill = EditorGUILayout.Toggle("Use Skill", statData._useSkill);
 
         if (statData._useSkill)

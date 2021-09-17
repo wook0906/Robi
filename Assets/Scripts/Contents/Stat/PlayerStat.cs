@@ -6,6 +6,12 @@ using UnityEngine;
 
 public class PlayerStat : CreatureStat
 {
+
+    float a = 0.9f;
+    float b = 1;
+    float X = 10;
+
+
     [SerializeField]
     protected int _level;
 
@@ -59,6 +65,7 @@ public class PlayerStat : CreatureStat
                 return;
 
             level++;
+            Managers.Object.MonsterLevelUp(level);
 
             _totalExp = RenewTotalExp(level);
             if (level != Level)
@@ -195,11 +202,9 @@ public class PlayerStat : CreatureStat
     //}
     int RenewTotalExp(int level)
     {
-        int a = 1;
-        int b = 1;
-        int c = 0;
-        int X = level * 10;
-        return a * (X * X) + b * X + c;
+        b += 0.1f;
+        X += 5;
+        return Mathf.RoundToInt(a * (X * X) + b * X + Level);
     }
 }
 

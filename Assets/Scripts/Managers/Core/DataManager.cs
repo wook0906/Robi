@@ -12,6 +12,8 @@ public class DataManager
 {
     public static int charHDAStatCoefficient = 1;
     public static int charElseStatCoefficient = 40;
+    
+    
     public CharacterType SelectedCharacter
     {
         get 

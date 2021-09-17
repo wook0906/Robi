@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5139380627354859539}
   - component: {fileID: 3685988362520701215}
   - component: {fileID: 347833132599012650}
-  - component: {fileID: 3839311969256683414}
+  - component: {fileID: 2441796897947950043}
   m_Layer: 9
   m_Name: NormalAttackProjectile
   m_TagString: Untagged
@@ -4840,7 +4840,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71966f191514445b1a3da90d35572d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &3839311969256683414
+--- !u!54 &2441796897947950043
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

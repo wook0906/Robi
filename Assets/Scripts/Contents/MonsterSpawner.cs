@@ -14,6 +14,7 @@ public class MonsterSpawner : MonoBehaviour
 
     Field field;
 
+
     private IEnumerator Start()
     {
         Managers.Game.MonsterSpawner = this;
@@ -25,19 +26,22 @@ public class MonsterSpawner : MonoBehaviour
         field = GameObject.FindGameObjectWithTag("Field").GetComponent<Field>();
         float horizontalSize = Camera.main.orthographicSize * 2f * ((float)Screen.width / Screen.height);
         rightTopPos = new Vector2(horizontalSize * 0.5f, Camera.main.orthographicSize);
-        radius = rightTopPos.magnitude * 5f;
+        radius = rightTopPos.magnitude * 2.5f;
         cam = Camera.main;
         Define.StageType stageType = (Define.StageType)PlayerPrefs.GetInt("SelectedMap");
         StageConfigData stageData =  Managers.Data.stageConfigDataDict[stageType];
-
         StartCoroutine(Wave(stageData));
     }
 
     private IEnumerator Wave(StageConfigData stageData)
     {
+        yield return new WaitForSeconds(stageData.termBetweenWaveToWave);
+
         for (int waveStep = 0; waveStep < stageData.waves.Length; waveStep++)
         {
             Managers.UI.GetSceneUI<GameScene_UI>().UpdateWaveLevelUI(waveStep + 1);
+            GameScene gameScene = Managers.Scene.CurrentScene as GameScene;
+            gameScene.currentWaveLevel = waveStep;
             for (int monsterConfigIdx = 0; monsterConfigIdx < stageData.waves[waveStep].monsterConfigs.Length; monsterConfigIdx++)
             {
                 for (int j = 0; j < stageData.waves[waveStep].monsterConfigs[monsterConfigIdx].numOfSpawn; j++)
@@ -55,6 +59,7 @@ public class MonsterSpawner : MonoBehaviour
                             pos.y < field.max.y);
                     //pos += Vector3.right * radius;
                     //pos = Quaternion.Euler(0f, 0f, Random.Range(0, 360)) * pos;
+                   
                     enemyGO.transform.position = pos;
                     Managers.Object.AddMonster(enemyGO.GetComponent<MonsterController>());
                 }

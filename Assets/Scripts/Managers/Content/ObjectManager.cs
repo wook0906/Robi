@@ -59,4 +59,24 @@ public class ObjectManager
         }
         return false;
     }
+
+    public void MonsterLevelUp(int playerLevel)
+    {
+        foreach (var item in _monsters)
+        {
+            if (item)
+            {
+                MonsterStat stat = item.Stat as MonsterStat;
+                stat.LevelUp(playerLevel);
+            }
+        }
+        foreach (var item in _monstersInScreen)
+        {
+            if (item)
+            {
+                MonsterStat stat = item.Stat as MonsterStat;
+                stat.LevelUp(playerLevel);
+            }
+        }
+    }
 }

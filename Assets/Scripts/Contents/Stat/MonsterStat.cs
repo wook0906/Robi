@@ -10,8 +10,8 @@ public class MonsterStat : CreatureStat
     protected int _damage;
     [SerializeField]
     protected float _defense;
-    [SerializeField]
-    protected float _detectRange;
+    //[SerializeField]
+    //protected float _detectRange;
     [SerializeField]
     protected float _attackRange;
     [SerializeField]
@@ -30,6 +30,8 @@ public class MonsterStat : CreatureStat
     protected bool _useSuicideBombing = false;
     bool _isOnImmortal;
 
+    public Define.MonsterType mobType;
+
 
     public override float MaxHp
     {
@@ -43,15 +45,21 @@ public class MonsterStat : CreatureStat
     public override float Hp
     {
         get { return _hp; }
-        set { _hp = value; }
+        set 
+        {
+            if (value > MaxHp)
+                _hp = MaxHp;
+            else
+                _hp = value;
+        }
     }
     public int Damage { get { return _damage; } set { _damage = value; } }
     public float Defense { get { return _defense; } set { _defense = value; } }
-    public float DetectRange { get { return _detectRange; } set { _detectRange = value; } }
+    //public float DetectRange { get { return _detectRange; } set { _detectRange = value; } }
     public float AttackRange { get { return _attackRange; } set { _attackRange = value; } }
     public float AttackInterval { get { return _attackInterval; } set { _attackInterval = value; } }
     public bool IsOnImmortal { get { return _isOnImmortal; } set { _isOnImmortal = value; } }
-    public int Exp { get { return _exp; } set { _exp = value; } }
+    //public int Exp { get { return _exp; } set { _exp = value; } }
     public float ShieldHp 
     { 
         get 
@@ -70,36 +78,41 @@ public class MonsterStat : CreatureStat
 
     private void Start()
     {
-        InitStat();
+        GameScene scene = Managers.Scene.CurrentScene as GameScene;
+        InitStat(scene.player.GetComponent<PlayerStat>().Level);
     }
 
-    public void InitStat()
+    public void InitStat(int playerLevel)
     {
         //Dictionary<int, Data.CreatureStat> dict = Managers.Data.MonsterStatDict;
         Dictionary<Define.MonsterType, MonsterStatData> dict = Managers.Data.monsterStatDict;
-        MonsterStatData stat = dict[(Define.MonsterType)System.Enum.Parse(typeof(Define.MonsterType),name)];
+        mobType = (Define.MonsterType)System.Enum.Parse(typeof(Define.MonsterType), name);
+        MonsterStatData originStat = dict[mobType];
         owner = GetComponent<BaseController>();
-        
-        MaxHp = stat._maxHp;
-        _hp = _maxHp;
-        _damage = stat._atk;
-        _defense = stat._def;
-        _moveSpeed = stat._moveSpeed;
-        _attackRange = stat._attackRange;
-        _detectRange = stat._detectRange;
-        _exp = stat._exp;
-        _useBerserk = stat._berserk;
-        _useSuicideBombing = stat._suicideBombing;
 
-        _normalAttack = stat.normalAttack;
-        _launchBomb = stat.launchBomb;
-        _missile = stat.missile;
-        _immortalDuration = stat._immortalDuration;
-        _immortalCoolTime = stat._immortalCoolTime;
+        MaxHp = originStat._maxHp;
+        MaxHp += (MaxHp * 0.1f) * playerLevel;
+        _hp = _maxHp;
+        _damage = originStat._atk;
+        Damage += Mathf.RoundToInt((Damage * 0.1f) * playerLevel);
+
+        _defense = originStat._def;
+        _moveSpeed = originStat._moveSpeed;
+        _attackRange = originStat._attackRange;
+        //_detectRange = stat._detectRange;
+        //_exp = stat._exp;
+        _useBerserk = originStat._berserk;
+        _useSuicideBombing = originStat._suicideBombing;
+
+        _normalAttack = originStat.normalAttack;
+        _launchBomb = originStat.launchBomb;
+        _missile = originStat.missile;
+        _immortalDuration = originStat._immortalDuration;
+        _immortalCoolTime = originStat._immortalCoolTime;
 
 
         #region skill Entry
-        if (stat._immortal)
+        if (originStat._immortal)
         {
             GameObject go = new GameObject() { name = "MonsterImmortal" };
             go.transform.parent = transform;
@@ -107,7 +120,7 @@ public class MonsterStat : CreatureStat
             MonsterImmortalShield immortal = go.AddComponent<MonsterImmortalShield>();
             immortal.Init(owner, null, null);
         }
-        if (stat._shield)
+        if (originStat._shield)
         {
             GameObject go = new GameObject() { name = "MonsterShield" };
             go.transform.parent = transform;
@@ -116,7 +129,7 @@ public class MonsterStat : CreatureStat
             shield.Init(owner, null, null);
         }
 
-        if (stat._normalAttack)
+        if (originStat._normalAttack)
         {
             GameObject go = new GameObject() { name = "MonsterNormalAttack" };
             go.transform.parent = transform;
@@ -125,7 +138,7 @@ public class MonsterStat : CreatureStat
             monsterNormalAttack.Init(owner, null, null);
             owner.AttackSkillDispatcher.Add(0f, monsterNormalAttack);
         }
-        if (stat._missile)
+        if (originStat._missile)
         {
             GameObject go = new GameObject() { name = "MonsterMissile" };
             go.transform.parent = transform;
@@ -134,7 +147,7 @@ public class MonsterStat : CreatureStat
             monsterMissile.Init(owner, null, null);
             owner.AttackSkillDispatcher.Add(0f, monsterMissile);
         }
-        if (stat._laser)
+        if (originStat._laser)
         {
             GameObject go = new GameObject() { name = "MonsterLaser" };
             go.transform.parent = transform;
@@ -143,7 +156,7 @@ public class MonsterStat : CreatureStat
             monsterLaser.Init(owner, null, null);
             owner.AttackSkillDispatcher.Add(0f, monsterLaser);
         }
-        if (stat._launchBomb)
+        if (originStat._launchBomb)
         {
             GameObject go = new GameObject() { name = "MonsterLaunchBomb" };
             go.transform.parent = transform;
@@ -152,7 +165,7 @@ public class MonsterStat : CreatureStat
             monsterLaunchBomb.Init(owner, null, null);
             owner.AttackSkillDispatcher.Add(0f, monsterLaunchBomb);
         }
-        if (stat._bombing)
+        if (originStat._bombing)
         {
             GameObject go = new GameObject() { name = "MonsterBombing" };
             go.transform.parent = transform;
@@ -162,11 +175,6 @@ public class MonsterStat : CreatureStat
             owner.AttackSkillDispatcher.Add(0f, monsterBombing);
         }
         #endregion
-
-    }
-
-    public void SetStat()
-    {
 
     }
 
@@ -206,7 +214,11 @@ public class MonsterStat : CreatureStat
         PlayerStat playerStat = attacker.GetComponent<PlayerStat>();
         if(playerStat != null)
         {
-            float resultExp = (Exp * playerStat.ExpAssist) * (1f + playerStat.GetComponent<PlayerController>().passiveSkill.skillDict[Define.SkillType.ExpIncrease]);
+            Define.StageType stageType = (Define.StageType)PlayerPrefs.GetInt("SelectedMap");
+            StageConfigData stageData = Managers.Data.stageConfigDataDict[stageType];
+            GameScene gameScene = Managers.Scene.CurrentScene as GameScene;
+
+            float resultExp = (stageData.waves[gameScene.currentWaveLevel].expPerMonster * playerStat.ExpAssist) * (1f + playerStat.GetComponent<PlayerController>().passiveSkill.skillDict[Define.SkillType.ExpIncrease]);
 
             Debug.Log($"Get Exp:{resultExp}");
 
@@ -214,5 +226,11 @@ public class MonsterStat : CreatureStat
         }
         Managers.Object.RemoveMonster(GetComponent<MonsterController>());
         Destroy(gameObject);
+    }
+    public void LevelUp(int playerLevel)
+    {
+        MaxHp = Managers.Data.monsterStatDict[mobType]._maxHp + (Managers.Data.monsterStatDict[mobType]._maxHp * 0.1f) * playerLevel;
+        Hp += (MaxHp * 0.1f) * playerLevel;
+        Damage = Managers.Data.monsterStatDict[mobType]._atk + Mathf.RoundToInt((Managers.Data.monsterStatDict[mobType]._atk * 0.1f) * playerLevel);
     }
 }

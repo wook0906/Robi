@@ -192,15 +192,15 @@ public class LevelUp_Popup : PopupUI
                 player.attackSkills.Add(PulseWave);
                 player.AttackSkillDispatcher.Add(1f, PulseWave);
                 break;
-            case Define.SkillType.NuclearBomb:
-                go = new GameObject() { name = "NuclearBomb" };
-                go.transform.parent = player.transform;
-                go.transform.localPosition = Vector3.zero;
-                NuclearBombAttack NuclearBomb = go.AddComponent<NuclearBombAttack>();
-                NuclearBomb.Init(player, null, null);
-                player.attackSkills.Add(NuclearBomb);
-                player.AttackSkillDispatcher.Add(1f, NuclearBomb);
-                break;
+            //case Define.SkillType.NuclearBomb:
+            //    go = new GameObject() { name = "NuclearBomb" };
+            //    go.transform.parent = player.transform;
+            //    go.transform.localPosition = Vector3.zero;
+            //    NuclearBombAttack NuclearBomb = go.AddComponent<NuclearBombAttack>();
+            //    NuclearBomb.Init(player, null, null);
+            //    player.attackSkills.Add(NuclearBomb);
+            //    player.AttackSkillDispatcher.Add(1f, NuclearBomb);
+            //    break;
             case Define.SkillType.PlayerBombing:
                 go = new GameObject() { name = "Bombing" };
                 go.transform.parent = player.transform;

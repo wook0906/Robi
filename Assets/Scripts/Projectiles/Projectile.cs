@@ -143,4 +143,9 @@ public class Projectile : MonoBehaviour
             return;
         Destroy(gameObject);
     }
+
+    void GraduallyDisappear()
+    {
+        //스케일 점점 줄이면서 사라지게
+    }
 }

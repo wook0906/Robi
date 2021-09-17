@@ -12,6 +12,7 @@ public class StageConfigData : ScriptableObject
 [Serializable]
 public class Wave
 {
+    public int expPerMonster;
     public MonsterConfig[] monsterConfigs;
 }
 [Serializable]

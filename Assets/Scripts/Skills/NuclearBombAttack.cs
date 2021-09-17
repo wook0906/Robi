@@ -10,7 +10,7 @@ public class NuclearBombAttack : AttackSkillBase
     NuclearSkillStat nuclearStat;
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
-        _type = SkillType.NuclearBomb;
+        //type = SkillType.NuclearBomb;
         nuclearStat = gameObject.AddComponent<NuclearSkillStat>(); 
         base.Init(owner, muzzleTransform, parent);
         nuclearStat.InitSkillStat(_type);

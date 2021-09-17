@@ -9,6 +9,8 @@ public class GameScene : BaseScene
     GameObject sceneUI;
     GameObject monsterSpawner;
 
+    public int currentWaveLevel = 0; 
+
     protected override void Init()
     {
         base.Init();

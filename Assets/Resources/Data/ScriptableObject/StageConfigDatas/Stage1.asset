@@ -13,54 +13,66 @@ MonoBehaviour:
   m_Name: Stage1
   m_EditorClassIdentifier: 
   waves:
-  - monsterConfigs:
+  - expPerMonster: 40
+    monsterConfigs:
     - mobType: 0
       numOfSpawn: 19
-  - monsterConfigs:
+  - expPerMonster: 60
+    monsterConfigs:
     - mobType: 0
       numOfSpawn: 43
-  - monsterConfigs:
+  - expPerMonster: 80
+    monsterConfigs:
     - mobType: 0
       numOfSpawn: 72
-  - monsterConfigs:
+  - expPerMonster: 2837
+    monsterConfigs:
     - mobType: 14
       numOfSpawn: 1
-  - monsterConfigs:
+  - expPerMonster: 800
+    monsterConfigs:
     - mobType: 7
       numOfSpawn: 20
     - mobType: 0
       numOfSpawn: 60
-  - monsterConfigs:
+  - expPerMonster: 1200
+    monsterConfigs:
     - mobType: 0
       numOfSpawn: 86
     - mobType: 7
       numOfSpawn: 50
-  - monsterConfigs:
+  - expPerMonster: 1600
+    monsterConfigs:
     - mobType: 0
       numOfSpawn: 57
     - mobType: 7
       numOfSpawn: 114
-  - monsterConfigs:
+  - expPerMonster: 38867
+    monsterConfigs:
     - mobType: 21
       numOfSpawn: 1
-  - monsterConfigs:
+  - expPerMonster: 2500
+    monsterConfigs:
     - mobType: 1
       numOfSpawn: 40
     - mobType: 0
       numOfSpawn: 113
-  - monsterConfigs:
+  - expPerMonster: 3000
+    monsterConfigs:
     - mobType: 1
       numOfSpawn: 60
     - mobType: 7
       numOfSpawn: 116
-  - monsterConfigs:
+  - expPerMonster: 3500
+    monsterConfigs:
     - mobType: 0
       numOfSpawn: 80
     - mobType: 1
       numOfSpawn: 40
     - mobType: 7
       numOfSpawn: 80
-  - monsterConfigs:
+  - expPerMonster: 0
+    monsterConfigs:
     - mobType: 15
       numOfSpawn: 1
   termBetweenWaveToWave: 3

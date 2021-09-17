@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlackHole
   m_EditorClassIdentifier: 
   SkillType: 11
-  _coolTime: 2
+  _coolTime: 20
   _damage: 1
   _attackRange: 1
   _numOfProjectilePerBurst: 1

@@ -113,7 +113,7 @@ public static class Define
         PlayerMissile,
         Napalm,
         PulseWave,
-        NuclearBomb,
+        //NuclearBomb,
         PlayerBombing,
         PlayerShield,
         Drone,

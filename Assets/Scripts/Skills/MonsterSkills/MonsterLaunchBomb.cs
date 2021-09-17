@@ -8,7 +8,7 @@ public class MonsterLaunchBomb : AttackSkillBase
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
         _type = SkillType.MonsterLaunchBomb;
-        //gameObject.AddComponent<SkillStat>().SetStat(_type);
+        Stat = gameObject.AddComponent<SkillStat>();
         base.Init(owner, muzzleTransform, parent);
         Stat.InitSkillStat(_type);
         _prefab = Resources.Load<GameObject>("Prefabs/Projectiles/NormalAttackProjectile");

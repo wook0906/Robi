@@ -12,9 +12,9 @@ public class MonsterStatData : ScriptableObject
     public int _def;
     public float _moveSpeed;
     public float _attackRange;
-    [Tooltip("0 이면 무한대")]
-    public float _detectRange;
-    public int _exp;
+    //[Tooltip("0 이면 무한대")]
+    //public float _detectRange;
+    //public int _exp;
 
     public bool _useSkill;
     public bool _normalAttack;

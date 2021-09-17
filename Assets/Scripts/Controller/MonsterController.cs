@@ -12,12 +12,18 @@ public class MonsterController : BaseController
 
     protected Vector3 chaseStartDir;
 
-    MonsterStat stat;
+    Rigidbody rigidBody;
+
+    float knockbackTimer;
+
+    MonsterStat Stat;
+
     private void Start()
     {
-        _stat = gameObject.GetOrAddComponent<MonsterStat>();
-        stat = _stat as MonsterStat;
+        Stat = gameObject.GetOrAddComponent<MonsterStat>();
+        _stat = Stat;
         State = Define.CreatureState.Move;
+        rigidBody = GetComponent<Rigidbody>();
         Init();
     }
 
@@ -71,14 +77,24 @@ public class MonsterController : BaseController
                 if (shield.ShieldLevel > 0)
                     shield.ShieldLevel--;
                 else
-                    collision.GetComponent<CreatureStat>().OnAttacked(this, stat.Damage);
+                    collision.GetComponent<CreatureStat>().OnAttacked(this, Stat.Damage);
             }
             else
             {
-                collision.GetComponent<CreatureStat>().OnAttacked(this, stat.Damage);
+                collision.GetComponent<CreatureStat>().OnAttacked(this, Stat.Damage);
             }
-            Managers.Object.RemoveMonster(this);
-            Destroy(gameObject);
+
+            if (Stat.mobType >= Define.MonsterType.EC01 &&
+                Stat.mobType <= Define.MonsterType.EF07)
+            {
+                moveDir = (transform.position - target.transform.position).normalized;
+                State = Define.CreatureState.Knockback;
+            }
+            else
+            {
+                Managers.Object.RemoveMonster(this);
+                Destroy(gameObject);
+            }
         }
     }
 
@@ -126,25 +142,45 @@ public class MonsterController : BaseController
     }
     protected virtual void Move()
     {
-        MonsterStat stat = _stat as MonsterStat;
-        transform.position += chaseStartDir * stat.MoveSpeed * Time.deltaTime;
+        MonsterStat stat = base._stat as MonsterStat;
+        //transform.position += chaseStartDir * stat.MoveSpeed * Time.deltaTime;
+        //rigidBody.MovePosition(transform.position + chaseStartDir * stat.MoveSpeed * Time.deltaTime);
         transform.rotation = Quaternion.LookRotation(chaseStartDir, Vector3.back);
-        
-        if (Vector3.Distance(transform.position, target.transform.position) <= stat.DetectRange)
-        {
-            State = Define.CreatureState.Chase;
-        }
+        rigidBody.velocity = Vector3.zero;
+
+        //if (Vector3.Distance(transform.position, target.transform.position) <= stat.DetectRange)
+        //{
+        State = Define.CreatureState.Chase;
+        //}
     }
 
     protected virtual void Chase()
     {
-        MonsterStat stat = _stat as MonsterStat;
+        MonsterStat stat = base._stat as MonsterStat;
         moveDir = (target.transform.position - transform.position).normalized;
         transform.position += moveDir.normalized * stat.MoveSpeed * Time.deltaTime;
+        rigidBody.velocity = Vector3.zero;
         transform.rotation = Quaternion.LookRotation(moveDir, Vector3.back);
 
-        if (Vector3.Distance(transform.position, target.transform.position) >= stat.DetectRange)
-            State = Define.CreatureState.Move;
+        //if (Vector3.Distance(transform.position, target.transform.position) >= stat.DetectRange)
+        //    State = Define.CreatureState.Move;
     }
-    
+    public override void Knockback()
+    {
+
+        MonsterStat stat = base._stat as MonsterStat;
+        transform.position += moveDir.normalized * stat.MoveSpeed * 10f * Time.deltaTime;
+        //rigidBody.MovePosition(transform.position + moveDir * stat.MoveSpeed * 10f * Time.deltaTime);
+        rigidBody.velocity = Vector3.zero;
+
+        //transform.rotation = Quaternion.LookRotation(moveDir, Vector3.back);
+        if (knockbackTimer >= 0.15f)
+        {
+            State = Define.CreatureState.Chase;
+            knockbackTimer = 0f;
+            return;
+        }
+        knockbackTimer += Time.deltaTime;
+    }
+
 }

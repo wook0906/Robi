@@ -5,10 +5,10 @@ using static Define;
 
 public class MonsterNormalAttack : AttackSkillBase
 {
-    
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
         _type = SkillType.MonsterNormal;
+        Stat = gameObject.AddComponent<SkillStat>();
         base.Init(owner, muzzleTransform, parent);
         Stat.InitSkillStat(_type);
         _prefab = Stat._bulletPrefab;
