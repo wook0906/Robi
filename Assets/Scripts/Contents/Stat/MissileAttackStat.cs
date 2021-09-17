@@ -14,6 +14,9 @@ public class MissileAttackStat : SkillStat
     float _uniqueRangeCoefficients;
 
 
+    public List<int> addProjectileLevels;
+
+
     public override float CoolTime
     {
         get
@@ -96,19 +99,20 @@ public class MissileAttackStat : SkillStat
 
         ExplosionRange += (NumOfRare * _rareRangeCoefficients) + (NumOfUnique * _uniqueRangeCoefficients);
 
-        if (Level == 4 || Level == 7)
+        if (addProjectileLevels.Contains(Level))
             NumOfProjectilePerBurst++;
     }
     public override void InitSkillStat(Define.SkillType skillType)
     {
         base.InitSkillStat(skillType);
-        _commonDamageCoefficients = ExplosionDamage * 0.1f;
-        _rareDamageCoefficients = ExplosionDamage * 0.15f;
-        _uniqueDamageCoefficients = ExplosionDamage * 0.2f;
-        _uniqueCooltimeCoefficients = CoolTime * 0.05f;
-        _rareRangeCoefficients = AttackRange * 0.02f;
-        _uniqueRangeCoefficients = AttackRange * 0.05f;
-        
+        ActiveSkillCoefficientsData data = Managers.Data.activeSkillCoefficientDict[skillType];
+        _commonDamageCoefficients = ExplosionDamage * data.common.damage;
+        _rareDamageCoefficients = ExplosionDamage * data.rare.damage;
+        _uniqueDamageCoefficients = ExplosionDamage * data.unique.damage;
+        _uniqueCooltimeCoefficients = CoolTime * data.unique.coolTime;
+        _rareRangeCoefficients = AttackRange * data.rare.explosionRange;
+        _uniqueRangeCoefficients = AttackRange * data.unique.explosionRange;
+        addProjectileLevels = data.ProjectileAddLevel;
     }
 
 }

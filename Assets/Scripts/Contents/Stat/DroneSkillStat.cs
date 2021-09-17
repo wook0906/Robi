@@ -13,6 +13,9 @@ public class DroneSkillStat : SkillStat
     float _rareRangeCoefficients;
     float _uniqueRangeCoefficients;
 
+    public List<int> addDroneLevels;
+
+
     public override float CoolTime
     {
         get
@@ -88,17 +91,20 @@ public class DroneSkillStat : SkillStat
 
         AttackRange += (NumOfRare * _rareRangeCoefficients) + (NumOfUnique * _uniqueRangeCoefficients);
 
-        if (Level % 2 == 1)
+        if (addDroneLevels.Contains(Level))
             GetComponent<DroneSkill>().UseSkill();
     }
     public override void InitSkillStat(Define.SkillType skillType)
     {
         base.InitSkillStat(skillType);
-        _commonDamageCoefficients = Damage * 0.1f;
-        _rareDamageCoefficients = Damage * 0.15f;
-        _uniqueDamageCoefficients = Damage * 0.2f;
-        _uniqueCooltimeCoefficients = CoolTime * 0.03f;
-        _rareRangeCoefficients = AttackRange * 0.03f;
-        _uniqueRangeCoefficients = AttackRange * 0.05f;
+        ActiveSkillCoefficientsData data = Managers.Data.activeSkillCoefficientDict[skillType];
+
+        _commonDamageCoefficients = Damage * data.common.damage;
+        _rareDamageCoefficients = Damage * data.rare.damage;
+        _uniqueDamageCoefficients = Damage * data.unique.damage;
+        _uniqueCooltimeCoefficients = CoolTime * data.unique.coolTime;
+        _rareRangeCoefficients = AttackRange * data.rare.attackRange;
+        _uniqueRangeCoefficients = AttackRange * data.unique.attackRange;
+        addDroneLevels = data.ProjectileAddLevel;
     }
 }

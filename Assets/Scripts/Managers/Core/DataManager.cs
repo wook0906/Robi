@@ -56,6 +56,7 @@ public class DataManager
     public Dictionary<Define.MonsterType, MonsterStatData> monsterStatDict { get; private set; } = new Dictionary<MonsterType, MonsterStatData>();
 
     public Dictionary<Define.SkillGrade, PassiveSkillCoefficientsData> passiveSkillCoefficientDict { get; private set; } = new Dictionary<SkillGrade, PassiveSkillCoefficientsData>();
+    public Dictionary<Define.SkillType, ActiveSkillCoefficientsData> activeSkillCoefficientDict { get; private set; } = new Dictionary<SkillType, ActiveSkillCoefficientsData>();
 
     public Dictionary<Define.StageType, StageConfigData> stageConfigDataDict { get; private set; } = new Dictionary<StageType, StageConfigData>();
 
@@ -64,15 +65,20 @@ public class DataManager
 
     public void Init()
     {
-        for (SkillGrade i = SkillGrade.Common; i < SkillGrade.Max; i++)
+        for (SkillGrade skillType = SkillGrade.Common; skillType < SkillGrade.Max; skillType++)
         {
-            passiveSkillCoefficientDict.Add(i, Managers.Resource.Load<PassiveSkillCoefficientsData>($"Data/ScriptableObject/PassiveSkillCoefficients/{i}"));
+            passiveSkillCoefficientDict.Add(skillType, Managers.Resource.Load<PassiveSkillCoefficientsData>($"Data/ScriptableObject/SkillCoefficients/Passive/{skillType}"));
+        }
+        for (SkillType skillType = SkillType.PlayerNormal; skillType < SkillType.PlayerActiveSkillMax; skillType++)
+        {
+            activeSkillCoefficientDict.Add(skillType, Managers.Resource.Load<ActiveSkillCoefficientsData>($"Data/ScriptableObject/SkillCoefficients/Active/{skillType}"));
         }
 
         for (SkillType skillType = SkillType.PlayerNormal; skillType < SkillType.MonsterMax; skillType++)
         {
             skillStatDict.Add(skillType, Managers.Resource.Load<SkillStatData>($"Data/ScriptableObject/SkillStats/{skillType}"));
         }
+        
         for (CharacterType charType = CharacterType.Robi; charType < CharacterType.MAX; charType++)
         {
             if (!PlayerPrefs.HasKey($"{charType}_HpUpgrade"))

@@ -95,12 +95,13 @@ public class FlameThrowerAttackSkillStat : SkillStat
     public override void InitSkillStat(Define.SkillType skillType)
     {
         base.InitSkillStat(skillType);
-        _commonDamageCoefficients = Damage * 0.1f;
-        _rareDamageCoefficients = Damage * 0.15f;
-        _uniqueDamageCoefficients = Damage * 0.2f;
-        _uniqueCooltimeCoefficients = CoolTime * 0.02f;
-        _uniqueAngleCoefficients = AttackRange * 0.05f;
-        _rareDurationCoefficients = Duration * 0.02f;
-        _uniqueDurationCoefficients = Duration * 0.05f;
+        ActiveSkillCoefficientsData data = Managers.Data.activeSkillCoefficientDict[skillType];
+        _commonDamageCoefficients = Damage * data.common.damage;
+        _rareDamageCoefficients = Damage * data.rare.damage;
+        _uniqueDamageCoefficients = Damage * data.unique.damage;
+        _uniqueCooltimeCoefficients = CoolTime * data.unique.coolTime;
+        _uniqueAngleCoefficients = AttackRange * data.unique.attackRange;
+        _rareDurationCoefficients = Duration * data.rare.duration;
+        _uniqueDurationCoefficients = Duration * data.unique.duration;
     }
 }

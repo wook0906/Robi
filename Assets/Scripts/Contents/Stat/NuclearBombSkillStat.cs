@@ -19,9 +19,11 @@ public class NuclearSkillStat : SkillStat
     public override void InitSkillStat(Define.SkillType skillType)
     {
         base.InitSkillStat(skillType);
-        _commonCooltimeCoefficients = CoolTime * 0.02f;
-        _rareCooltimeCoefficients = CoolTime * 0.03f;
-        _uniqueCooltimeCoefficients = CoolTime * 0.05f;
+        ActiveSkillCoefficientsData data = Managers.Data.activeSkillCoefficientDict[skillType];
+
+        _commonCooltimeCoefficients = CoolTime * data.common.coolTime;
+        _rareCooltimeCoefficients = CoolTime * data.rare.coolTime;
+        _uniqueCooltimeCoefficients = CoolTime * data.unique.coolTime;
 
     }
 }

@@ -102,9 +102,13 @@ public class ShieldSkillStat : SkillStat
     public override void InitSkillStat(Define.SkillType skillType)
     {
         base.InitSkillStat(skillType);
-        _commonCoolTimeCoefficients = ExplosionDamage * 0.02f;
-        _rareCoolTimeCoefficients = ExplosionDamage * 0.03f;
-        _uniqueCooltimeCoefficients = CoolTime * 0.05f;
+        ActiveSkillCoefficientsData data = Managers.Data.activeSkillCoefficientDict[skillType];
+
+        _commonCoolTimeCoefficients = ExplosionDamage * data.common.coolTime;
+        _rareCoolTimeCoefficients = ExplosionDamage * data.rare.coolTime;
+        _uniqueCooltimeCoefficients = CoolTime * data.unique.coolTime;
+
+        hpRecoveryPerSec = data.unique.hpRecovery;
 
         owner = transform.root.GetComponent<BaseController>();
     }

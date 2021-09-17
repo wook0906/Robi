@@ -108,14 +108,16 @@ public class NapalmAttackSkillStat : SkillStat
     public override void InitSkillStat(Define.SkillType skillType)
     {
         base.InitSkillStat(skillType);
-        _commonDamageCoefficients = ExplosionDamage * 0.05f;
-        _rareDamageCoefficients = ExplosionDamage * 0.1f;
-        _uniqueDamageCoefficients = ExplosionDamage * 0.15f;
-        _uniqueCooltimeCoefficients = CoolTime * 0.02f;
-        _rareRangeCoefficients = ExplosionRange * 0.03f;
-        _uniqueRangeCoefficients = ExplosionRange * 0.05f;
-        _commonContinuousDamage = Damage * 0.03f;
-        _rareContinuousDamage = Damage * 0.05f;
-        _uniqueContinuousDamage = Damage * 0.08f;
+        ActiveSkillCoefficientsData data = Managers.Data.activeSkillCoefficientDict[skillType];
+
+        _commonDamageCoefficients = ExplosionDamage * data.common.explostionDamage;
+        _rareDamageCoefficients = ExplosionDamage * data.rare.explostionDamage;
+        _uniqueDamageCoefficients = ExplosionDamage * data.unique.explostionDamage;
+        _uniqueCooltimeCoefficients = CoolTime * data.unique.coolTime;
+        _rareRangeCoefficients = ExplosionRange * data.rare.explosionRange;
+        _uniqueRangeCoefficients = ExplosionRange * data.unique.explosionRange;
+        _commonContinuousDamage = Damage * data.common.continuousDamage;
+        _rareContinuousDamage = Damage * data.rare.continuousDamage;
+        _uniqueContinuousDamage = Damage * data.unique.continuousDamage;
     }
 }

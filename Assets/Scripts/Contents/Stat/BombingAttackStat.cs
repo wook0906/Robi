@@ -102,14 +102,15 @@ public class BombingAttackStat : SkillStat
     public override void InitSkillStat(Define.SkillType skillType)
     {
         base.InitSkillStat(skillType);
-        _commonDamageCoefficients = ExplosionDamage * 0.1f;
-        _rareDamageCoefficients = ExplosionDamage * 0.15f;
-        _uniqueDamageCoefficients = ExplosionDamage * 0.2f;
-        _rareCooltimeCoefficients = CoolTime * 0.03f;
-        _uniqueCooltimeCoefficients = CoolTime * 0.05f;
-        _rareRangeCoefficients = AttackRange * 0.02f;
-        _uniqueRangeCoefficients = AttackRange * 0.05f;
-        _uniqueAdditionalPerBurst = NumOfProjectilePerBurst * 0.03f;
+        ActiveSkillCoefficientsData data = Managers.Data.activeSkillCoefficientDict[skillType];
+        _commonDamageCoefficients = ExplosionDamage * data.common.explostionDamage;
+        _rareDamageCoefficients = ExplosionDamage * data.rare.explostionDamage;
+        _uniqueDamageCoefficients = ExplosionDamage * data.unique.explostionDamage;
+        _rareCooltimeCoefficients = CoolTime * data.rare.coolTime;
+        _uniqueCooltimeCoefficients = CoolTime * data.unique.coolTime;
+        _rareRangeCoefficients = AttackRange * data.rare.explosionRange;
+        _uniqueRangeCoefficients = AttackRange * data.unique.explosionRange;
+        _uniqueAdditionalPerBurst = NumOfProjectilePerBurst * data.unique.AdditionalProjectilePerBurst;
         
     }
 }

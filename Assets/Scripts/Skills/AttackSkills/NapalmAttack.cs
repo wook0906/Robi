@@ -85,7 +85,7 @@ public class NapalmAttack : AttackSkillBase
         wideAreaAttackPos.z -= 0.2f;
         wideAreaAttackGO.transform.position = wideAreaAttackPos;
         wideAreaAttackGO.GetComponent<WideAreaAttack>().Init(_owner, Mathf.RoundToInt(napalmStat.ExplosionDamage * 0.3f),
-            napalmStat.ExplosionRange, napalmStat.Duration, napalmStat.DelayPerAttack);
+            napalmStat.ExplosionRange, napalmStat.Duration, napalmStat.DelayPerAttack, napalmStat);
     }
     public override void LevelUp(Define.SkillGrade grade)
     {

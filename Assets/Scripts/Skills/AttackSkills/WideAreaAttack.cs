@@ -24,7 +24,7 @@ public class WideAreaAttack : MonoBehaviour
     public Action<GameObject> OnKill;
 
     public void Init(BaseController owner,int damage, float attackRange,
-        float duration, float delayPerAttack)
+        float duration, float delayPerAttack, NapalmAttackSkillStat stat)
     {
         napalmEffects = Managers.Resource.Instantiate("Effects/NapalmExplosion");
         napalmEffects.transform.SetParent(transform);

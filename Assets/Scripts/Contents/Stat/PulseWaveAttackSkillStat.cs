@@ -10,6 +10,8 @@ public class PulseWaveAttackSkillStat : SkillStat
 
     float _uniqueCooltimeCoefficients;
 
+    public List<int> addProjectileLevels;
+
     public override float CoolTime
     {
         get
@@ -81,15 +83,18 @@ public class PulseWaveAttackSkillStat : SkillStat
 
         CoolTime -= (NumOfUnique * _uniqueCooltimeCoefficients);
     
-        if(Level % 2 == 1)
+        if(addProjectileLevels.Contains(Level))
             NumOfProjectilePerBurst++;
     }
     public override void InitSkillStat(Define.SkillType skillType)
     {
         base.InitSkillStat(skillType);
-        _commonDamageCoefficients = Damage * 0.05f;
-        _rareDamageCoefficients = Damage * 0.1f;
-        _uniqueDamageCoefficients = Damage * 0.15f;
-        _uniqueCooltimeCoefficients = CoolTime * 0.03f;
+        ActiveSkillCoefficientsData data = Managers.Data.activeSkillCoefficientDict[skillType];
+
+        _commonDamageCoefficients = Damage * data.common.damage;
+        _rareDamageCoefficients = Damage * data.rare.damage;
+        _uniqueDamageCoefficients = Damage * data.unique.damage;
+        _uniqueCooltimeCoefficients = CoolTime * data.unique.coolTime;
+        addProjectileLevels = data.ProjectileAddLevel;
     }
 }

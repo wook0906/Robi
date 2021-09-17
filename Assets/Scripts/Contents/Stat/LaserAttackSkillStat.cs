@@ -89,11 +89,12 @@ public class LaserAttackSkillStat : SkillStat
     public override void InitSkillStat(Define.SkillType skillType)
     {
         base.InitSkillStat(skillType);
-        _commonDamageCoefficients = Damage * 0.1f;
-        _rareDamageCoefficients = Damage * 0.15f;
-        _uniqueDamageCoefficients = Damage * 0.2f;
-        _uniqueCooltimeCoefficients = CoolTime * 0.05f;
-        _rareScaleCoefficients = laserScale * 0.03f;
-        _uniqueScaleCoefficients = laserScale * 0.05f;
+        ActiveSkillCoefficientsData data = Managers.Data.activeSkillCoefficientDict[skillType];
+        _commonDamageCoefficients = Damage * data.common.damage;
+        _rareDamageCoefficients = Damage * data.rare.damage;
+        _uniqueDamageCoefficients = Damage * data.unique.damage;
+        _uniqueCooltimeCoefficients = CoolTime * data.unique.coolTime;
+        _rareScaleCoefficients = laserScale * data.rare.attackRange;
+        _uniqueScaleCoefficients = laserScale * data.unique.attackRange;
     }
 }

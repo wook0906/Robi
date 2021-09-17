@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName ="PassiveCoefficientsData")]
+[CreateAssetMenu(menuName ="SkillCoefficientsData/Passive")]
 public class PassiveSkillCoefficientsData : ScriptableObject
 {
     public float ATKIncrease;

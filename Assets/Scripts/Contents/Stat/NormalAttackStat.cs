@@ -10,6 +10,8 @@ public class NormalAttackStat : SkillStat
     float _uniqueCooltimeCoefficients;
     float _rareCooltimeCoefficients;
 
+    public List<int> addProjectileLevels;
+
     public override float CoolTime
     {
         get
@@ -82,19 +84,20 @@ public class NormalAttackStat : SkillStat
             (NumOfUnique * _uniqueDamageCoefficients);
 
         CoolTime -= (NumOfRare * _rareCooltimeCoefficients) + (NumOfUnique * _uniqueCooltimeCoefficients);
-        if (Level % 3 == 0)
+        if (addProjectileLevels.Contains(Level))
             NumOfProjectilePerBurst++;
       
     }
     public override void InitSkillStat(Define.SkillType skillType)
     {
         base.InitSkillStat(skillType);
+        ActiveSkillCoefficientsData data = Managers.Data.activeSkillCoefficientDict[skillType];
 
-       //TODO : 상수값 Dictionary로 빼자... 야발...
-        _commonDamageCoefficients = Damage * 0.1f;
-        _rareDamageCoefficients = Damage * 0.15f;
-        _uniqueDamageCoefficients = Damage * 0.2f;
-        _rareCooltimeCoefficients = CoolTime * 0.02f;
-        _uniqueCooltimeCoefficients = CoolTime * 0.04f;
+        _commonDamageCoefficients = Damage * data.common.damage;
+        _rareDamageCoefficients = Damage * data.rare.damage;
+        _uniqueDamageCoefficients = Damage * data.unique.damage;
+        _rareCooltimeCoefficients = CoolTime * data.rare.coolTime;
+        _uniqueCooltimeCoefficients = CoolTime * data.unique.coolTime;
+        addProjectileLevels = data.ProjectileAddLevel;
     }
 }
