@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _state: 0
-  CameraOffset: {x: 0, y: -33, z: -55}
+  CameraOffset: {x: 0, y: -26, z: -50}
   camTransform: {fileID: 0}
   attackSkills: []
   passiveSkill:
