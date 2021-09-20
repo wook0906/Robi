@@ -52,8 +52,8 @@ MonoBehaviour:
   min: {x: -20, y: -20}
   max: {x: 20, y: 40}
   size: {x: 10, y: 10}
-  row: 7
-  column: 5
+  row: 8
+  column: 7
   tiles: []
   tileMask:
     serializedVersion: 2

@@ -141,9 +141,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _state: 0
-  CameraOffset: {x: 0, y: -12, z: -30}
+  CameraOffset: {x: 0, y: -33, z: -55}
   camTransform: {fileID: 0}
   attackSkills: []
+  passiveSkill:
+    _playerstat: {fileID: 0}
   field: {fileID: 0}
   body: {fileID: 0}
   launchPoints:
