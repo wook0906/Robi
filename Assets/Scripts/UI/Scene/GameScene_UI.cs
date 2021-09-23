@@ -12,6 +12,7 @@ public class GameScene_UI : SceneUI
     Image hpBar;
     Image expBar;
     Text levelText;
+    public int levelUpPopupCnt = 0;
 
     enum Texts
     {
@@ -52,6 +53,7 @@ public class GameScene_UI : SceneUI
     }
     void OnClickPauseButton()
     {
+        if (Time.timeScale == 0) return;
         Managers.UI.ShowPopupUI<Pause_Popup>();
     }
 

@@ -99,7 +99,7 @@ public class DataManager
         for (CharacterType characterType = CharacterType.Robi; characterType < CharacterType.MAX; characterType++)
         {
             CharacterStatData originData = Managers.Resource.Load<CharacterStatData>($"Data/ScriptableObject/CharacterStats/{characterType}");
-            CharacterStatData dataInstance = new CharacterStatData();
+            CharacterStatData dataInstance = UnityEngine.MonoBehaviour.Instantiate(originData);
             dataInstance.characterType = originData.characterType;
             dataInstance._maxHp = originData._maxHp;
             dataInstance._atk = originData._atk;

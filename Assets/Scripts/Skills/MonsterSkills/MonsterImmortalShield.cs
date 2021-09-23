@@ -11,6 +11,9 @@ public class MonsterImmortalShield : AttackSkillBase
     MonsterStat ownerStat;
 
     [SerializeField]
+    GameObject modelObj;
+
+    [SerializeField]
     public bool IsImmortal
     {
         get { return ownerStat.IsOnImmortal; }
@@ -28,6 +31,7 @@ public class MonsterImmortalShield : AttackSkillBase
 
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
+        modelObj = owner.transform.Find("Model").gameObject;
         _type = SkillType.MonsterImmortalShield;
         //gameObject.AddComponent<SkillStat>().InitSkillStat(_type);
         Stat = gameObject.AddComponent<SkillStat>();
@@ -36,8 +40,8 @@ public class MonsterImmortalShield : AttackSkillBase
         effect = Managers.Resource.Instantiate("Effects/ShieldEffect");
         effect.transform.SetParent(owner.transform);
         effect.transform.position = _owner.CenterPosition;
-        effect.transform.localScale /= 2f;
-        
+        effect.transform.localScale = effect.transform.localScale / 2f * modelObj.transform.localScale.x;
+
         particle = effect.GetComponent<ParticleSystem>();
         settings = effect.GetComponent<ParticleSystem>().main;
         settings.startColor = new Color(0f, 0.5764706f, 1f, 0.4901961f);

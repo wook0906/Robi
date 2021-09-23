@@ -238,7 +238,7 @@ public class PlayerController : BaseController
             case TouchPhase.Moved:
                 moveDir = (touch.position - touchStartPos);
                 State = CreatureState.Move;
-                break;
+                break
             default:
                 break;
         }

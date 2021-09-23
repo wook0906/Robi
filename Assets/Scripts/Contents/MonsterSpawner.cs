@@ -49,14 +49,19 @@ public class MonsterSpawner : MonoBehaviour
                     //GameObject enemyGO = Managers.Resource.Instantiate($"Creatures/Enemy/{(Define.MonsterType)Random.Range((int)Define.MonsterType.C01,(int)Define.MonsterType.MAX)}");
                     GameObject enemyGO = Managers.Resource.Instantiate($"Creatures/Enemy/{stageData.waves[waveStep].monsterConfigs[monsterConfigIdx].mobType}");
                     Vector2 pos;
+                    Bounds bound = new Bounds();
+                    bound.min = field.min;
+                    bound.max = field.max;
                     do
                     {
                         pos = player.transform.position + (Random.onUnitSphere * radius * 2f);
+
                     }
-                    while (pos.x > field.min.x &&
-                            pos.y > field.min.y &&
-                            pos.x < field.max.x &&
-                            pos.y < field.max.y);
+                    //while (pos.x < field.min.x &&
+                    //        pos.y < field.min.y &&
+                    //        pos.x > field.max.x &&
+                    //        pos.y > field.max.y);
+                    while (bound.Contains(pos));
                     //pos += Vector3.right * radius;
                     //pos = Quaternion.Euler(0f, 0f, Random.Range(0, 360)) * pos;
                    

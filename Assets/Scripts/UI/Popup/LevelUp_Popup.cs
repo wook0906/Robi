@@ -7,6 +7,7 @@ public class LevelUp_Popup : PopupUI
 {
     PlayerController player;
     List<SkillInfo> skillCandidateList;
+    GameScene_UI gameSceneUI;
 
     struct SkillInfo
     {
@@ -24,6 +25,7 @@ public class LevelUp_Popup : PopupUI
         Item1_Button,
         Item2_Button,
         Item3_Button,
+        AD_Button
     }
     enum Images
     {
@@ -49,6 +51,7 @@ public class LevelUp_Popup : PopupUI
         Bind<Button>(typeof(Buttons));
         Bind<Image>(typeof(Images));
         Bind<Text>(typeof(Texts));
+
 
         skillCandidateList = new List<SkillInfo>();
         for (Define.SkillType i = Define.SkillType.PlayerNormal; i < Define.SkillType.PlayerPassiveSkillMax; i++)
@@ -96,13 +99,24 @@ public class LevelUp_Popup : PopupUI
             OnClickSkillButton(skill3);
         }));
 
+        Get<Button>((int)Buttons.AD_Button).onClick.AddListener(new UnityEngine.Events.UnityAction(() =>
+        {
+            gameSceneUI.levelUpPopupCnt--;
+            if (gameSceneUI.levelUpPopupCnt <= 0)
+                Time.timeScale = 1f;
+            ClosePopupUI();
+        }));
+
         GameScene gameScene = Managers.Scene.CurrentScene as GameScene;
         player = gameScene.player.GetComponent<PlayerController>();
 
         Time.timeScale = 0f;
+        gameSceneUI = Managers.UI.GetSceneUI<GameScene_UI>();
+        gameSceneUI.levelUpPopupCnt++;
     }
     void OnClickSkillButton(SkillInfo skillInfo)
     {
+        gameSceneUI.levelUpPopupCnt--;
         if (skillInfo.isActiveSkill)
         {
             foreach (var item in player.attackSkills)
@@ -111,7 +125,9 @@ public class LevelUp_Popup : PopupUI
                 {
                     item.LevelUp(skillInfo.grade);
                     ClosePopupUI();
-                    Time.timeScale = 1f;
+        
+                    if(gameSceneUI.levelUpPopupCnt <= 0)
+                        Time.timeScale = 1f;
                     return;
                 }
             }
@@ -121,8 +137,9 @@ public class LevelUp_Popup : PopupUI
         {
             player.PlayerStat.PassiveSkillLevelUp(skillInfo.skillType, skillInfo.grade);
         }
+        if (gameSceneUI.levelUpPopupCnt <= 0)
+            Time.timeScale = 1f;
         ClosePopupUI();
-        Time.timeScale = 1f;
     }
     void AddNewActiveSkill(SkillInfo skillInfo)
     {

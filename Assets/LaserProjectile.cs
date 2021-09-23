@@ -44,8 +44,14 @@ public class LaserProjectile : MonoBehaviour
             yield return null;
         }
         transform.SetParent(null);
-        BaseController target = SearchTarget().GetComponent<BaseController>();
-        transform.rotation = Quaternion.LookRotation((target.CenterPosition - _owner.CenterPosition).normalized, Vector3.back);
+        GameObject targetGO = SearchTarget();
+        if (!targetGO) yield break;
+        BaseController target = targetGO.GetComponent<BaseController>();
+        Vector3 targetPos = target.CenterPosition;
+        targetPos.z = 0f;
+        Vector3 launchPos = transform.position;
+        launchPos.z = 0f;
+        transform.rotation = Quaternion.LookRotation((targetPos - launchPos).normalized, Vector3.back);
         GetComponent<BoxCollider>().enabled = true;
         yield return new WaitForSeconds(1f);
         Destroy(this.gameObject);

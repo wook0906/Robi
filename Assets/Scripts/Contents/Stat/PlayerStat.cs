@@ -55,27 +55,44 @@ public class PlayerStat : CreatureStat
         get { return _exp; }
         set
         {
-            float inputValue = value;
-            _exp = inputValue;
-
+            float exp = value;
             int level = Level;
+            int levelUpCnt = 0;
 
-            gameSceneUI.UpdateExpUI((float)_exp / _totalExp);
-            if (_exp < _totalExp)
+            if (exp < _totalExp)
+            {
+                _exp = exp;
+                gameSceneUI.UpdateExpUI((float)_exp / _totalExp);
                 return;
+            }
+            else
+            {
+                exp -= _totalExp;
+                level++;
+                levelUpCnt++;
+                _totalExp = GetLevelTotalExp(level);
 
-            level++;
-            Managers.Object.MonsterLevelUp(level);
+                while (exp > _totalExp)
+                {
+                    level++;
+                    levelUpCnt++;
+                    Debug.Log(levelUpCnt);
+                    exp -= _totalExp;
+                    _totalExp = GetLevelTotalExp(level);
+                }
+            }
 
-            _totalExp = RenewTotalExp(level);
-            if (level != Level)
+            _exp = exp;
+            Level = level;
+            
+            Managers.Object.MonsterLevelUp(Level);
+            for (int i = 0; i < levelUpCnt; i++)
             {
                 Managers.UI.ShowPopupUI<LevelUp_Popup>();
-                gameSceneUI.UpdateLevelUI(level);
-                
-                Level = level;
-                _exp = 0;
             }
+
+            gameSceneUI.UpdateLevelUI(Level);
+            gameSceneUI.UpdateExpUI((float)_exp / _totalExp);
         }
     }
     public float AtkCoefficient 
@@ -160,8 +177,19 @@ public class PlayerStat : CreatureStat
 
     public override void OnAttacked(BaseController attacker, float damage)
     {
+        ShieldSkill shield = owner.GetComponentInChildren<ShieldSkill>();
+        if (shield)
+        {
+            if (shield.ShieldLevel > 0)
+            {
+                shield.ShieldLevel--;
+                return;
+            }
+        }
+
         float resultDamage = damage - Def;
         this.Hp -= resultDamage;
+        Debug.Log($"{resultDamage} Damaged!");
 
         if (this.Hp <= 0)
         {
@@ -171,7 +199,7 @@ public class PlayerStat : CreatureStat
     }
     public void HpRecovery(float value)
     {
-        Debug.Log($"Hp Recover {value * (1f + owner.passiveSkill.skillDict[Define.SkillType.HPRecoveryAmountIncrease])}");
+        //Debug.Log($"Hp Recover {value * (1f + owner.passiveSkill.skillDict[Define.SkillType.HPRecoveryAmountIncrease])}");
         this.Hp += value * (1f + owner.passiveSkill.skillDict[Define.SkillType.HPRecoveryAmountIncrease]);
     }
 
@@ -200,7 +228,7 @@ public class PlayerStat : CreatureStat
 
     //    return builder.ToString();
     //}
-    int RenewTotalExp(int level)
+    int GetLevelTotalExp(int level)
     {
         b += 0.1f;
         X += 5;

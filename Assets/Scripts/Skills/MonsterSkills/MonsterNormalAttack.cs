@@ -7,7 +7,7 @@ public class MonsterNormalAttack : AttackSkillBase
 {
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
-        _type = SkillType.MonsterNormal;
+        _type = SkillType.MonsterNormal1;
         Stat = gameObject.AddComponent<SkillStat>();
         base.Init(owner, muzzleTransform, parent);
         Stat.InitSkillStat(_type);
@@ -30,8 +30,9 @@ public class MonsterNormalAttack : AttackSkillBase
         else
             projectileGO.transform.position = _muzzleTransform.position;
 
+        MonsterStat ownerStat = _owner.GetComponent<MonsterStat>();
         Projectile projectile = projectileGO.GetComponent<Projectile>();
-        projectile.Init(_owner, target.GetComponent<BaseController>().CenterPosition, Stat.Damage, Stat.AttackRange,
+        projectile.Init(_owner, target.GetComponent<BaseController>().CenterPosition, ownerStat.Damage, ownerStat.AttackRange,
             Stat.Speed, Stat.IsExplode, Stat.ExplosionRange, Stat.ExplosionDamage,
             Stat.IsPenetrate, Stat.Duration, LayerMask.NameToLayer("Player"));
 

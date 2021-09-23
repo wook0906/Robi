@@ -63,7 +63,7 @@ public abstract class AttackSkillBase : ActiveSkill
 
         foreach (MonsterController target in monsters)
         {
-            if (target.State != CreatureState.Move) continue;
+            if (target.State != CreatureState.Chase) continue;
 
             float dist = (target.transform.position - _owner.transform.position).sqrMagnitude;
             if (dist < closetDist)

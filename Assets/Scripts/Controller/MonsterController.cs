@@ -68,21 +68,10 @@ public class MonsterController : BaseController
 
     private void OnTriggerEnter(Collider collision)
     {
-        if(collision.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
-            // Attack player
-            ShieldSkill shield = collision.GetComponentInChildren<ShieldSkill>();
-            if (shield)
-            {
-                if (shield.ShieldLevel > 0)
-                    shield.ShieldLevel--;
-                else
-                    collision.GetComponent<CreatureStat>().OnAttacked(this, Stat.Damage);
-            }
-            else
-            {
-                collision.GetComponent<CreatureStat>().OnAttacked(this, Stat.Damage);
-            }
+
+            collision.GetComponent<CreatureStat>().OnAttacked(this, Stat.Damage);
 
             if (Stat.mobType >= Define.MonsterType.EC01 &&
                 Stat.mobType <= Define.MonsterType.EF07)
@@ -142,11 +131,11 @@ public class MonsterController : BaseController
     }
     protected virtual void Move()
     {
-        MonsterStat stat = base._stat as MonsterStat;
+        //MonsterStat stat = base._stat as MonsterStat;
         //transform.position += chaseStartDir * stat.MoveSpeed * Time.deltaTime;
         //rigidBody.MovePosition(transform.position + chaseStartDir * stat.MoveSpeed * Time.deltaTime);
-        transform.rotation = Quaternion.LookRotation(chaseStartDir, Vector3.back);
-        rigidBody.velocity = Vector3.zero;
+        //transform.rotation = Quaternion.LookRotation(chaseStartDir, Vector3.back);
+        //rigidBody.velocity = Vector3.zero;
 
         //if (Vector3.Distance(transform.position, target.transform.position) <= stat.DetectRange)
         //{

@@ -136,7 +136,10 @@ public static class Define
         HPRecoveryPerSecIncrease,
         PlayerPassiveSkillMax,
 
-        MonsterNormal,
+        MonsterNormal1,
+        MonsterNormal2,
+        MonsterNormal3,
+        MonsterNormal4,
         MonsterLaser,
         MonsterLaser2,
         MonsterLaunchBomb,

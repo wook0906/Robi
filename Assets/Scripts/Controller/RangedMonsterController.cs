@@ -6,7 +6,7 @@ public class RangedMonsterController : MonsterController
 {
     //private Vector3 homeDir;
     float lastAttackTime;
-
+    Rigidbody rigidBody;
 
     public override Define.CreatureState State
     {
@@ -59,7 +59,7 @@ public class RangedMonsterController : MonsterController
     {
         base.Init();
         State = Define.CreatureState.Move;
-
+        rigidBody = GetComponent<Rigidbody>();
     }
 
     private bool IsPlayerInAttackRange()
@@ -111,6 +111,8 @@ public class RangedMonsterController : MonsterController
 
         if (IsPlayerInAttackRange())
             State = Define.CreatureState.Attack;
+
+        rigidBody.velocity = Vector3.zero;
         //else if (Vector3.Distance(transform.position, target.transform.position) >= stat.DetectRange)
         //    State = Define.CreatureState.Move;
     }

@@ -10,6 +10,9 @@ public class MonsterShield : AttackSkillBase
     protected ParticleSystem.MainModule settings;
 
     [SerializeField]
+    GameObject modelObj;
+
+    [SerializeField]
     float shieldHp = 0;
     public float ShieldHp 
     { 
@@ -30,6 +33,7 @@ public class MonsterShield : AttackSkillBase
     
     public override void Init(BaseController owner, Transform muzzleTransform, Transform parent = null)
     {
+        modelObj = owner.transform.Find("Model").gameObject;
         _type = SkillType.MonsterShield;
         Stat = gameObject.AddComponent<SkillStat>();
         base.Init(owner, muzzleTransform, parent);
@@ -37,7 +41,7 @@ public class MonsterShield : AttackSkillBase
         effect = Managers.Resource.Instantiate("Effects/ShieldEffect");
         effect.transform.SetParent(owner.transform);
         effect.transform.position = _owner.CenterPosition;
-        effect.transform.localScale /= 2f;
+        effect.transform.localScale = effect.transform.localScale / 2f * modelObj.transform.localScale.x;
         particle = effect.GetComponent<ParticleSystem>();
         settings = effect.GetComponent<ParticleSystem>().main;
 

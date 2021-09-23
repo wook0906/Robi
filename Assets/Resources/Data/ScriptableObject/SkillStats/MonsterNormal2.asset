@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff51f414c4b446c458ebd2932381cbfd, type: 3}
-  m_Name: BlackHole
+  m_Name: MonsterNormal2
   m_EditorClassIdentifier: 
-  SkillType: 10
-  _coolTime: 7
-  _damage: 1
-  _attackRange: 1
+  SkillType: 28
+  _coolTime: 2
+  _damage: 5
+  _attackRange: 0
   _numOfProjectilePerBurst: 1
-  _speed: 0
+  _speed: 5
   _isExplode: 0
   _explosionRange: 0
   _explosionDamage: 0
   _isPenetrate: 0
-  _duration: 5
+  _duration: 1.5
   _delayPerAttack: 0
-  _bulletPrefab: {fileID: 8230217700011522832, guid: 2699020570e2e0d42afc3799815d206f,
+  _bulletPrefab: {fileID: 5139380627366087323, guid: 38c3074068a9ab1488c604f641da1203,
     type: 3}
