@@ -13,7 +13,6 @@ public class GameScene_UI : SceneUI
     Image expBar;
     Text levelText;
     public int levelUpPopupCnt = 0;
-
     enum Texts
     {
         WaveLevel_Text,

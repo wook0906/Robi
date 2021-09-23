@@ -23,6 +23,7 @@ public class PlayerController : BaseController
     public List<Transform> launchPoints;
 
     private GameObject itemRooter;
+    VariableJoystick joystick;
     #region Unity Function
     public void Awake()
     {
@@ -31,6 +32,7 @@ public class PlayerController : BaseController
     }
     private void Start()
     {
+
         tileMask = LayerMask.GetMask("Tile");
         State = CreatureState.Idle;
         camTransform = Camera.main.transform;
@@ -40,7 +42,7 @@ public class PlayerController : BaseController
         _attackSkillDispatcher = new ActiveSkillDispatcher();
         _attackSkillDispatcher.Init(this);
         body = transform.Find("Model").transform.Find("Robi").transform.Find("Body").gameObject;
-        
+        joystick = GameObject.FindObjectOfType<VariableJoystick>();
 
 
         field = GameObject.FindGameObjectWithTag("Field").GetComponent<Field>();
@@ -212,37 +214,45 @@ public class PlayerController : BaseController
     #region Helper Method
     private void InputMove()
     {
-        moveDir = Vector3.zero;
-        State = CreatureState.Idle;
-#if UNITY_EDITOR
-        if (Input.GetMouseButtonDown(0))
+        moveDir = joystick.Direction;
+        
+        if(moveDir == Vector3.zero)
         {
-            touchStartPos = Input.mousePosition;
+            State = CreatureState.Idle;
         }
-        else if (Input.GetMouseButton(0))
+        else
         {
-            Vector2 touchPos = Input.mousePosition;
-            moveDir = (touchPos - touchStartPos);
             State = CreatureState.Move;
         }
-#elif UNITY_ANDROID || UNITY_IOS
-        if (Input.touchCount == 0)
-            return;
+//#if UNITY_EDITOR
+//        if (Input.GetMouseButtonDown(0))
+//        {
+//            touchStartPos = Input.mousePosition;
+//        }
+//        else if (Input.GetMouseButton(0))
+//        {
+//            Vector2 touchPos = Input.mousePosition;
+//            moveDir = (touchPos - touchStartPos);
+//            State = CreatureState.Move;
+//        }
+//#elif UNITY_ANDROID || UNITY_IOS
+//        if (Input.touchCount == 0)
+//            return;
 
-        Touch touch = Input.touches[0];
-        switch (touch.phase)
-        {
-            case TouchPhase.Began:
-                touchStartPos = touch.position;
-                break;
-            case TouchPhase.Moved:
-                moveDir = (touch.position - touchStartPos);
-                State = CreatureState.Move;
-                break
-            default:
-                break;
-        }
-#endif
+//        Touch touch = Input.touches[0];
+//        switch (touch.phase)
+//        {
+//            case TouchPhase.Began:
+//                touchStartPos = touch.position;
+//                break;
+//            case TouchPhase.Moved:
+//                moveDir = (touch.position - touchStartPos);
+//                State = CreatureState.Move;
+//                break
+//            default:
+//                break;
+//        }
+//#endif
     }
 
     private void Move()
