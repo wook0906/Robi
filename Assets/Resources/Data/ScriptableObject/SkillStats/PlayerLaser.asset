@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerLaser
   m_EditorClassIdentifier: 
   SkillType: 3
-  _coolTime: 1
+  _coolTime: 5
   _damage: 1500
   _attackRange: 0
   _numOfProjectilePerBurst: 1

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff51f414c4b446c458ebd2932381cbfd, type: 3}
   m_Name: MonsterLaunchBomb
   m_EditorClassIdentifier: 
-  SkillType: 16
+  SkillType: 30
   _coolTime: 4
   _damage: 1
   _attackRange: 7
@@ -24,3 +24,4 @@ MonoBehaviour:
   _isPenetrate: 0
   _duration: 3
   _delayPerAttack: 0
+  _bulletPrefab: {fileID: 0}

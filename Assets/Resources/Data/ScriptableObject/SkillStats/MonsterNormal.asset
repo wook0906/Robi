@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff51f414c4b446c458ebd2932381cbfd, type: 3}
   m_Name: MonsterNormal
   m_EditorClassIdentifier: 
-  SkillType: 13
+  SkillType: 27
   _coolTime: 2
   _damage: 5
   _attackRange: 0

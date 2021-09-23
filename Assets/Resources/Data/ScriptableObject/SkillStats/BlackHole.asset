@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff51f414c4b446c458ebd2932381cbfd, type: 3}
   m_Name: BlackHole
   m_EditorClassIdentifier: 
-  SkillType: 11
+  SkillType: 10
   _coolTime: 20
   _damage: 1
   _attackRange: 1
