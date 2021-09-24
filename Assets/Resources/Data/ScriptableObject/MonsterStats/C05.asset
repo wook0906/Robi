@@ -18,8 +18,21 @@ MonoBehaviour:
   _def: 0
   _moveSpeed: 0
   _attackRange: 0
-  _detectRange: 0
-  _exp: 0
+  _useSkill: 0
+  _normalAttack1: 0
+  _normalAttack2: 0
+  _normalAttack3: 0
+  _normalAttack4: 0
+  _missile: 0
+  _laser: 0
+  _launchBomb: 0
+  _bombing: 0
+  _shield: 0
+  _immortal: 0
+  _immortalDuration: 0
+  _immortalCoolTime: 0
+  _berserk: 0
+  _suicideBombing: 0
   isNeedNumOfProjectileSetupPerSkills: 0
   normalAttack: 1
   launchBomb: 1

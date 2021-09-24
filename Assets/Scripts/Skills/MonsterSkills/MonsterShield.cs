@@ -41,7 +41,7 @@ public class MonsterShield : AttackSkillBase
         effect = Managers.Resource.Instantiate("Effects/ShieldEffect");
         effect.transform.SetParent(owner.transform);
         effect.transform.position = _owner.CenterPosition;
-        effect.transform.localScale = effect.transform.localScale / 2f * modelObj.transform.localScale.x;
+        effect.transform.localScale = effect.transform.localScale / 4f * modelObj.transform.localScale.x;
         particle = effect.GetComponent<ParticleSystem>();
         settings = effect.GetComponent<ParticleSystem>().main;
 

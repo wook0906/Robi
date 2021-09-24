@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: EC01
   m_EditorClassIdentifier: 
   monsterType: 14
-  _maxHp: 10000
-  _atk: 2500
+  _maxHp: 2000
+  _atk: 10
   _def: 0
-  _moveSpeed: 4
-  _attackRange: 1
+  _moveSpeed: 3
+  _attackRange: 2
   _useSkill: 1
   _normalAttack1: 0
   _normalAttack2: 0

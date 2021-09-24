@@ -2,7 +2,10 @@ fileFormatVersion: 2
 guid: cf5c7b3cb032195498de79deefff4336
 ModelImporter:
   serializedVersion: 19301
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: -5112405312940641502
+    second: enemy1-move
   externalObjects: {}
   materials:
     materialImportMode: 1
