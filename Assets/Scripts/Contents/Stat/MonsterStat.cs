@@ -129,7 +129,10 @@ public class MonsterStat : CreatureStat
             shield.Init(owner, null, null);
         }
 
-        if (originStat._normalAttack)
+        if (originStat._normalAttack1 ||
+            originStat._normalAttack2 ||
+            originStat._normalAttack3 ||
+            originStat._normalAttack4)
         {
             GameObject go = new GameObject() { name = "MonsterNormalAttack" };
             go.transform.parent = transform;

@@ -12,12 +12,12 @@ public class BlackHoleAttack : AttackSkillBase
         blackHoleStat = gameObject.AddComponent<BlackHoleAttackSkillStat>();
         base.Init(owner, muzzleTransform, parent);
         blackHoleStat.InitSkillStat(_type);
-        _prefab = Stat._bulletPrefab;
+        _prefab = blackHoleStat._bulletPrefab;
     }
 
     public override bool UseSkill()
     {
-        Debug.Log($"{_type} Fired. #Info : CoolTime : {Stat.CoolTime}, Damage : {Stat.Damage}, AttackRange : {Stat.AttackRange}, NumOfProjectilePerBurst {Stat.NumOfProjectilePerBurst}, Speed : {Stat.Speed}, IsExplode : {Stat.IsExplode}, ExplosionRange : {Stat.ExplosionRange}, ExplosionDamage : {Stat.ExplosionDamage}, isPernerate : {Stat.IsPenetrate}, Duration : {Stat.Duration}, DelayPerAttack : {Stat.DelayPerAttack}");
+        Debug.Log($"{_type} Fired. #Info : CoolTime : {blackHoleStat.CoolTime}, Damage : {blackHoleStat.Damage}, AttackRange : {blackHoleStat.AttackRange}, NumOfProjectilePerBurst {blackHoleStat.NumOfProjectilePerBurst}, Speed : {blackHoleStat.Speed}, IsExplode : {blackHoleStat.IsExplode}, ExplosionRange : {blackHoleStat.ExplosionRange}, ExplosionDamage : {blackHoleStat.ExplosionDamage}, isPernerate : {blackHoleStat.IsPenetrate}, Duration : {blackHoleStat.Duration}, DelayPerAttack : {blackHoleStat.DelayPerAttack}");
 
         GameObject target = SearchNoramalStateTarget();
 
@@ -32,7 +32,7 @@ public class BlackHoleAttack : AttackSkillBase
 
 
         BlackHoleProjectile projectile = blackHoleGO.GetComponent<BlackHoleProjectile>();
-        projectile.transform.localScale = new Vector3(Stat.AttackRange,Stat.AttackRange,Stat.AttackRange);
+        projectile.transform.localScale = new Vector3(blackHoleStat.AttackRange, blackHoleStat.AttackRange, blackHoleStat.AttackRange);
         projectile.Init(_owner, target, blackHoleStat);
         projectile.DragToCenter();
 

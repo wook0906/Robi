@@ -10,6 +10,8 @@ public class BlackHoleProjectile : MonoBehaviour
     private float attackTimer;
     private float durationTimer;
 
+    public ParticleSystem[] effects;
+
     //AttackSkillStat _stat;
     BlackHoleAttackSkillStat _stat;
     private string _targetTag;
@@ -40,7 +42,12 @@ public class BlackHoleProjectile : MonoBehaviour
         _stat = stat;
         _targetTag = target.tag;
 
-        maxScale = transform.localScale * 3f;
+        maxScale = transform.localScale * 3f * _stat.Duration * 0.1f;
+        foreach (var item in effects)
+        {
+            ParticleSystem.MainModule settings = item.main; 
+            settings.duration = _stat.Duration;
+        }
 
         effectPrefab = Managers.Resource.Load<GameObject>("Prefabs/Effects/BlackHoleExplosion");
     }
@@ -51,10 +58,12 @@ public class BlackHoleProjectile : MonoBehaviour
         {
             MonsterController monster = item.GetComponent<MonsterController>();
             monster.State = Define.CreatureState.Dragged;
+            MonsterStat monsterStat = monster.Stat as MonsterStat;
             //damage를 흡입력으로 사용함.
             float deltaDist = (_stat.Damage/5f) * transform.localScale.x * Time.deltaTime;
             Vector3 dir = (transform.position - monster.CenterPosition);
-            if (dir.magnitude <= (transform.localScale.x / 2f))
+            if (dir.magnitude <= (transform.localScale.x / 2f) &&
+                monsterStat.mobType < Define.MonsterType.EC01)
             {
                 Instantiate(effectPrefab, monster.CenterPosition, Quaternion.identity);
                 item.GetComponent<CreatureStat>().OnAttacked(_owner, Mathf.Infinity);

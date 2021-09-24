@@ -32486,3 +32486,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc5de61e2526b184492148c8c4ba7d65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effects:
+  - {fileID: 5031602698228441553}
+  - {fileID: 5030798204501431435}
+  - {fileID: 5031038720224655395}
+  - {fileID: 5030675602180959211}
+  - {fileID: 5031059050347545885}
+  - {fileID: 5021169687722640975}
+  - {fileID: 5031448838845457133}

@@ -17,7 +17,10 @@ public class MonsterStatData : ScriptableObject
     //public int _exp;
 
     public bool _useSkill;
-    public bool _normalAttack;
+    public bool _normalAttack1;
+    public bool _normalAttack2;
+    public bool _normalAttack3;
+    public bool _normalAttack4;
     public bool _missile;
     public bool _laser;
     public bool _launchBomb;

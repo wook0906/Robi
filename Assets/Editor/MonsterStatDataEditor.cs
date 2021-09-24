@@ -8,8 +8,10 @@ public class MonsterStatDataEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        GUILayout.BeginVertical();
         MonsterStatData statData = target as MonsterStatData;
+        EditorUtility.SetDirty(statData);
+        GUILayout.BeginVertical();
+        
         statData.monsterType = (Define.MonsterType)EditorGUILayout.EnumPopup("Monster Type", statData.monsterType);
         statData._maxHp = EditorGUILayout.IntField("Max HP", statData._maxHp);
         statData._atk = EditorGUILayout.IntField("ATK", statData._atk);
@@ -34,7 +36,10 @@ public class MonsterStatDataEditor : Editor
             }
             statData._berserk = EditorGUILayout.Toggle("Use Berserk", statData._berserk);
             statData._suicideBombing = EditorGUILayout.Toggle("Use SuicideBombing", statData._suicideBombing);
-            statData._normalAttack = EditorGUILayout.Toggle("Use NormalAttack", statData._normalAttack);
+            statData._normalAttack1 = EditorGUILayout.Toggle("Use NormalAttack1", statData._normalAttack1);
+            statData._normalAttack2 = EditorGUILayout.Toggle("Use NormalAttack2", statData._normalAttack2);
+            statData._normalAttack3 = EditorGUILayout.Toggle("Use NormalAttack3", statData._normalAttack3);
+            statData._normalAttack4 = EditorGUILayout.Toggle("Use NormalAttack4", statData._normalAttack4);
             statData._missile = EditorGUILayout.Toggle("Use Missile", statData._missile);
             statData._laser = EditorGUILayout.Toggle("Use Laser", statData._laser);
             statData._launchBomb = EditorGUILayout.Toggle("Use LaunchBomb", statData._launchBomb);
@@ -50,5 +55,6 @@ public class MonsterStatDataEditor : Editor
             statData.missile = EditorGUILayout.IntField("Missile", statData.missile);
         }
         GUILayout.EndVertical();
+        
     }
 }
