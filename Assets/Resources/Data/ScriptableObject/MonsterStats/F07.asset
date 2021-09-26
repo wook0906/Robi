@@ -17,19 +17,22 @@ MonoBehaviour:
   _atk: 2000
   _def: 0
   _moveSpeed: 0.8
-  _attackRange: 12
-  _detectRange: 0
-  _exp: 0
-  _useShield: 0
-  _useImmortal: 1
+  _attackRange: 15
+  _useSkill: 0
+  _normalAttack1: 0
+  _normalAttack2: 0
+  _normalAttack3: 0
+  _normalAttack4: 0
+  _missile: 0
+  _laser: 0
+  _launchBomb: 0
+  _bombing: 0
+  _shield: 0
+  _immortal: 0
   _immortalDuration: 2
   _immortalCoolTime: 10
-  _useBerserk: 0
-  _useSuicideBombing: 0
-  _useSkills:
-  - {fileID: 4047777350931945911, guid: cf76bb48ac6c1fb4999b13697953292b, type: 3}
-  - {fileID: 2958279941111583423, guid: 1ee353153f5463547a3cc3a2ccc1fd40, type: 3}
-  - {fileID: 7734165953811397192, guid: abc3bc672f351594ea7b0b5fd0e91675, type: 3}
+  _berserk: 0
+  _suicideBombing: 0
   isNeedNumOfProjectileSetupPerSkills: 1
   normalAttack: 4
   launchBomb: 2

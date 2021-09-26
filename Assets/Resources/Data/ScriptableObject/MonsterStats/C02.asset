@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: C02
   m_EditorClassIdentifier: 
   monsterType: 1
-  _maxHp: 3000
-  _atk: 1000
+  _maxHp: 1000
+  _atk: 400
   _def: 0
-  _moveSpeed: 2
+  _moveSpeed: 1.5
   _attackRange: 1
   _useSkill: 1
   _normalAttack1: 0

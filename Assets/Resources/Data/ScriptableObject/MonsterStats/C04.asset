@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb343d9e9664f046ab998f53fde3b18, type: 3}
   m_Name: C04
   m_EditorClassIdentifier: 
-  monsterType: 0
-  _maxHp: 0
-  _atk: 0
+  monsterType: 3
+  _maxHp: 500
+  _atk: 1000
   _def: 0
-  _moveSpeed: 0
-  _attackRange: 0
-  _useSkill: 0
+  _moveSpeed: 3
+  _attackRange: 1
+  _useSkill: 1
   _normalAttack1: 0
   _normalAttack2: 0
   _normalAttack3: 0
@@ -32,7 +32,7 @@ MonoBehaviour:
   _immortalDuration: 0
   _immortalCoolTime: 0
   _berserk: 0
-  _suicideBombing: 0
+  _suicideBombing: 1
   isNeedNumOfProjectileSetupPerSkills: 0
   normalAttack: 1
   launchBomb: 1

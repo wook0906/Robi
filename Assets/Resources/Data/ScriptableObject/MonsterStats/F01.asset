@@ -17,7 +17,7 @@ MonoBehaviour:
   _atk: 100
   _def: 0
   _moveSpeed: 2
-  _attackRange: 10
+  _attackRange: 9
   _useSkill: 1
   _normalAttack1: 1
   _normalAttack2: 0

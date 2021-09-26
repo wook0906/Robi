@@ -16,16 +16,23 @@ MonoBehaviour:
   _maxHp: 2300
   _atk: 2000
   _def: 0
-  _moveSpeed: 1
+  _moveSpeed: 1.5
   _attackRange: 12
-  _detectRange: 8
-  _exp: 40
-  _useShield: 0
-  _useImmortal: 0
-  _useBerserk: 0
-  _useSuicideBombing: 0
-  _useSkills:
-  - {fileID: 2958279941111583423, guid: 1ee353153f5463547a3cc3a2ccc1fd40, type: 3}
+  _useSkill: 0
+  _normalAttack1: 0
+  _normalAttack2: 0
+  _normalAttack3: 0
+  _normalAttack4: 0
+  _missile: 0
+  _laser: 0
+  _launchBomb: 0
+  _bombing: 0
+  _shield: 0
+  _immortal: 0
+  _immortalDuration: 0
+  _immortalCoolTime: 0
+  _berserk: 0
+  _suicideBombing: 0
   isNeedNumOfProjectileSetupPerSkills: 0
   normalAttack: 1
   launchBomb: 1

@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: EC02
   m_EditorClassIdentifier: 
   monsterType: 15
-  _maxHp: 1000
-  _atk: 10
+  _maxHp: 12000
+  _atk: 3000
   _def: 0
-  _moveSpeed: 2.5
-  _attackRange: 2
+  _moveSpeed: 3
+  _attackRange: 2.5
   _useSkill: 1
   _normalAttack1: 0
   _normalAttack2: 0
