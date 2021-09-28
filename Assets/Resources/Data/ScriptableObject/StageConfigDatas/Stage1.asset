@@ -13,68 +13,68 @@ MonoBehaviour:
   m_Name: Stage1
   m_EditorClassIdentifier: 
   waves:
+  - expPerMonster: 20
+    monsterConfigs:
+    - mobType: 0
+      numOfSpawn: 35
   - expPerMonster: 40
     monsterConfigs:
-    - mobType: 14
-      numOfSpawn: 19
-    - mobType: 15
-      numOfSpawn: 19
-    - mobType: 21
-      numOfSpawn: 19
+    - mobType: 0
+      numOfSpawn: 65
   - expPerMonster: 60
     monsterConfigs:
     - mobType: 0
-      numOfSpawn: 43
-  - expPerMonster: 80
-    monsterConfigs:
-    - mobType: 0
-      numOfSpawn: 72
+      numOfSpawn: 96
   - expPerMonster: 2837
     monsterConfigs:
     - mobType: 14
       numOfSpawn: 1
-  - expPerMonster: 800
+  - expPerMonster: 500
     monsterConfigs:
     - mobType: 7
-      numOfSpawn: 20
+      numOfSpawn: 50
     - mobType: 0
-      numOfSpawn: 60
+      numOfSpawn: 80
+  - expPerMonster: 800
+    monsterConfigs:
+    - mobType: 0
+      numOfSpawn: 116
+    - mobType: 7
+      numOfSpawn: 90
   - expPerMonster: 1200
     monsterConfigs:
     - mobType: 0
       numOfSpawn: 86
     - mobType: 7
-      numOfSpawn: 50
-  - expPerMonster: 1600
-    monsterConfigs:
-    - mobType: 0
-      numOfSpawn: 57
-    - mobType: 7
-      numOfSpawn: 114
+      numOfSpawn: 140
   - expPerMonster: 38867
     monsterConfigs:
     - mobType: 21
       numOfSpawn: 1
-  - expPerMonster: 2500
-    monsterConfigs:
-    - mobType: 1
-      numOfSpawn: 40
-    - mobType: 0
-      numOfSpawn: 113
-  - expPerMonster: 3000
-    monsterConfigs:
-    - mobType: 1
-      numOfSpawn: 60
-    - mobType: 7
-      numOfSpawn: 116
-  - expPerMonster: 3500
+  - expPerMonster: 1400
     monsterConfigs:
     - mobType: 0
-      numOfSpawn: 80
+      numOfSpawn: 112
     - mobType: 1
-      numOfSpawn: 40
+      numOfSpawn: 50
     - mobType: 7
-      numOfSpawn: 80
+      numOfSpawn: 112
+  - expPerMonster: 1800
+    monsterConfigs:
+    - mobType: 0
+      numOfSpawn: 100
+    - mobType: 1
+      numOfSpawn: 94
+    - mobType: 7
+      numOfSpawn: 100
+  - expPerMonster: 2200
+    monsterConfigs:
+    - mobType: 0
+      numOfSpawn: 100
+    - mobType: 1
+      numOfSpawn: 118
+    - mobType: 7
+      numOfSpawn: 100
   - expPerMonster: 0
     monsterConfigs:
     - mobType: 15
