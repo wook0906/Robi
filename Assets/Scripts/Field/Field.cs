@@ -18,10 +18,18 @@ public class Field : MonoBehaviour
 
     int tileNumber = 0;
 
+    
+    public Vector2 curMin;
+    public Vector2 curMax;
+
     private void Start()
     {
         //Debug.Log("Start Field Setup");
         tileMask = LayerMask.GetMask("Tile");
+        curMin = min;
+        curMax = max;
+        Debug.Log(curMin);
+        Debug.Log(curMax);
         for(int r = 0; r < row; ++r)
         {
             for(int c = 0; c < column; ++c)
@@ -48,18 +56,18 @@ public class Field : MonoBehaviour
         if (!isInit) return;
         //Debug.Log($"Update About {newSector.name}");
         Vector3 center = newSector.transform.position;
-        Vector3 newMin;
-        newMin.x = center.x - (column / 2) * size.x;
-        newMin.y = center.y - (row / 2) * size.y;
-        Vector3 newMax;
-        newMax.x = center.x + (column / 2) * size.x;
-        newMax.y = center.y + (row / 2) * size.y * 1.5f;
+
+        curMin.x = center.x - (column / 2) * size.x;
+        curMin.y = center.y - (row / 2) * size.y;
+
+        curMax.x = center.x + (column / 2) * size.x;
+        curMax.y = center.y + (row / 2) * size.y * 1.5f;
 
         for(int i = 0; i < tiles.Count; ++i)
         {
             Vector3 pos = tiles[i].transform.position;
-            if (pos.x < newMin.x || pos.x > newMax.x ||
-                pos.y < newMin.y || pos.y > newMax.y)
+            if (pos.x < curMin.x || pos.x > curMax.x ||
+                pos.y < curMin.y || pos.y > curMax.y)
             {
                 //Debug.Log($"Destroy {tiles[i].name}");
                 Destroy(tiles[i]);
@@ -67,9 +75,9 @@ public class Field : MonoBehaviour
             }
         }
         //Debug.Log($"newMin : ({newMin.x},{newMin.y}) sizeY : {size.y} , newMax : ({newMax.x},{newMax.y}) sizeX : {size.x}");
-        for (float yPos = newMin.y; yPos <= newMax.y; yPos += size.y)
+        for (float yPos = curMin.y; yPos <= curMax.y; yPos += size.y)
         {
-            for (float xPos = newMin.x; xPos <= newMax.x; xPos += size.x)
+            for (float xPos = curMin.x; xPos <= curMax.x; xPos += size.x)
             {
                 Collider[] colliders = Physics.OverlapBox(new Vector3(xPos, yPos), Vector3.one, Quaternion.identity, tileMask);
                 if (colliders.Length > 0)

@@ -49,8 +49,9 @@ public class ImpactWaveAttack : AttackSkillBase
         Debug.Log($"{_type} Fired. #Info : CoolTime : {Stat.CoolTime}, Damage : {Stat.Damage}, AttackRange : {Stat.AttackRange}, NumOfProjectilePerBurst {Stat.NumOfProjectilePerBurst}, Speed : {Stat.Speed}, IsExplode : {Stat.IsExplode}, ExplosionRange : {Stat.ExplosionRange}, ExplosionDamage : {Stat.ExplosionDamage}, isPernerate : {Stat.IsPenetrate}, Duration : {Stat.Duration}, DelayPerAttack : {Stat.DelayPerAttack}");
         GameObject[] targets = SearchTargets();
 
-        Instantiate(_prefab, _owner.CenterPosition, Quaternion.identity);
-
+        GameObject impactEffect = Instantiate(_prefab, _owner.CenterPosition, Quaternion.identity);
+        //Vector3 newScale = new Vector3(Stat.AttackRange, Stat.AttackRange * 0.5f, Stat.AttackRange * 0.5f);
+        impactEffect.transform.localScale *= Stat.AttackRange * 2f;
         if (targets == null || targets.Length == 0)
         {
             OnFire();

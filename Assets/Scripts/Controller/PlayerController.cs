@@ -293,6 +293,7 @@ public class PlayerController : BaseController
 
         foreach (MonsterController target in monsters)
         {
+            if (!target) continue;
             float dist = (target.transform.position - transform.position).sqrMagnitude;
             if (dist < closetDist)
             {

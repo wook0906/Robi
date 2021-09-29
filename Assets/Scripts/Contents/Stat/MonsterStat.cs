@@ -65,14 +65,21 @@ public class MonsterStat : CreatureStat
         get 
         {
             MonsterShield shieldSkill = GetComponentInChildren<MonsterShield>();
-            if (shieldSkill == null) return 0;
-            else return GetComponentInChildren<MonsterShield>().ShieldHp;
+            if (shieldSkill == null) 
+                return 0;
+            else 
+                return shieldSkill.ShieldHp;
         }
         set 
         {
             MonsterShield shieldSkill = GetComponentInChildren<MonsterShield>();
             if (shieldSkill == null) return;
-            GetComponentInChildren<MonsterShield>().ShieldHp = value;
+            else
+            {
+                shieldSkill.ShieldHp = value;
+                if (shieldSkill.ShieldHp <= 0)
+                    shieldSkill.effect.SetActive(false);
+            }
         }
     }
 
@@ -138,7 +145,14 @@ public class MonsterStat : CreatureStat
             go.transform.parent = transform;
             go.transform.localPosition = Vector3.zero;
             MonsterNormalAttack monsterNormalAttack = go.AddComponent<MonsterNormalAttack>();
-            monsterNormalAttack.Init(owner, null, null);
+            if(originStat._normalAttack1)
+                monsterNormalAttack.NormalAttackInit(owner, null, Define.SkillType.MonsterNormal1,  null);
+            else if (originStat._normalAttack2)
+                monsterNormalAttack.NormalAttackInit(owner, null, Define.SkillType.MonsterNormal2, null);
+            else if (originStat._normalAttack3)
+                monsterNormalAttack.NormalAttackInit(owner, null, Define.SkillType.MonsterNormal3, null);
+            else if (originStat._normalAttack4)
+                monsterNormalAttack.NormalAttackInit(owner, null, Define.SkillType.MonsterNormal4, null);
             owner.AttackSkillDispatcher.Add(0f, monsterNormalAttack);
         }
         if (originStat._missile)
@@ -188,10 +202,17 @@ public class MonsterStat : CreatureStat
         float resultDamage = ShieldHp - damage;
         if (resultDamage >= 0f)
         {
-            ShieldHp = resultDamage;
+            ShieldHp -= damage;
+            Debug.Log($"Current Shield : {ShieldHp}");
             return;
         }
-        this.Hp += resultDamage;
+        else
+        {
+            float remainDamage = Mathf.Abs(resultDamage) - ShieldHp;
+            ShieldHp = 0f;
+            this.Hp -= Mathf.Abs(remainDamage);
+            Debug.Log($"Current HP : {this.Hp}");
+        }
         if (_useBerserk && !isOnBerserk)
         {
             isOnBerserk = true;

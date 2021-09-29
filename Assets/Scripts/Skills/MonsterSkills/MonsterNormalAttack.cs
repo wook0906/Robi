@@ -15,6 +15,14 @@ public class MonsterNormalAttack : AttackSkillBase
         //TODO: 각 스킬의 특성에 따른 추가 로직을 넣어줘야할 듯함...
         
     }
+    public void NormalAttackInit(BaseController owner, Transform muzzleTransform, SkillType skillType, Transform parent = null)
+    {
+        _type = skillType;
+        Stat = gameObject.AddComponent<SkillStat>();
+        base.Init(owner, muzzleTransform, parent);
+        Stat.InitSkillStat(_type);
+        _prefab = Stat._bulletPrefab;
+    }
 
     public override bool UseSkill()
     {
@@ -31,7 +39,7 @@ public class MonsterNormalAttack : AttackSkillBase
             projectileGO.transform.position = _muzzleTransform.position;
 
         MonsterStat ownerStat = _owner.GetComponent<MonsterStat>();
-        Projectile projectile = projectileGO.GetComponent<Projectile>();
+        Projectile projectile = projectileGO.GetOrAddComponent<Projectile>();
         projectile.Init(_owner, target.GetComponent<BaseController>().CenterPosition, ownerStat.Damage, ownerStat.AttackRange,
             Stat.Speed, Stat.IsExplode, Stat.ExplosionRange, Stat.ExplosionDamage,
             Stat.IsPenetrate, Stat.Duration, LayerMask.NameToLayer("Player"));

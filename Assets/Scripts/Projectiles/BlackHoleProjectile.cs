@@ -57,6 +57,7 @@ public class BlackHoleProjectile : MonoBehaviour
         foreach (var item in colls)
         {
             MonsterController monster = item.GetComponent<MonsterController>();
+            monster.GetComponent<Rigidbody>().velocity = Vector3.zero;
             monster.State = Define.CreatureState.Dragged;
             MonsterStat monsterStat = monster.Stat as MonsterStat;
             //damage를 흡입력으로 사용함.
@@ -88,9 +89,10 @@ public class BlackHoleProjectile : MonoBehaviour
     }
     private void OnDestroy()
     {
-        foreach (var item in Physics.OverlapSphere(transform.position, (maxScale.x * 4.5f) / 2f, 1 << 8))
+        foreach (var item in Physics.OverlapSphere(transform.position, Mathf.Infinity, 1 << 8))
         {
             item.GetComponent<MonsterController>().State = Define.CreatureState.Move;
+            item.GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
     }
     private void OnDrawGizmos()

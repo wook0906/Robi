@@ -15,8 +15,8 @@ MonoBehaviour:
   waves:
   - expPerMonster: 20
     monsterConfigs:
-    - mobType: 7
-      numOfSpawn: 35
+    - mobType: 14
+      numOfSpawn: 1
   - expPerMonster: 40
     monsterConfigs:
     - mobType: 0

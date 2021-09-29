@@ -101,10 +101,7 @@ public class LevelUp_Popup : PopupUI
 
         Get<Button>((int)Buttons.AD_Button).onClick.AddListener(new UnityEngine.Events.UnityAction(() =>
         {
-            gameSceneUI.levelUpPopupCnt--;
-            if (gameSceneUI.levelUpPopupCnt <= 0)
-                Time.timeScale = 1f;
-            ClosePopupUI();
+            OnClickAdButton();
         }));
 
         GameScene gameScene = Managers.Scene.CurrentScene as GameScene;
@@ -140,6 +137,39 @@ public class LevelUp_Popup : PopupUI
         if (gameSceneUI.levelUpPopupCnt <= 0)
             Time.timeScale = 1f;
         ClosePopupUI();
+    }
+    void OnClickAdButton()
+    {
+        skillCandidateList = new List<SkillInfo>();
+        for (Define.SkillType i = Define.SkillType.PlayerNormal; i < Define.SkillType.PlayerPassiveSkillMax; i++)
+        {
+            if (i == Define.SkillType.PlayerActiveSkillMax) continue;
+
+            SkillInfo skillInfo;
+            skillInfo.grade = (Define.SkillGrade)Random.Range((int)Define.SkillGrade.Common, (int)Define.SkillGrade.Max);
+            if (i < Define.SkillType.PlayerActiveSkillMax)
+                skillInfo.isActiveSkill = true;
+            else
+                skillInfo.isActiveSkill = false;
+            skillInfo.skillType = i;
+            skillCandidateList.Add(skillInfo);
+        }
+
+        int randomIdx = Random.Range(0, skillCandidateList.Count);
+        skill1 = skillCandidateList[randomIdx];
+        Get<Text>((int)Texts.Item1Name_Text).text = $"{skill1.grade} \n {skill1.skillType}";
+        skillCandidateList.RemoveAt(randomIdx);
+
+
+        randomIdx = Random.Range(0, skillCandidateList.Count);
+        skill2 = skillCandidateList[randomIdx];
+        Get<Text>((int)Texts.Item2Name_Text).text = $"{skill2.grade} \n {skill2.skillType}";
+        skillCandidateList.RemoveAt(randomIdx);
+
+        randomIdx = Random.Range(0, skillCandidateList.Count);
+        skill3 = skillCandidateList[randomIdx];
+        Get<Text>((int)Texts.Item3Name_Text).text = $"{skill3.grade} \n {skill3.skillType}";
+        skillCandidateList.RemoveAt(randomIdx);
     }
     void AddNewActiveSkill(SkillInfo skillInfo)
     {
