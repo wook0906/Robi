@@ -16,7 +16,9 @@ MonoBehaviour:
   - expPerMonster: 20
     monsterConfigs:
     - mobType: 14
-      numOfSpawn: 1
+      numOfSpawn: 10
+    - mobType: 15
+      numOfSpawn: 10
   - expPerMonster: 40
     monsterConfigs:
     - mobType: 0

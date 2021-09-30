@@ -203,7 +203,7 @@ public class MonsterStat : CreatureStat
         if (resultDamage >= 0f)
         {
             ShieldHp -= damage;
-            Debug.Log($"Current Shield : {ShieldHp}");
+            //Debug.Log($"Current Shield : {ShieldHp}");
             return;
         }
         else
@@ -211,7 +211,7 @@ public class MonsterStat : CreatureStat
             float remainDamage = Mathf.Abs(resultDamage) - ShieldHp;
             ShieldHp = 0f;
             this.Hp -= Mathf.Abs(remainDamage);
-            Debug.Log($"Current HP : {this.Hp}");
+            //Debug.Log($"Current HP : {this.Hp}");
         }
         if (_useBerserk && !isOnBerserk)
         {

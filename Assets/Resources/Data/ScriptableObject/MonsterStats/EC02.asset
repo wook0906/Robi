@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterType: 15
   _maxHp: 12000
-  _atk: 3000
+  _atk: 1
   _def: 0
   _moveSpeed: 3
   _attackRange: 2.5

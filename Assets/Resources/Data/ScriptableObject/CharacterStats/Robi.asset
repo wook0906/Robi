@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Robi
   m_EditorClassIdentifier: 
   characterType: 0
-  _maxHp: 100000
+  _maxHp: 100
   _atk: 1.3
   _def: 60
   _moveSpeed: 5

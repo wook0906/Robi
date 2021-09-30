@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterType: 21
   _maxHp: 7500
-  _atk: 800
+  _atk: 500
   _def: 0
   _moveSpeed: 2
   _attackRange: 10
@@ -29,8 +29,8 @@ MonoBehaviour:
   _bombing: 0
   _shield: 0
   _immortal: 1
-  _immortalDuration: 3
-  _immortalCoolTime: 8
+  _immortalDuration: 5
+  _immortalCoolTime: 10
   _berserk: 0
   _suicideBombing: 0
   isNeedNumOfProjectileSetupPerSkills: 0
