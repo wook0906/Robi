@@ -35,8 +35,6 @@ public class Projectile : MonoBehaviour
     public Action<GameObject> OnKill;
     public Action<Vector3, Projectile> OnArrive;
 
-    private float durationTimer = 0f;
-    
 
     //public void Init(BaseController onwer, GameObject target, int damage,
     //    float attackRange, float speed, bool isExplode,
@@ -105,27 +103,24 @@ public class Projectile : MonoBehaviour
                 //    //}
                 //}
                 if (OnArrive != null)
+                {
                     OnArrive(transform.position, this);
-                Destroy(gameObject);
+                    OnArrive = null;
+                }
+
             }
         }
         else
         {
             if (dist < 0.1f)
             {
-                if(OnArrive!=null)
+                if (OnArrive != null)
+                {
                     OnArrive(transform.position, this);
-                Destroy(gameObject);
+                }
             }
         }
-        if (_duration > 0)
-        {
-            durationTimer += Time.deltaTime;
-            if (durationTimer >= _duration)
-            {
-                Destroy(gameObject);
-            }
-        }
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -144,8 +139,13 @@ public class Projectile : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void GraduallyDisappear()
+    public IEnumerator GraduallyDisappear()
     {
-        //스케일 점점 줄이면서 사라지게
+        while (Vector3.Magnitude(transform.localScale) >= Vector3.Magnitude(Vector3.one * 0.02f))
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, Time.deltaTime * 0.5f);
+            yield return null;
+        }
+        Destroy(this.gameObject);
     }
 }

@@ -20,12 +20,12 @@ public class DroneSkill : AttackSkillBase
         droneSkillStat.InitSkillStat(_type);
         drones = new List<DroneController>();
         _prefab = Managers.Resource.Load<GameObject>("Prefabs/Drone");
-        dronePos[0] = new Vector3(1, 1, 0);
-        dronePos[1] = new Vector3(-1, 1, 0);
-        dronePos[2] = new Vector3(1, -1, 0);
-        dronePos[3] = new Vector3(-1, -1, 0);
-        dronePos[4] = new Vector3(2, 0, 0);
-        dronePos[5] = new Vector3(-2, 0, 0);
+        dronePos[0] = new Vector3(-1.25f, 2, -4);
+        dronePos[1] = new Vector3(1.25f, 2, -4);
+        dronePos[2] = new Vector3(-2.5f, 0, -4);
+        dronePos[3] = new Vector3(2.5f, 0, -4);
+        dronePos[4] = new Vector3(-1.25f, -2, -4);
+        dronePos[5] = new Vector3(1.25f, -2, -4);
     }
 
     public override bool UseSkill()

@@ -48,6 +48,9 @@ public class RangedMonsterController : MonsterController
             case Define.CreatureState.ComebackHome:
                 //ComebackHome();
                 break;
+            case Define.CreatureState.Knockback:
+                Knockback();
+                break;
             default:
                 break;
         }
@@ -106,6 +109,7 @@ public class RangedMonsterController : MonsterController
     {
         MonsterStat stat = _stat as MonsterStat;
         moveDir = (target.transform.position - transform.position).normalized;
+        moveDir.z = 0f;
         transform.position += moveDir.normalized * stat.MoveSpeed * Time.deltaTime;
         transform.rotation = Quaternion.LookRotation(moveDir, Vector3.back);
 

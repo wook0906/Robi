@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class MonsterSpawner : MonoBehaviour
 {
-    private float radius;
+    public float minRadius = 15f;
+    public float maxRadius = 25f;
     private Vector2 rightTopPos;
 
     private Camera cam;
@@ -15,8 +16,6 @@ public class MonsterSpawner : MonoBehaviour
     Field field;
 
     int curWaveStep = 0;
-    int endWaveStep = 0;
-
 
     private IEnumerator Start()
     {
@@ -27,9 +26,8 @@ public class MonsterSpawner : MonoBehaviour
         }
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         field = GameObject.FindGameObjectWithTag("Field").GetComponent<Field>();
-        float horizontalSize = Camera.main.orthographicSize * 2f * ((float)Screen.width / Screen.height);
-        rightTopPos = new Vector2(horizontalSize * 0.5f, Camera.main.orthographicSize);
-        radius = rightTopPos.magnitude * 4.5f;
+        //float horizontalSize = Camera.main.orthographicSize * 2f * ((float)Screen.width / Screen.height);
+        //rightTopPos = new Vector2(horizontalSize * 0.5f, Camera.main.orthographicSize);
         cam = Camera.main;
         Define.StageType stageType = (Define.StageType)PlayerPrefs.GetInt("SelectedMap");
         StageConfigData stageData =  Managers.Data.stageConfigDataDict[stageType];
@@ -40,39 +38,38 @@ public class MonsterSpawner : MonoBehaviour
     {
         yield return new WaitForSeconds(stageData.termBetweenWaveToWave);
 
-        Managers.UI.GetSceneUI<GameScene_UI>().UpdateWaveLevelUI(curWaveStep + 1);
-        GameScene gameScene = Managers.Scene.CurrentScene as GameScene;
-        gameScene.currentWaveLevel = curWaveStep;
-        for (int monsterConfigIdx = 0; monsterConfigIdx < stageData.waves[curWaveStep].monsterConfigs.Length; monsterConfigIdx++)
+        for (int i = 0; i < stageData.waves.Length; i++)
         {
-            for (int j = 0; j < stageData.waves[curWaveStep].monsterConfigs[monsterConfigIdx].numOfSpawn; j++)
+            Managers.UI.GetSceneUI<GameScene_UI>().UpdateWaveLevelUI(curWaveStep + 1);
+            GameScene gameScene = Managers.Scene.CurrentScene as GameScene;
+            gameScene.currentWaveLevel = curWaveStep;
+            for (int monsterConfigIdx = 0; monsterConfigIdx < stageData.waves[curWaveStep].monsterConfigs.Length; monsterConfigIdx++)
             {
-                //GameObject enemyGO = Managers.Resource.Instantiate($"Creatures/Enemy/{(Define.MonsterType)Random.Range((int)Define.MonsterType.C01,(int)Define.MonsterType.MAX)}");
-                GameObject enemyGO = Managers.Resource.Instantiate($"Creatures/Enemy/{stageData.waves[curWaveStep].monsterConfigs[monsterConfigIdx].mobType}");
-                Vector2 pos;
-                Bounds bound = new Bounds();
-                bound.min = field.curMin;
-                bound.max = field.curMax;
-                do
+                for (int j = 0; j < stageData.waves[curWaveStep].monsterConfigs[monsterConfigIdx].numOfSpawn; j++)
                 {
-                    pos = player.transform.position + (Random.onUnitSphere * radius * 2f);
-                }
-                //while (pos.x < field.min.x &&
-                //        pos.y < field.min.y &&
-                //        pos.x > field.max.x &&
-                //        pos.y > field.max.y);
-                while (bound.Contains(pos));
-                //pos += Vector3.right * radius;
-                //pos = Quaternion.Euler(0f, 0f, Random.Range(0, 360)) * pos;
+                    //GameObject enemyGO = Managers.Resource.Instantiate($"Creatures/Enemy/{(Define.MonsterType)Random.Range((int)Define.MonsterType.C01,(int)Define.MonsterType.MAX)}");
+                    GameObject enemyGO = Managers.Resource.Instantiate($"Creatures/Enemy/{stageData.waves[curWaveStep].monsterConfigs[monsterConfigIdx].mobType}");
+                    Vector2 pos;
+                    do
+                    {
+                        pos = player.transform.position + (Random.onUnitSphere * Random.Range(minRadius,maxRadius));
+                    }
+                    //while (pos.x < field.min.x &&
+                    //        pos.y < field.min.y &&
+                    //        pos.x > field.max.x &&
+                    //        pos.y > field.max.y);
+                    while (Vector3.Distance(pos,player.transform.position) < minRadius);
+                    //pos += Vector3.right * radius;
+                    //pos = Quaternion.Euler(0f, 0f, Random.Range(0, 360)) * pos;
 
-                enemyGO.transform.position = pos;
-                Managers.Object.AddMonster(enemyGO.GetComponent<MonsterController>());
+                    enemyGO.transform.position = pos;
+                    Managers.Object.AddMonster(enemyGO.GetComponent<MonsterController>());
+                }
             }
+            yield return new WaitUntil(() => Managers.Object.IsAllMonsterDead());
+            yield return new WaitForSeconds(stageData.termBetweenWaveToWave);
+            curWaveStep++;
         }
-        yield return new WaitUntil(() => Managers.Object.IsAllMonsterDead());
-        yield return new WaitForSeconds(stageData.termBetweenWaveToWave);
-        curWaveStep++;
-        StartCoroutine(Wave(stageData));
     }
     public void Clear()
     {

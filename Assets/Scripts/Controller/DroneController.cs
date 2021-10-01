@@ -16,7 +16,7 @@ public class DroneController : BaseController
         this.owner = owner;
         this.offset = offset;
         this.droneSKillStat = stat;
-        _projectilePrefab = Managers.Resource.Load<GameObject>("Prefabs/Projectiles/NormalAttackProjectile");
+        _projectilePrefab = stat._bulletPrefab;// Managers.Resource.Load<GameObject>("Prefabs/Projectiles/NormalAttackProjectile");
     }
     public void SetStat(DroneSkillStat stat)
     {
@@ -51,6 +51,8 @@ public class DroneController : BaseController
 
         projectile.OnHit -= OnHit;
         projectile.OnHit += OnHit;
+        projectile.OnArrive -= OnArrive;
+        projectile.OnArrive += OnArrive;
     }
 
     protected GameObject SearchTarget()
@@ -84,5 +86,8 @@ public class DroneController : BaseController
         //effect.transform.position = pos;
         //effect.Play();
     }
-
+    public void OnArrive(Vector3 targetPos, Projectile projectile)
+    {
+        projectile.StartCoroutine(projectile.GraduallyDisappear());
+    }
 }

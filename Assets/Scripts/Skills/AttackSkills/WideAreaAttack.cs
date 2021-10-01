@@ -47,18 +47,20 @@ public class WideAreaAttack : MonoBehaviour
 
         int attackCount = (int)(Duration / DelayPerAttack);
         float effectAlpha = 1;
+        float offsetValue = 1f / attackCount;
         while (attackCount > 0)
         {
-            attackCount--;
             Collider[] colliders = Physics.OverlapSphere(transform.position, AttackRange, 1 << 8);
             foreach (var item in colliders)
             {
                 item.GetComponent<CreatureStat>().OnAttacked(_owner, Damage);
             }
             yield return new WaitForSeconds(DelayPerAttack);
-            effectAlpha -= (float)1f / attackCount;
-            pr.material.SetFloat("_Val", effectAlpha+0.1f);
-            pr1.material.SetFloat("_Val", effectAlpha+0.1f);
+            effectAlpha -= offsetValue;
+            Debug.Log(effectAlpha);
+            pr.material.SetFloat("_Val", effectAlpha);
+            pr1.material.SetFloat("_Val", effectAlpha);
+            attackCount--;
         }
       
         Destroy(gameObject);

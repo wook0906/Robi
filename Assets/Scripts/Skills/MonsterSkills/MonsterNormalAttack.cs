@@ -47,6 +47,8 @@ public class MonsterNormalAttack : AttackSkillBase
         projectile.OnHit -= OnHit;
         projectile.OnHit += OnHit;
 
+        projectile.OnArrive -= OnArrive;
+        projectile.OnArrive += OnArrive;
 
         OnFire();
         return true;
@@ -67,5 +69,10 @@ public class MonsterNormalAttack : AttackSkillBase
     {
         if (target == null)
             return;
+    }
+
+    public override void OnArrive(Vector3 targetPos, Projectile projectile)
+    {
+        projectile.StartCoroutine(projectile.GraduallyDisappear());
     }
 }

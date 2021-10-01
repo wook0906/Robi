@@ -37,6 +37,8 @@ public class MonsterMissile : AttackSkillBase
         projectile.OnHit += OnHit;
         projectile.OnKill -= OnKill;
         projectile.OnKill += OnKill;
+        projectile.OnArrive -= OnArrive;
+        projectile.OnArrive += OnArrive;
 
         OnFire();
         return true;
@@ -66,5 +68,9 @@ public class MonsterMissile : AttackSkillBase
                 continue;
             stat.OnAttacked(_owner, projectile.ExplosionDamage);
         }
+    }
+    public override void OnArrive(Vector3 targetPos, Projectile projectile)
+    {
+        projectile.StartCoroutine(projectile.GraduallyDisappear());
     }
 }

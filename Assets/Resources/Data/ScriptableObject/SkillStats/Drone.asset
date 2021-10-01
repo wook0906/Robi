@@ -24,5 +24,5 @@ MonoBehaviour:
   _isPenetrate: 0
   _duration: 0
   _delayPerAttack: 0
-  _bulletPrefab: {fileID: 2611059898476864543, guid: 58e0ce76f33652348a8e4198cc19321f,
+  _bulletPrefab: {fileID: 2611059898476864543, guid: 18c5f944d8203214f8ef41195586279e,
     type: 3}

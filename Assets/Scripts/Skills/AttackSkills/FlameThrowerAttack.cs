@@ -43,10 +43,12 @@ public class FlameThrowerAttack : AttackSkillBase
 
             foreach (Collider collider in colliders)
             {
-                Vector3 targetDir = (collider.GetComponent<BaseController>().CenterPosition - _owner.CenterPosition).normalized;
+                if (!collider.transform) continue;
+
+                Vector3 targetDir = (collider.transform.position - _owner.transform.position).normalized;
                 float angle = Vector3.Angle(targetDir, transform.up);
 
-                if (angle <= flameThrowerStat.targetAngle && collider.GetComponent<CreatureStat>())
+                if (angle <= flameThrowerStat.targetAngle)
                 {
                     Debug.Log($"{angle} , {flameThrowerStat.targetAngle}");
                     collider.GetComponent<CreatureStat>().OnAttacked(_owner, Stat.Damage);

@@ -55,6 +55,8 @@ public class NormalAttack : AttackSkillBase
             projectile.OnHit += OnHit;
             projectile.OnKill -= OnKill;
             projectile.OnKill += OnKill;
+            projectile.OnArrive -= OnArrive;
+            projectile.OnArrive += OnArrive;
             yield return new WaitForSeconds(Stat.DelayPerAttack);
         }
         OnFire();
@@ -85,5 +87,10 @@ public class NormalAttack : AttackSkillBase
     public override void LevelUp(Define.SkillGrade grade)
     {
         normalAttackStat.LevelUp(grade);
+    }
+
+    public override void OnArrive(Vector3 targetPos, Projectile projectile)
+    {
+        projectile.StartCoroutine(projectile.GraduallyDisappear());
     }
 }

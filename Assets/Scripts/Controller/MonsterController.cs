@@ -71,12 +71,12 @@ public class MonsterController : BaseController
         if (collision.CompareTag("Player"))
         {
 
-            collision.GetComponent<CreatureStat>().OnAttacked(this, Stat.Damage);
+            collision.GetComponent<PlayerStat>().OnAttacked(this, Stat.Damage);
 
             if (Stat.mobType >= Define.MonsterType.EC01 &&
                 Stat.mobType <= Define.MonsterType.EF07)
             {
-                moveDir = (transform.position - target.transform.position).normalized;
+                moveDir *= -1f;
                 State = Define.CreatureState.Knockback;
             }
             else
@@ -147,6 +147,7 @@ public class MonsterController : BaseController
     {
         MonsterStat stat = base._stat as MonsterStat;
         moveDir = (target.transform.position - transform.position).normalized;
+        moveDir.z = 0f;
         transform.position += moveDir.normalized * stat.MoveSpeed * Time.deltaTime;
         rigidBody.velocity = Vector3.zero;
         transform.rotation = Quaternion.LookRotation(moveDir, Vector3.back);

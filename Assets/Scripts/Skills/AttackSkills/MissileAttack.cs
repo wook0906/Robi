@@ -41,6 +41,8 @@ public class MissileAttack : AttackSkillBase
         projectile.OnHit += OnHit;
         projectile.OnKill -= OnKill;
         projectile.OnKill += OnKill;
+        projectile.OnArrive -= OnArrive;
+        projectile.OnArrive += OnArrive;
 
         OnFire();
         return true;
@@ -85,5 +87,9 @@ public class MissileAttack : AttackSkillBase
     public override void LevelUp(Define.SkillGrade grade)
     {
         missileStat.LevelUp(grade);
+    }
+    public override void OnArrive(Vector3 targetPos, Projectile projectile)
+    {
+        projectile.StartCoroutine(projectile.GraduallyDisappear());
     }
 }

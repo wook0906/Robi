@@ -47,6 +47,8 @@ public class BombingAttack : AttackSkillBase
                 projectile.OnHit += OnHit;
                 projectile.OnKill -= OnKill;
                 projectile.OnKill += OnKill;
+                projectile.OnArrive -= OnArrive;
+                projectile.OnArrive += OnArrive;
             }
             OnFire();
             yield return new WaitForSeconds(Stat.DelayPerAttack);
@@ -76,7 +78,6 @@ public class BombingAttack : AttackSkillBase
         if (colliders.Length == 0)
             return;
 
-        int count = 0;
 
         foreach (var collider in colliders)
         {
@@ -90,11 +91,46 @@ public class BombingAttack : AttackSkillBase
             if (stat == null)
                 continue;
             stat.OnAttacked(_owner, projectile.ExplosionDamage);
-            count++;
         }
     }
     public override void LevelUp(Define.SkillGrade grade)
     {
         bombingAttackStat.LevelUp(grade);
     }
+    public override void OnArrive(Vector3 targetPos, Projectile projectile)
+    {
+        ParticleSystem effect = Managers.Resource.Instantiate("Effects/Explosion").GetComponent<ParticleSystem>();
+        Vector3 pos = projectile.transform.position;
+        pos.z -= Stat.ExplosionRange;
+        effect.transform.position = pos;
+        effect.Play();
+
+
+        effect = Managers.Resource.Instantiate("Effects/ExplosionMark").GetComponent<ParticleSystem>();
+        effect.GetComponent<ParticleAutoDestroy>().Init(0f, Stat.ExplosionRange * 2f);
+        pos = projectile.transform.position;
+        pos.z = -0.02f;
+        effect.transform.position = pos;
+        effect.Play();
+
+
+        Collider[] colliders = Physics.OverlapSphere(projectile.transform.position, projectile.ExplosionRange);
+        if (colliders.Length == 0)
+            return;
+
+        foreach (var collider in colliders)
+        {
+            if (_owner == null)
+                return;
+
+            if (collider.gameObject == projectile.gameObject || collider.gameObject == _owner.gameObject)
+                continue;
+
+            CreatureStat stat = collider.GetComponent<CreatureStat>();
+            if (stat == null)
+                continue;
+            stat.OnAttacked(_owner, projectile.ExplosionDamage);
+        }
+    }
+
 }

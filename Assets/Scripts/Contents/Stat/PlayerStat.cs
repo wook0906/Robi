@@ -188,7 +188,7 @@ public class PlayerStat : CreatureStat
         }
 
         float resultDamage = damage - Def;
-        this.Hp -= resultDamage;
+        this.Hp -= Mathf.Abs(resultDamage);
         Debug.Log($"{resultDamage} Damaged!");
 
         if (this.Hp <= 0)
