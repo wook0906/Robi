@@ -43,5 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0937a342293d6420d9bd1e52ca253432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minRadius: 20
-  maxRadius: 30
+  minRadius: 30
+  maxRadius: 60

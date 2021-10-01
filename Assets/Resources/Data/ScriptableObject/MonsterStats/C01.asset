@@ -16,7 +16,7 @@ MonoBehaviour:
   _maxHp: 200
   _atk: 150
   _def: 0
-  _moveSpeed: 2
+  _moveSpeed: 3.2
   _attackRange: 1
   _useSkill: 0
   _normalAttack1: 0
