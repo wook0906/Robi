@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillType: 1
   _coolTime: 10
-  _damage: 40000
+  _damage: 500
   _attackRange: 5
   _numOfProjectilePerBurst: 0
   _speed: 0

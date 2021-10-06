@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: EF01
   m_EditorClassIdentifier: 
   monsterType: 21
-  _maxHp: 7500
-  _atk: 500
+  _maxHp: 10000
+  _atk: 800
   _def: 0
   _moveSpeed: 3.5
   _attackRange: 10
