@@ -26,6 +26,7 @@ public class MonsterNormalAttack : AttackSkillBase
 
     public override bool UseSkill()
     {
+       
 
         GameObject target = MonsterController.target;
 
@@ -33,6 +34,7 @@ public class MonsterNormalAttack : AttackSkillBase
             return false;
         GameObject projectileGO = Instantiate(_prefab, _parent);
         projectileGO.transform.rotation = Quaternion.identity;
+        projectileGO.transform.localScale = _owner.transform.Find("Model").localScale;
         if (_muzzleTransform == null)
             projectileGO.transform.position = _owner.CenterPosition;
         else

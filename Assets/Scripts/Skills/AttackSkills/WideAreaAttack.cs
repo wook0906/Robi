@@ -26,17 +26,20 @@ public class WideAreaAttack : MonoBehaviour
     public void Init(BaseController owner,int damage, float attackRange,
         float duration, float delayPerAttack, NapalmAttackSkillStat stat)
     {
-        napalmEffects = Managers.Resource.Instantiate("Effects/NapalmExplosion");
-        napalmEffects.transform.SetParent(transform);
-        napalmEffects.transform.localPosition = Vector3.zero;
-        pr = napalmEffects.transform.Find("Ground").transform.Find("Crack").GetComponent<ParticleSystemRenderer>();
-        pr1 = napalmEffects.transform.Find("Ground").transform.Find("Crack1").GetComponent<ParticleSystemRenderer>();
-
         _owner = owner;
         _damage = damage;
         _attackRange = attackRange;
         _duration = duration;
         _delayPerAttack = delayPerAttack;
+
+        napalmEffects = Managers.Resource.Instantiate("Effects/NapalmExplosion");
+        napalmEffects.transform.localScale *= (AttackRange * 2f);
+        napalmEffects.transform.SetParent(transform);
+        napalmEffects.transform.localPosition = Vector3.zero;
+        pr = napalmEffects.transform.Find("Ground").transform.Find("Crack").GetComponent<ParticleSystemRenderer>();
+        pr1 = napalmEffects.transform.Find("Ground").transform.Find("Crack1").GetComponent<ParticleSystemRenderer>();
+
+        
 
         StartCoroutine(CoAttack());
         
@@ -57,7 +60,6 @@ public class WideAreaAttack : MonoBehaviour
             }
             yield return new WaitForSeconds(DelayPerAttack);
             effectAlpha -= offsetValue;
-            Debug.Log(effectAlpha);
             pr.material.SetFloat("_Val", effectAlpha);
             pr1.material.SetFloat("_Val", effectAlpha);
             attackCount--;

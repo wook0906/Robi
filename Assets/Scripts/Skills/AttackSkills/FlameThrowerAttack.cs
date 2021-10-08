@@ -32,6 +32,7 @@ public class FlameThrowerAttack : AttackSkillBase
     {
         Debug.Log($"{_type} Fired. #Info : CoolTime : {Stat.CoolTime}, Damage : {Stat.Damage}, AttackRange : {Stat.AttackRange}, NumOfProjectilePerBurst {Stat.NumOfProjectilePerBurst}, Speed : {Stat.Speed}, IsExplode : {Stat.IsExplode}, ExplosionRange : {Stat.ExplosionRange}, ExplosionDamage : {Stat.ExplosionDamage}, isPernerate : {Stat.IsPenetrate}, Duration : {Stat.Duration}, DelayPerAttack : {Stat.DelayPerAttack}");
 
+        float targetAngle = (flameThrowerStat.targetAngle / 2)/100f;
 
         effect.GetComponent<ParticleSystem>().Play();
 
@@ -45,14 +46,26 @@ public class FlameThrowerAttack : AttackSkillBase
             {
                 if (!collider.transform) continue;
 
-                Vector3 targetDir = (collider.transform.position - _owner.transform.position).normalized;
-                float angle = Vector3.Angle(targetDir, transform.up);
+                
 
-                if (angle <= flameThrowerStat.targetAngle)
+                //Vector3 targetDir = (collider.transform.position - _owner.transform.position).normalized;
+                //float angle = Vector3.SignedAngle(_owner.transform.position, collider.transform.position, _owner.transform.forward);
+
+                //bool isIn = angle <= targetAngle && angle >= -targetAngle;
+                //if (isIn)
+                //{
+                //    //Debug.Log($"{angle}, {targetAngle}");
+                //    collider.GetComponent<CreatureStat>().OnAttacked(_owner, Stat.Damage);
+                //    OnHit(collider.gameObject, null);
+                //}
+
+                Vector3 vectorToCollider = (collider.transform.position - player.transform.position).normalized;
+                // 180 degree arc, change 0 to 0.5 for a 90 degree "pie"
+                if (Vector3.Dot(vectorToCollider, _owner.transform.forward) > (1f - targetAngle))
                 {
-                    Debug.Log($"{angle} , {flameThrowerStat.targetAngle}");
                     collider.GetComponent<CreatureStat>().OnAttacked(_owner, Stat.Damage);
                     OnHit(collider.gameObject, null);
+
                 }
             }
             OnFire();
@@ -63,7 +76,6 @@ public class FlameThrowerAttack : AttackSkillBase
         _owner.State = Define.CreatureState.Idle;
         _owner.AttackSkillDispatcher.Add(Stat.CoolTime, this);
     }
-
 
     private void OnDrawGizmos()
     {

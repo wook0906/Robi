@@ -30,6 +30,7 @@ public class Projectile : MonoBehaviour
     private Vector3 _targetPos;
     private string _targetTag;
     private Rigidbody _rigid;
+    Vector3 postPosition;
 
     public Action<GameObject, Projectile> OnHit;
     public Action<GameObject> OnKill;
@@ -88,31 +89,46 @@ public class Projectile : MonoBehaviour
         deltaDist = Mathf.Clamp(deltaDist, 0, dist);
         transform.position += _toTarget * _speed * Time.deltaTime;
         //_rigid.MovePosition(transform.position + _toTarget * deltaDist);
+
         if (_attackRange > 0)
         {
-            if (dist < 0.1f)
+            //if (dist < 0.1f)
+            //{
+            //    //transform.position = _targetPos;
+            //    //Collider[] colliders = Physics.OverlapSphere(transform.position, GetComponent<SphereCollider>().radius, TargetLayer);
+            //    //foreach (var collider in colliders)
+            //    //{
+            //    //    //if(collider.CompareTag(_targetTag))
+            //    //    //{
+            //    //    OnHit(collider.gameObject, this);
+            //    //    collider.GetComponent<CreatureStat>().OnAttacked(_owner, _damage);
+            //    //    //}
+            //    //}
+            //    if (OnArrive != null)
+            //    {
+            //        OnArrive(transform.position, this);
+            //        OnArrive = null;
+            //    }
+
+            //}
+            if (Vector3.Distance(postPosition, _targetPos) < Vector3.Distance(transform.position, _targetPos))
             {
-                //transform.position = _targetPos;
-                //Collider[] colliders = Physics.OverlapSphere(transform.position, GetComponent<SphereCollider>().radius, TargetLayer);
-                //foreach (var collider in colliders)
-                //{
-                //    //if(collider.CompareTag(_targetTag))
-                //    //{
-                //    OnHit(collider.gameObject, this);
-                //    collider.GetComponent<CreatureStat>().OnAttacked(_owner, _damage);
-                //    //}
-                //}
                 if (OnArrive != null)
                 {
                     OnArrive(transform.position, this);
-                    OnArrive = null;
                 }
-
             }
         }
         else
         {
-            if (dist < 0.1f)
+            //if (dist < 0.1f)
+            //{
+            //    if (OnArrive != null)
+            //    {
+            //        OnArrive(transform.position, this);
+            //    }
+            //}
+            if (Vector3.Distance(postPosition, _targetPos) < Vector3.Distance(transform.position, _targetPos))
             {
                 if (OnArrive != null)
                 {
@@ -141,9 +157,10 @@ public class Projectile : MonoBehaviour
 
     public IEnumerator GraduallyDisappear()
     {
-        while (Vector3.Magnitude(transform.localScale) >= Vector3.Magnitude(Vector3.one * 0.02f))
+        while (Vector3.Magnitude(transform.localScale) >= Vector3.Magnitude(Vector3.one * 0.1f))
         {
             transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, Time.deltaTime * 0.5f);
+            //Debug.Log($"작아지는중... {transform.localScale}");
             yield return null;
         }
         Destroy(this.gameObject);

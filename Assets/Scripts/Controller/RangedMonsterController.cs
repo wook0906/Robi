@@ -78,13 +78,15 @@ public class RangedMonsterController : MonsterController
     {
         //MonsterStat stat = _stat as MonsterStat;
         moveDir = (target.transform.position - transform.position).normalized;
+        moveDir.z = 0f;
         transform.rotation = Quaternion.LookRotation(moveDir, Vector3.back);
+        rigidBody.velocity = Vector3.zero;
         if (!IsPlayerInAttackRange())
         {
             State = Define.CreatureState.Chase;
             return;
         }
-
+        
         //if (Time.time - lastAttackTime < stat.AttackInterval)
         //    return;
 
