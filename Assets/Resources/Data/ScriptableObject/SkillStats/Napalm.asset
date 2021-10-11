@@ -23,5 +23,5 @@ MonoBehaviour:
   _explosionDamage: 3000
   _isPenetrate: 0
   _duration: 10
-  _delayPerAttack: 0.5
+  _delayPerAttack: 2
   _bulletPrefab: {fileID: 0}
