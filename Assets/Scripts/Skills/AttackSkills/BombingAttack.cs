@@ -22,16 +22,16 @@ public class BombingAttack : AttackSkillBase
 
     private IEnumerator Fire()
     {
-        Debug.Log($"{_type} Fired. #Info : CoolTime : {Stat.CoolTime}, Damage : {Stat.Damage}, AttackRange : {Stat.AttackRange}, NumOfProjectilePerBurst {Stat.NumOfProjectilePerBurst}, Speed : {Stat.Speed}, IsExplode : {Stat.IsExplode}, ExplosionRange : {Stat.ExplosionRange}, ExplosionDamage : {Stat.ExplosionDamage}, isPernerate : {Stat.IsPenetrate}, Duration : {Stat.Duration}, DelayPerAttack : {Stat.DelayPerAttack}");
-        int attackCount = (int)(Stat.Duration / Stat.DelayPerAttack);
+        Debug.Log($"{_type} Fired. #Info : CoolTime : {bombingAttackStat.CoolTime}, Damage : {bombingAttackStat.Damage}, AttackRange : {bombingAttackStat.AttackRange}, NumOfProjectilePerBurst {bombingAttackStat.NumOfProjectilePerBurst}, Speed : {bombingAttackStat.Speed}, IsExplode : {bombingAttackStat.IsExplode}, ExplosionRange : {bombingAttackStat.ExplosionRange}, ExplosionDamage : {bombingAttackStat.ExplosionDamage}, isPernerate : {bombingAttackStat.IsPenetrate}, Duration : {bombingAttackStat.Duration}, DelayPerAttack : {bombingAttackStat.DelayPerAttack}");
+        int attackCount = (int)(bombingAttackStat.Duration / bombingAttackStat.DelayPerAttack);
         while (attackCount > 0)
         {
             attackCount--;
-            for (int i = 0; i < Stat.NumOfProjectilePerBurst; i++)
+            for (int i = 0; i < bombingAttackStat.NumOfProjectilePerBurst; i++)
             {
                 GameObject go = Instantiate<GameObject>(_prefab);
                 Vector3 dir = Random.onUnitSphere;
-                Vector3 pos = transform.position + dir * Stat.AttackRange;
+                Vector3 pos = transform.position + dir * bombingAttackStat.AttackRange;
                 pos.z = -20f;
                 pos.x += 10f;
                 go.transform.position = pos;
@@ -39,9 +39,9 @@ public class BombingAttack : AttackSkillBase
                 pos.z = 0f;
                 pos.x -= 10f;
                 Projectile projectile = go.GetComponent<Projectile>();
-                projectile.Init(_owner, pos, 0, 0f, Stat.Speed,
-                    Stat.IsExplode, Stat.ExplosionRange, Stat.ExplosionDamage,
-                    Stat.IsPenetrate, Stat.Duration, LayerMask.NameToLayer("Enemy"));
+                projectile.Init(_owner, pos, bombingAttackStat.Damage, bombingAttackStat.AttackRange, bombingAttackStat.Speed,
+                    bombingAttackStat.IsExplode, bombingAttackStat.ExplosionRange, bombingAttackStat.ExplosionDamage,
+                    bombingAttackStat.IsPenetrate, bombingAttackStat.Duration, LayerMask.NameToLayer("Enemy"));
 
                 projectile.OnHit -= OnHit;
                 projectile.OnHit += OnHit;
@@ -99,6 +99,7 @@ public class BombingAttack : AttackSkillBase
     }
     public override void OnArrive(Vector3 targetPos, Projectile projectile)
     {
+        Debug.Log($"{this.name} On Arrived!");
         ParticleSystem effect = Managers.Resource.Instantiate("Effects/Explosion").GetComponent<ParticleSystem>();
         Vector3 pos = projectile.transform.position;
         pos.z -= Stat.ExplosionRange;

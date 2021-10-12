@@ -79,6 +79,7 @@ public class Projectile : MonoBehaviour
     private void Start()
     {
         _rigid = GetComponent<Rigidbody>();
+        postPosition = this.transform.position;
     }
 
     private void FixedUpdate()
@@ -116,6 +117,7 @@ public class Projectile : MonoBehaviour
                 if (OnArrive != null)
                 {
                     OnArrive(transform.position, this);
+                    OnArrive = null;
                 }
             }
         }
@@ -133,10 +135,11 @@ public class Projectile : MonoBehaviour
                 if (OnArrive != null)
                 {
                     OnArrive(transform.position, this);
+                    OnArrive = null;
                 }
             }
         }
-
+        postPosition = transform.position;
     }
 
     private void OnTriggerEnter(Collider other)
