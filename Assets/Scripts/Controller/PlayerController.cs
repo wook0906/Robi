@@ -52,12 +52,12 @@ public class PlayerController : BaseController
 
 
         //1 기본
-        //GameObject normalAttack = new GameObject() { name = "NormalAttack" };
-        //normalAttack.transform.parent = transform;
-        //normalAttack.transform.localPosition = Vector3.zero;
-        //NormalAttack normalSkill = normalAttack.AddComponent<NormalAttack>();
-        //normalSkill.Init(this, null, null);
-        //attackSkills.Add(normalSkill);
+        GameObject normalAttack = new GameObject() { name = "NormalAttack" };
+        normalAttack.transform.parent = transform;
+        normalAttack.transform.localPosition = Vector3.zero;
+        NormalAttack normalSkill = normalAttack.AddComponent<NormalAttack>();
+        normalSkill.Init(this, null, null);
+        attackSkills.Add(normalSkill);
 
         //2 지원폭격
         //GameObject bombingGO = new GameObject() { name = "Bombing" };
@@ -104,11 +104,11 @@ public class PlayerController : BaseController
         //attackSkills.Add(pulseWaveAttack.GetComponent<PulseWaveAttack>());
 
         //8 네이팜탄
-        GameObject napalmAttack = new GameObject() { name = "Napalm" };
-        napalmAttack.transform.parent = transform;
-        napalmAttack.transform.localPosition = Vector3.zero;
-        napalmAttack.AddComponent<NapalmAttack>().Init(this, null, null);
-        attackSkills.Add(napalmAttack.GetComponent<NapalmAttack>());
+        //GameObject napalmAttack = new GameObject() { name = "Napalm" };
+        //napalmAttack.transform.parent = transform;
+        //napalmAttack.transform.localPosition = Vector3.zero;
+        //napalmAttack.AddComponent<NapalmAttack>().Init(this, null, null);
+        //attackSkills.Add(napalmAttack.GetComponent<NapalmAttack>());
 
         //9 방어막
         //GameObject shield = new GameObject() { name = "Shield" };

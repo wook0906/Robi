@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Napalm
   m_EditorClassIdentifier: 
   SkillType: 5
-  _coolTime: 5
+  _coolTime: 10
   _damage: 1000
   _attackRange: 0
   _numOfProjectilePerBurst: 1
@@ -22,6 +22,6 @@ MonoBehaviour:
   _explosionRange: 6
   _explosionDamage: 3000
   _isPenetrate: 0
-  _duration: 10
+  _duration: 8
   _delayPerAttack: 2
   _bulletPrefab: {fileID: 0}
