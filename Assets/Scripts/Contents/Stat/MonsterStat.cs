@@ -38,7 +38,7 @@ public class MonsterStat : CreatureStat
         get { return _maxHp; }
         set
         {
-            float maxHp = value - (value * MonsterController.target.GetComponent<PlayerController>().passiveSkill.skillDict[Define.SkillType.EnemyHpDownIncrease]);
+            float maxHp = value - (value * MonsterController.target.GetComponent<PlayerController>().passiveSkill.skillValueDict[Define.SkillType.EnemyHpDownIncrease]);
             _maxHp = maxHp;
         }
     }
@@ -242,7 +242,7 @@ public class MonsterStat : CreatureStat
             StageConfigData stageData = Managers.Data.stageConfigDataDict[stageType];
             GameScene gameScene = Managers.Scene.CurrentScene as GameScene;
 
-            float resultExp = (stageData.waves[gameScene.currentWaveLevel].expPerMonster * playerStat.ExpAssist) * (1f + playerStat.GetComponent<PlayerController>().passiveSkill.skillDict[Define.SkillType.ExpIncrease]);
+            float resultExp = (stageData.waves[gameScene.currentWaveLevel].expPerMonster * playerStat.ExpAssist) * (1f + playerStat.GetComponent<PlayerController>().passiveSkill.skillValueDict[Define.SkillType.ExpIncrease]);
 
             Debug.Log($"Get Exp:{resultExp}");
 

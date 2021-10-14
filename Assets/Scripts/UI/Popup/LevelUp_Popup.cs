@@ -14,6 +14,7 @@ public class LevelUp_Popup : PopupUI
         public bool isActiveSkill;
         public Define.SkillGrade grade;
         public Define.SkillType skillType;
+        public int level;
     }
 
     SkillInfo skill1;
@@ -52,6 +53,8 @@ public class LevelUp_Popup : PopupUI
         Bind<Image>(typeof(Images));
         Bind<Text>(typeof(Texts));
 
+        GameScene gameScene = Managers.Scene.CurrentScene as GameScene;
+        player = gameScene.player.GetComponent<PlayerController>();
 
         skillCandidateList = new List<SkillInfo>();
         for (Define.SkillType i = Define.SkillType.PlayerNormal; i < Define.SkillType.PlayerPassiveSkillMax; i++)
@@ -61,28 +64,48 @@ public class LevelUp_Popup : PopupUI
             SkillInfo skillInfo;
             skillInfo.grade = (Define.SkillGrade)Random.Range((int)Define.SkillGrade.Common, (int)Define.SkillGrade.Max);
             if (i < Define.SkillType.PlayerActiveSkillMax)
+            {
                 skillInfo.isActiveSkill = true;
+                skillInfo.level = GetLevelActiveSkill(i);
+            }
             else
+            {
+                skillInfo.level = GetLevelPassiveSkill(i);
                 skillInfo.isActiveSkill = false;
+            }
             skillInfo.skillType = i;
-            skillCandidateList.Add(skillInfo);
+
+            if (skillInfo.isActiveSkill)
+            {
+                if (skillInfo.level < 7)
+                {
+                    skillCandidateList.Add(skillInfo);
+                }
+            }
+            else
+            {
+                if (skillInfo.level < 3)
+                    skillCandidateList.Add(skillInfo);
+            }
         }
         
         int randomIdx = Random.Range(0, skillCandidateList.Count);
         skill1 = skillCandidateList[randomIdx];
         Get<Text>((int)Texts.Item1Name_Text).text = $"{skill1.grade} \n {skill1.skillType}";
         skillCandidateList.RemoveAt(randomIdx);
-        
+        Get<Text>((int)Texts.Item1Level_Text).text = $"Lv.{skill1.level}";
 
         randomIdx = Random.Range(0, skillCandidateList.Count);
         skill2 = skillCandidateList[randomIdx];
         Get<Text>((int)Texts.Item2Name_Text).text = $"{skill2.grade} \n {skill2.skillType}";
         skillCandidateList.RemoveAt(randomIdx);
-        
+        Get<Text>((int)Texts.Item2Level_Text).text = $"Lv.{skill2.level}";
+
         randomIdx = Random.Range(0, skillCandidateList.Count);
         skill3 = skillCandidateList[randomIdx];
         Get<Text>((int)Texts.Item3Name_Text).text = $"{skill3.grade} \n {skill3.skillType}";
         skillCandidateList.RemoveAt(randomIdx);
+        Get<Text>((int)Texts.Item3Level_Text).text = $"Lv.{skill3.level}";
 
         Get<Button>((int)Buttons.Item1_Button).onClick.AddListener(new UnityEngine.Events.UnityAction(()=>
         {
@@ -104,12 +127,27 @@ public class LevelUp_Popup : PopupUI
             OnClickAdButton();
         }));
 
-        GameScene gameScene = Managers.Scene.CurrentScene as GameScene;
-        player = gameScene.player.GetComponent<PlayerController>();
+        
 
         Time.timeScale = 0f;
         gameSceneUI = Managers.UI.GetSceneUI<GameScene_UI>();
         gameSceneUI.levelUpPopupCnt++;
+    }
+    int GetLevelPassiveSkill(Define.SkillType skillType)
+    {
+        return player.passiveSkill.skillLevelDict[skillType];
+    }
+    int GetLevelActiveSkill(Define.SkillType skillType)
+    {
+        foreach (var item in player.attackSkills)
+        {
+            if (item.Type == skillType)
+            {
+                return item.Stat.Level;
+            }
+        }
+        return 0;
+        
     }
     void OnClickSkillButton(SkillInfo skillInfo)
     {
@@ -148,28 +186,48 @@ public class LevelUp_Popup : PopupUI
             SkillInfo skillInfo;
             skillInfo.grade = (Define.SkillGrade)Random.Range((int)Define.SkillGrade.Common, (int)Define.SkillGrade.Max);
             if (i < Define.SkillType.PlayerActiveSkillMax)
+            {
                 skillInfo.isActiveSkill = true;
+                skillInfo.level = GetLevelActiveSkill(i);
+            }
             else
+            {
+                skillInfo.level = GetLevelPassiveSkill(i);
                 skillInfo.isActiveSkill = false;
+            }
             skillInfo.skillType = i;
-            skillCandidateList.Add(skillInfo);
+
+            if (skillInfo.isActiveSkill)
+            {
+                if (skillInfo.level < 7)
+                {
+                    skillCandidateList.Add(skillInfo);
+                }
+            }
+            else
+            {
+                if (skillInfo.level < 3)
+                    skillCandidateList.Add(skillInfo);
+            }
         }
 
         int randomIdx = Random.Range(0, skillCandidateList.Count);
         skill1 = skillCandidateList[randomIdx];
         Get<Text>((int)Texts.Item1Name_Text).text = $"{skill1.grade} \n {skill1.skillType}";
         skillCandidateList.RemoveAt(randomIdx);
-
+        Get<Text>((int)Texts.Item1Level_Text).text = $"Lv.{skill1.level}";
 
         randomIdx = Random.Range(0, skillCandidateList.Count);
         skill2 = skillCandidateList[randomIdx];
         Get<Text>((int)Texts.Item2Name_Text).text = $"{skill2.grade} \n {skill2.skillType}";
         skillCandidateList.RemoveAt(randomIdx);
+        Get<Text>((int)Texts.Item2Level_Text).text = $"Lv.{skill2.level}";
 
         randomIdx = Random.Range(0, skillCandidateList.Count);
         skill3 = skillCandidateList[randomIdx];
         Get<Text>((int)Texts.Item3Name_Text).text = $"{skill3.grade} \n {skill3.skillType}";
         skillCandidateList.RemoveAt(randomIdx);
+        Get<Text>((int)Texts.Item3Level_Text).text = $"Lv.{skill3.level}";
     }
     void AddNewActiveSkill(SkillInfo skillInfo)
     {

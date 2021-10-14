@@ -37,7 +37,7 @@ public class PlayerStat : CreatureStat
         set 
         { 
             _level = value;
-            HpRecovery(MaxHp * owner.passiveSkill.skillDict[Define.SkillType.HPRecoveryAssistIncrease]);
+            HpRecovery(MaxHp * owner.passiveSkill.skillValueDict[Define.SkillType.HPRecoveryAssistIncrease]);
         } 
     }
 
@@ -45,7 +45,7 @@ public class PlayerStat : CreatureStat
     {
         get 
         {
-            float def = _def * (1 + owner.passiveSkill.skillDict[Define.SkillType.DEFIncrease]);
+            float def = _def * (1 + owner.passiveSkill.skillValueDict[Define.SkillType.DEFIncrease]);
             return def;
         }
         set { _def = value; }
@@ -107,7 +107,7 @@ public class PlayerStat : CreatureStat
         get { return _maxHp; }
         set
         {
-            float maxHp = value * (1f + owner.passiveSkill.skillDict[Define.SkillType.MaxHPIncrease]);
+            float maxHp = value * (1f + owner.passiveSkill.skillValueDict[Define.SkillType.MaxHPIncrease]);
             _maxHp = maxHp;
         }
     }
@@ -130,7 +130,7 @@ public class PlayerStat : CreatureStat
     { 
         get 
         {
-            float hpRecoveryPerSecond = MaxHp * owner.passiveSkill.skillDict[Define.SkillType.HPRecoveryPerSecIncrease];
+            float hpRecoveryPerSecond = MaxHp * owner.passiveSkill.skillValueDict[Define.SkillType.HPRecoveryPerSecIncrease];
             return hpRecoveryPerSecond;
         }
     }
@@ -200,7 +200,7 @@ public class PlayerStat : CreatureStat
     public void HpRecovery(float value)
     {
         //Debug.Log($"Hp Recover {value * (1f + owner.passiveSkill.skillDict[Define.SkillType.HPRecoveryAmountIncrease])}");
-        this.Hp += value * (1f + owner.passiveSkill.skillDict[Define.SkillType.HPRecoveryAmountIncrease]);
+        this.Hp += value * (1f + owner.passiveSkill.skillValueDict[Define.SkillType.HPRecoveryAmountIncrease]);
     }
 
     protected override void OnDead(BaseController attacker)
@@ -239,7 +239,7 @@ public class PlayerStat : CreatureStat
 [Serializable]
 public class PassiveSkills
 {
-    public Dictionary<Define.SkillType, float> skillDict = new Dictionary<Define.SkillType, float>();
+    public Dictionary<Define.SkillType, float> skillValueDict = new Dictionary<Define.SkillType, float>();
     //{
     //    {Define.SkillType.ATKIncrease, 0f},
     //    {Define.SkillType.MaxHPIncrease, 0f},
@@ -256,13 +256,15 @@ public class PassiveSkills
     //    {Define.SkillType.RangeIncrease, 0f},
     //    {Define.SkillType.HPRecoveryPerSecIncrease, 0f},
     //};
+    public Dictionary<Define.SkillType, int> skillLevelDict = new Dictionary<Define.SkillType, int>();
     public PlayerStat _playerstat;
 
     public void Init()
     {
         for (Define.SkillType i = Define.SkillType.ATKIncrease; i < Define.SkillType.PlayerPassiveSkillMax; i++)
         {
-            skillDict.Add(i, 0);
+            skillValueDict.Add(i, 0);
+            skillLevelDict.Add(i, 0);
         }
     }
     public void LevelUp(Define.SkillType skillType, Define.SkillGrade skillGrade)
@@ -270,72 +272,71 @@ public class PassiveSkills
         switch (skillType)
         {
             case Define.SkillType.ATKIncrease:
-                skillDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].ATKIncrease;
-                
+                skillValueDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].ATKIncrease;
                 //Check
                 break;
             case Define.SkillType.MaxHPIncrease:
-                skillDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].MaxHPIncrease;
+                skillValueDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].MaxHPIncrease;
                 _playerstat.MaxHp = _playerstat.MaxHp;
                 break;
                 //Check
             case Define.SkillType.DEFIncrease:
-                skillDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].DEFIncrease;
-                _playerstat.Def += skillDict[skillType];
+                skillValueDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].DEFIncrease;
+                _playerstat.Def += skillValueDict[skillType];
                 //Check
                 break;
             case Define.SkillType.MoveSpeedIncrease:
-                skillDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].MoveSpeedIncrease;
-                _playerstat.MoveSpeed *= (1f + skillDict[skillType]);
+                skillValueDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].MoveSpeedIncrease;
+                _playerstat.MoveSpeed *= (1f + skillValueDict[skillType]);
                 //Check
                 break;
             case Define.SkillType.ProjectileIncrease:
-                skillDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].ProjectileIncrease;
-                
+                skillValueDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].ProjectileIncrease;
                 //Done
                 break;
             case Define.SkillType.ExpIncrease:
-                skillDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].ExpIncrease;
+                skillValueDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].ExpIncrease;
                 //Check
                 break;
             case Define.SkillType.CoolTimeIncrease:
-                skillDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].CoolTimeIncrease;
+                skillValueDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].CoolTimeIncrease;
                 //Check
                 break;
             case Define.SkillType.RootRangeIncrease:
-                skillDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].RootRangeIncrease;
-                _playerstat.GetComponent<PlayerController>().SetItemRooterRange(1f + skillDict[skillType]);
+                skillValueDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].RootRangeIncrease;
+                _playerstat.GetComponent<PlayerController>().SetItemRooterRange(1f + skillValueDict[skillType]);
                 //Check
                 break;
             case Define.SkillType.HPRecoveryAssistIncrease:
-                skillDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].HPRecoveryAssistIncrease;
+                skillValueDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].HPRecoveryAssistIncrease;
                 //Check
                 break;
             case Define.SkillType.EnemyHpDownIncrease:
-                skillDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].EnemyHpDownIncrease;
+                skillValueDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].EnemyHpDownIncrease;
                 //Check
                 break;
             case Define.SkillType.HPRecoveryAmountIncrease:
-                skillDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].HPRecoveryAmountIncrease;
+                skillValueDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].HPRecoveryAmountIncrease;
                 //Check
                 break;
             case Define.SkillType.DurationIncrease:
-                skillDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].DurationIncrease;
+                skillValueDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].DurationIncrease;
                 //Check
                 break;
             case Define.SkillType.RangeIncrease:
-                skillDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].RangeIncrease;
+                skillValueDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].RangeIncrease;
                 //Check
                 break;
             case Define.SkillType.HPRecoveryPerSecIncrease:
-                skillDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].HPRecoveryPerSecIncrease;
+                skillValueDict[skillType] += Managers.Data.passiveSkillCoefficientDict[skillGrade].HPRecoveryPerSecIncrease;
                 //Check
                 break;
             default:
                 Debug.LogError($"Passive skill LevelUp Error");
                 break;
         }
-        Debug.Log($"{skillType} LevelUp, Currrent Value : {skillDict[skillType]}");
+        skillLevelDict[skillType]++;
+        Debug.Log($"{skillType} LevelUp, Level : {skillLevelDict[skillType]}, Currrent Value : {skillValueDict[skillType]}");
     }
     
     

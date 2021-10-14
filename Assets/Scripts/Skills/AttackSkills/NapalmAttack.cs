@@ -36,7 +36,7 @@ public class NapalmAttack : AttackSkillBase
 
         PlayerController owner = _owner as PlayerController;
         Projectile projectile = napalmGO.GetComponent<Projectile>();
-        projectile.Init(_owner, target.GetComponent<BaseController>().CenterPosition, napalmStat.Damage * (1f + owner.passiveSkill.skillDict[SkillType.ATKIncrease]), napalmStat.AttackRange,
+        projectile.Init(_owner, target.GetComponent<BaseController>().CenterPosition, napalmStat.Damage * (1f + owner.passiveSkill.skillValueDict[SkillType.ATKIncrease]), napalmStat.AttackRange,
             napalmStat.Speed, napalmStat.IsExplode, napalmStat.ExplosionRange, napalmStat.ExplosionDamage,
             napalmStat.IsPenetrate, napalmStat.Duration, LayerMask.NameToLayer("Enemy"));
 

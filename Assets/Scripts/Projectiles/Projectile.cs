@@ -73,7 +73,6 @@ public class Projectile : MonoBehaviour
         _toTarget = (targetPos - transform.position).normalized;
         _targetPos = targetPos;
         _targetLayer = targetLayer;
-
     }
 
     private void Start()
