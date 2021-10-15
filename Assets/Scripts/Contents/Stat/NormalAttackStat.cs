@@ -92,7 +92,6 @@ public class NormalAttackStat : SkillStat
     {
         base.InitSkillStat(skillType);
         ActiveSkillCoefficientsData data = Managers.Data.activeSkillCoefficientDict[skillType];
-
         _commonDamageCoefficients = Damage * data.common.damage;
         _rareDamageCoefficients = Damage * data.rare.damage;
         _uniqueDamageCoefficients = Damage * data.unique.damage;

@@ -60,6 +60,8 @@ public class DataManager
     public Dictionary<Define.SkillGrade, PassiveSkillCoefficientsData> passiveSkillCoefficientDict { get; private set; } = new Dictionary<SkillGrade, PassiveSkillCoefficientsData>();
     public Dictionary<Define.SkillType, ActiveSkillCoefficientsData> activeSkillCoefficientDict { get; private set; } = new Dictionary<SkillType, ActiveSkillCoefficientsData>();
 
+    public Dictionary<Define.SkillType, SkillBenefitDescription> skillBenefitDescriptionDict { get; private set; } = new Dictionary<SkillType, SkillBenefitDescription>();
+
     public Dictionary<Define.StageType, StageConfigData> stageConfigDataDict { get; private set; } = new Dictionary<StageType, StageConfigData>();
 
     public Dictionary<Define.CharacterType, CharacterStatUpGradeInfo> charStatUpgradeDict { get; private set; } = new Dictionary<CharacterType, CharacterStatUpGradeInfo>();
@@ -67,6 +69,14 @@ public class DataManager
 
     public void Init()
     {
+
+        for (SkillType i = SkillType.PlayerNormal; i < SkillType.PlayerPassiveSkillMax; i++)
+        {
+            if (i == SkillType.PlayerActiveSkillMax) continue;
+            SkillBenefitDescription data = Managers.Resource.Load<SkillBenefitDescription>($"Data/ScriptableObject/SkillBenefitDescriptions/{i}");
+            skillBenefitDescriptionDict.Add(i, data);
+        }
+        
         for (SkillGrade skillType = SkillGrade.Common; skillType < SkillGrade.Max; skillType++)
         {
             passiveSkillCoefficientDict.Add(skillType, Managers.Resource.Load<PassiveSkillCoefficientsData>($"Data/ScriptableObject/SkillCoefficients/Passive/{skillType}"));
@@ -138,6 +148,8 @@ public class DataManager
             Asset2 = PlayerPrefs.GetInt("Asset2");
         else
             PlayerPrefs.SetInt("Asset2", 0);
+
+        
     }
 
     Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>

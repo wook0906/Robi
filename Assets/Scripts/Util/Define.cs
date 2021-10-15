@@ -4,6 +4,27 @@ using UnityEngine;
 
 public static class Define
 {
+    public enum SkillBenefitType
+    {
+        None,
+        DamageIncrease,
+        CoolTimeDecrease,
+        ProjectileAdd,
+        DroneAdd,
+        ExplosionRangeIncrease,
+        AttackRangeIncrease,
+        DurationIncrease,
+        HpRecoverContinuos,
+        
+        MaxHpIncrease,
+        DefIncrease,
+        SpeedIncrease,
+        ProjectileAddPercent,
+        ExpIncrease,
+        RootRangeIncrease,
+        levelUpHpRecover,
+        EnemyHpDecrease,
+    }
     public enum SkillGrade
     {
         Common,

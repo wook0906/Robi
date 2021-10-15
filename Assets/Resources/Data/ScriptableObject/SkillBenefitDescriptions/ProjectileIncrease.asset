@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4860bc3ba6ca04a4cb1c73caee806d32, type: 3}
+  m_Name: ProjectileIncrease
+  m_EditorClassIdentifier: 
+  normal:
+  - m_keys: 05000000
+    m_values:
+    - 99
+  - m_keys: 01000000
+    m_values:
+    - 3
+  - m_keys: 0100000003000000
+    m_values:
+    - 3
+    - 1
+  - m_keys: 01000000
+    m_values:
+    - 3
+  - m_keys: 01000000
+    m_values:
+    - 3
+  - m_keys: 0100000003000000
+    m_values:
+    - 3
+    - 1
+  - m_keys: 01000000
+    m_values:
+    - 3
+  rare:
+  - m_keys: 0c000000
+    m_values:
+    - 99
+  - m_keys: 0100000002000000
+    m_values:
+    - 8
+    - 1
+  - m_keys: 010000000200000003000000
+    m_values:
+    - 8
+    - 1
+    - 1
+  - m_keys: 0100000002000000
+    m_values:
+    - 8
+    - 1
+  - m_keys: 0100000002000000
+    m_values:
+    - 8
+    - 1
+  - m_keys: 010000000200000003000000
+    m_values:
+    - 8
+    - 1
+    - 1
+  - m_keys: 0100000002000000
+    m_values:
+    - 1
+    - 1
+  unique:
+  - m_keys: 02000000
+    m_values:
+    - 99
+  - m_keys: 0100000002000000
+    m_values:
+    - 10
+    - 2
+  - m_keys: 010000000200000003000000
+    m_values:
+    - 10
+    - 2
+    - 1
+  - m_keys: 0100000002000000
+    m_values:
+    - 10
+    - 2
+  - m_keys: 0100000002000000
+    m_values:
+    - 10
+    - 2
+  - m_keys: 010000000200000003000000
+    m_values:
+    - 10
+    - 2
+    - 1
+  - m_keys: 0100000002000000
+    m_values:
+    - 10
+    - 2
