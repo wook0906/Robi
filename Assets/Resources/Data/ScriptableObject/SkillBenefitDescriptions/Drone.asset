@@ -19,36 +19,25 @@ MonoBehaviour:
   - m_keys: 01000000
     m_values:
     - 3
-  - m_keys: 0100000003000000
+  - m_keys: 0100000004000000
     m_values:
     - 3
     - 1
   - m_keys: 01000000
     m_values:
     - 3
-  - m_keys: 01000000
-    m_values:
-    - 3
-  - m_keys: 0100000003000000
+  - m_keys: 0100000004000000
     m_values:
     - 3
     - 1
   - m_keys: 01000000
     m_values:
     - 3
+  - m_keys: 0100000004000000
+    m_values:
+    - 3
+    - 1
   rare:
-  - m_keys: 00000000
-    m_values:
-    - 0
-  - m_keys: 0100000002000000
-    m_values:
-    - 8
-    - 1
-  - m_keys: 010000000200000003000000
-    m_values:
-    - 8
-    - 1
-    - 1
   - m_keys: 0100000002000000
     m_values:
     - 8
@@ -57,42 +46,57 @@ MonoBehaviour:
     m_values:
     - 8
     - 1
-  - m_keys: 010000000200000003000000
+  - m_keys: 010000000200000004000000
     m_values:
     - 8
     - 1
     - 1
   - m_keys: 0100000002000000
     m_values:
+    - 8
+    - 1
+  - m_keys: 010000000200000004000000
+    m_values:
+    - 8
+    - 1
+    - 1
+  - m_keys: 0100000002000000
+    m_values:
+    - 8
+    - 1
+  - m_keys: 010000000200000004000000
+    m_values:
+    - 8
     - 1
     - 1
   unique:
-  - m_keys: 00000000
-    m_values:
-    - 0
   - m_keys: 0100000002000000
     m_values:
     - 10
-    - 2
+    - 3
+  - m_keys: 0100000002000000
+    m_values:
+    - 10
+    - 3
   - m_keys: 010000000200000003000000
     m_values:
     - 10
-    - 2
+    - 3
     - 1
   - m_keys: 0100000002000000
     m_values:
     - 10
-    - 2
+    - 3
   - m_keys: 0100000002000000
     m_values:
     - 10
-    - 2
+    - 3
   - m_keys: 010000000200000003000000
     m_values:
     - 10
-    - 2
+    - 3
     - 1
   - m_keys: 0100000002000000
     m_values:
     - 10
-    - 2
+    - 3

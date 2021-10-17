@@ -17,10 +17,12 @@ MonoBehaviour:
     monsterConfigs:
     - mobType: 0
       numOfSpawn: 35
-  - expPerMonster: 45
+  - expPerMonster: 1
     monsterConfigs:
     - mobType: 0
-      numOfSpawn: 650
+      numOfSpawn: 100
+    - mobType: 14
+      numOfSpawn: 3
   - expPerMonster: 60
     monsterConfigs:
     - mobType: 0

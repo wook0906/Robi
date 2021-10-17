@@ -19,20 +19,6 @@ MonoBehaviour:
   - m_keys: 01000000
     m_values:
     - 3
-  - m_keys: 0100000003000000
-    m_values:
-    - 3
-    - 1
-  - m_keys: 01000000
-    m_values:
-    - 3
-  - m_keys: 01000000
-    m_values:
-    - 3
-  - m_keys: 0100000003000000
-    m_values:
-    - 3
-    - 1
   - m_keys: 01000000
     m_values:
     - 3
@@ -40,59 +26,19 @@ MonoBehaviour:
   - m_keys: 0c000000
     m_values:
     - 99
-  - m_keys: 0100000002000000
+  - m_keys: 01000000
     m_values:
     - 8
-    - 1
-  - m_keys: 010000000200000003000000
+  - m_keys: 01000000
     m_values:
     - 8
-    - 1
-    - 1
-  - m_keys: 0100000002000000
-    m_values:
-    - 8
-    - 1
-  - m_keys: 0100000002000000
-    m_values:
-    - 8
-    - 1
-  - m_keys: 010000000200000003000000
-    m_values:
-    - 8
-    - 1
-    - 1
-  - m_keys: 0100000002000000
-    m_values:
-    - 1
-    - 1
   unique:
   - m_keys: 02000000
     m_values:
     - 99
-  - m_keys: 0100000002000000
+  - m_keys: 01000000
     m_values:
     - 10
-    - 2
-  - m_keys: 010000000200000003000000
+  - m_keys: 01000000
     m_values:
     - 10
-    - 2
-    - 1
-  - m_keys: 0100000002000000
-    m_values:
-    - 10
-    - 2
-  - m_keys: 0100000002000000
-    m_values:
-    - 10
-    - 2
-  - m_keys: 010000000200000003000000
-    m_values:
-    - 10
-    - 2
-    - 1
-  - m_keys: 0100000002000000
-    m_values:
-    - 10
-    - 2

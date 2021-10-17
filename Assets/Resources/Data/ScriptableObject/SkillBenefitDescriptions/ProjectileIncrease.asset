@@ -13,86 +13,32 @@ MonoBehaviour:
   m_Name: ProjectileIncrease
   m_EditorClassIdentifier: 
   normal:
-  - m_keys: 05000000
-    m_values:
-    - 99
-  - m_keys: 01000000
+  - m_keys: 0c000000
     m_values:
     - 3
-  - m_keys: 0100000003000000
+  - m_keys: 0c000000
     m_values:
     - 3
-    - 1
-  - m_keys: 01000000
-    m_values:
-    - 3
-  - m_keys: 01000000
-    m_values:
-    - 3
-  - m_keys: 0100000003000000
-    m_values:
-    - 3
-    - 1
-  - m_keys: 01000000
+  - m_keys: 0c000000
     m_values:
     - 3
   rare:
   - m_keys: 0c000000
     m_values:
-    - 99
-  - m_keys: 0100000002000000
+    - 5
+  - m_keys: 0c000000
     m_values:
-    - 8
-    - 1
-  - m_keys: 010000000200000003000000
+    - 5
+  - m_keys: 0c000000
     m_values:
-    - 8
-    - 1
-    - 1
-  - m_keys: 0100000002000000
-    m_values:
-    - 8
-    - 1
-  - m_keys: 0100000002000000
-    m_values:
-    - 8
-    - 1
-  - m_keys: 010000000200000003000000
-    m_values:
-    - 8
-    - 1
-    - 1
-  - m_keys: 0100000002000000
-    m_values:
-    - 1
-    - 1
+    - 5
   unique:
-  - m_keys: 02000000
+  - m_keys: 0c000000
     m_values:
-    - 99
-  - m_keys: 0100000002000000
+    - 8
+  - m_keys: 0c000000
     m_values:
-    - 10
-    - 2
-  - m_keys: 010000000200000003000000
+    - 8
+  - m_keys: 0c000000
     m_values:
-    - 10
-    - 2
-    - 1
-  - m_keys: 0100000002000000
-    m_values:
-    - 10
-    - 2
-  - m_keys: 0100000002000000
-    m_values:
-    - 10
-    - 2
-  - m_keys: 010000000200000003000000
-    m_values:
-    - 10
-    - 2
-    - 1
-  - m_keys: 0100000002000000
-    m_values:
-    - 10
-    - 2
+    - 8
