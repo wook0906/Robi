@@ -17,7 +17,7 @@ MonoBehaviour:
   _damage: 100
   _attackRange: 0
   _numOfProjectilePerBurst: 2
-  _speed: 10
+  _speed: 20
   _isExplode: 0
   _explosionRange: 0
   _explosionDamage: 0
