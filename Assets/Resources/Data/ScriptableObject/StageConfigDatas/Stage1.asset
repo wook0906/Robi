@@ -17,66 +17,66 @@ MonoBehaviour:
     monsterConfigs:
     - mobType: 0
       numOfSpawn: 35
-  - expPerMonster: 40
+  - expPerMonster: 30
     monsterConfigs:
     - mobType: 0
-      numOfSpawn: 60
-  - expPerMonster: 60
+      numOfSpawn: 88
+  - expPerMonster: 55
     monsterConfigs:
     - mobType: 0
-      numOfSpawn: 100
+      numOfSpawn: 105
   - expPerMonster: 2837
     monsterConfigs:
     - mobType: 14
-      numOfSpawn: 2
-  - expPerMonster: 300
+      numOfSpawn: 1
+  - expPerMonster: 350
     monsterConfigs:
     - mobType: 7
-      numOfSpawn: 80
+      numOfSpawn: 94
     - mobType: 0
-      numOfSpawn: 80
-  - expPerMonster: 500
+      numOfSpawn: 93
+  - expPerMonster: 800
     monsterConfigs:
     - mobType: 0
-      numOfSpawn: 120
+      numOfSpawn: 103
     - mobType: 7
-      numOfSpawn: 120
-  - expPerMonster: 700
+      numOfSpawn: 103
+  - expPerMonster: 1000
     monsterConfigs:
     - mobType: 0
-      numOfSpawn: 150
+      numOfSpawn: 136
     - mobType: 7
-      numOfSpawn: 150
+      numOfSpawn: 135
   - expPerMonster: 38867
     monsterConfigs:
     - mobType: 21
       numOfSpawn: 2
-  - expPerMonster: 800
+  - expPerMonster: 1800
     monsterConfigs:
     - mobType: 0
-      numOfSpawn: 60
+      numOfSpawn: 71
     - mobType: 1
-      numOfSpawn: 60
+      numOfSpawn: 71
     - mobType: 7
-      numOfSpawn: 60
-  - expPerMonster: 800
+      numOfSpawn: 71
+  - expPerMonster: 2000
     monsterConfigs:
     - mobType: 0
-      numOfSpawn: 80
+      numOfSpawn: 88
     - mobType: 1
-      numOfSpawn: 80
+      numOfSpawn: 88
     - mobType: 7
-      numOfSpawn: 80
-  - expPerMonster: 1000
+      numOfSpawn: 88
+  - expPerMonster: 2500
     monsterConfigs:
     - mobType: 0
-      numOfSpawn: 100
+      numOfSpawn: 93
     - mobType: 1
-      numOfSpawn: 100
+      numOfSpawn: 93
     - mobType: 7
-      numOfSpawn: 100
+      numOfSpawn: 93
   - expPerMonster: 0
     monsterConfigs:
     - mobType: 15
-      numOfSpawn: 2
+      numOfSpawn: 1
   termBetweenWaveToWave: 5
