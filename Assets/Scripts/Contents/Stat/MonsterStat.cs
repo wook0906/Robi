@@ -98,7 +98,7 @@ public class MonsterStat : CreatureStat
         owner = GetComponent<BaseController>();
 
         MaxHp = originStat._maxHp;
-        MaxHp += (MaxHp * 0.1f) * playerLevel;
+        MaxHp += (MaxHp * 0.4f) * playerLevel;
         _hp = _maxHp;
         _damage = originStat._atk;
         Damage += Mathf.RoundToInt((Damage * 0.1f) * playerLevel);
@@ -253,8 +253,8 @@ public class MonsterStat : CreatureStat
     }
     public void LevelUp(int playerLevel)
     {
-        MaxHp = Managers.Data.monsterStatDict[mobType]._maxHp + (Managers.Data.monsterStatDict[mobType]._maxHp * 0.1f) * playerLevel;
-        Hp += (MaxHp * 0.1f) * playerLevel;
+        MaxHp = Managers.Data.monsterStatDict[mobType]._maxHp + (Managers.Data.monsterStatDict[mobType]._maxHp * 0.4f) * playerLevel;
+        Hp += (MaxHp * 0.4f) * playerLevel;
         Damage = Managers.Data.monsterStatDict[mobType]._atk + Mathf.RoundToInt((Managers.Data.monsterStatDict[mobType]._atk * 0.1f) * playerLevel);
     }
 }

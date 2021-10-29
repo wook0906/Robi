@@ -29,19 +29,19 @@ MonoBehaviour:
     monsterConfigs:
     - mobType: 14
       numOfSpawn: 1
-  - expPerMonster: 350
+  - expPerMonster: 200
     monsterConfigs:
     - mobType: 7
       numOfSpawn: 94
     - mobType: 0
       numOfSpawn: 93
-  - expPerMonster: 800
+  - expPerMonster: 400
     monsterConfigs:
     - mobType: 0
       numOfSpawn: 103
     - mobType: 7
       numOfSpawn: 103
-  - expPerMonster: 1000
+  - expPerMonster: 600
     monsterConfigs:
     - mobType: 0
       numOfSpawn: 136
@@ -51,23 +51,23 @@ MonoBehaviour:
     monsterConfigs:
     - mobType: 21
       numOfSpawn: 2
+  - expPerMonster: 1000
+    monsterConfigs:
+    - mobType: 0
+      numOfSpawn: 71
+    - mobType: 1
+      numOfSpawn: 71
+    - mobType: 7
+      numOfSpawn: 71
+  - expPerMonster: 1400
+    monsterConfigs:
+    - mobType: 0
+      numOfSpawn: 88
+    - mobType: 1
+      numOfSpawn: 88
+    - mobType: 7
+      numOfSpawn: 88
   - expPerMonster: 1800
-    monsterConfigs:
-    - mobType: 0
-      numOfSpawn: 71
-    - mobType: 1
-      numOfSpawn: 71
-    - mobType: 7
-      numOfSpawn: 71
-  - expPerMonster: 2000
-    monsterConfigs:
-    - mobType: 0
-      numOfSpawn: 88
-    - mobType: 1
-      numOfSpawn: 88
-    - mobType: 7
-      numOfSpawn: 88
-  - expPerMonster: 2500
     monsterConfigs:
     - mobType: 0
       numOfSpawn: 93
