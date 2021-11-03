@@ -24,8 +24,16 @@ public class MonsterSpawner : MonoBehaviour
         public Define.MonsterType m_Type;
         public List<GameObject> m_ObjList = new List<GameObject>();
     }
+    [System.Serializable]
+    public class SpawnClass
+    {
+        public Define.MonsterType m_Type;
+        public int m_SpawnCount;
+    }
     private int p_PoolCount = 100;
     public List<PoolingClass> m_PoolList = new List<PoolingClass>();
+    public List<SpawnClass> m_SpawnList = new List<SpawnClass>();
+    private int p_SpawnMaxCount = 150;
     #endregion
 
     private IEnumerator Start()
@@ -45,6 +53,11 @@ public class MonsterSpawner : MonoBehaviour
 
         CreatePool();
         StartCoroutine(Wave(stageData));
+    }
+
+    private void Update()
+    {
+        RemainMonsterTxt.S.m_Txt.text = Managers.Object.AliveMonsterCount() + " 남음";
     }
 
     private void CreatePool()
@@ -98,39 +111,69 @@ public class MonsterSpawner : MonoBehaviour
             Managers.UI.GetSceneUI<GameScene_UI>().UpdateWaveLevelUI(curWaveStep + 1);
             GameScene gameScene = Managers.Scene.CurrentScene as GameScene;
             gameScene.currentWaveLevel = curWaveStep;
+
+            //스폰정보를 담음
+            m_SpawnList.Clear();
             for (int monsterConfigIdx = 0; monsterConfigIdx < stageData.waves[curWaveStep].monsterConfigs.Length; monsterConfigIdx++)
             {
-                for (int j = 0; j < stageData.waves[curWaveStep].monsterConfigs[monsterConfigIdx].numOfSpawn; j++)
-                {
-                    //GameObject enemyGO = Managers.Resource.Instantiate($"Creatures/Enemy/{(Define.MonsterType)Random.Range((int)Define.MonsterType.C01,(int)Define.MonsterType.MAX)}");
-                    GameObject enemyGO = null;
-
-                    while (true)
-                    {
-                        Debug.Log("기달기달");
-                        enemyGO = ReturnPool(stageData.waves[curWaveStep].monsterConfigs[monsterConfigIdx].mobType);
-                        if(enemyGO != null) break;
-                        yield return null;
-                    }
-
-                    Vector2 pos;
-                    do
-                    {
-                        pos = player.transform.position + (Random.onUnitSphere * Random.Range(minRadius, maxRadius));
-                    }
-                    //while (pos.x < field.min.x &&
-                    //        pos.y < field.min.y &&
-                    //        pos.x > field.max.x &&
-                    //        pos.y > field.max.y);
-                    while (Vector3.Distance(pos, player.transform.position) < minRadius);
-                    //pos += Vector3.right * radius;
-                    //pos = Quaternion.Euler(0f, 0f, Random.Range(0, 360)) * pos;
-
-                    enemyGO.transform.position = pos;
-                    Managers.Object.AddMonster(enemyGO.GetComponent<MonsterController>());
-                    enemyGO.SetActive(true);
-                }
+                SpawnClass _item = new SpawnClass();
+                _item.m_Type = stageData.waves[curWaveStep].monsterConfigs[monsterConfigIdx].mobType;
+                _item.m_SpawnCount = stageData.waves[curWaveStep].monsterConfigs[monsterConfigIdx].numOfSpawn;
+                m_SpawnList.Add(_item);
             }
+
+            int _SpawnCount = 0;
+            while(true)
+            {
+                bool _isEndSpawn = true;
+
+                for (int monsterConfigIdx = 0; monsterConfigIdx < stageData.waves[curWaveStep].monsterConfigs.Length; monsterConfigIdx++)
+                {
+                    if(m_SpawnList[monsterConfigIdx].m_SpawnCount > 0)
+                    {
+                        _isEndSpawn = false;
+
+                        int _intervalCount = (stageData.waves[curWaveStep].monsterConfigs[monsterConfigIdx].intervalCount == 0) ?
+                            stageData.waves[curWaveStep].monsterConfigs[monsterConfigIdx].numOfSpawn : stageData.waves[curWaveStep].monsterConfigs[monsterConfigIdx].intervalCount;
+
+                        for (int j = 0; j < _intervalCount; j++)
+                        {
+                            if (Managers.Object.AliveMonsterCount() >= p_SpawnMaxCount) break;
+                            //GameObject enemyGO = Managers.Resource.Instantiate($"Creatures/Enemy/{(Define.MonsterType)Random.Range((int)Define.MonsterType.C01,(int)Define.MonsterType.MAX)}");
+                            GameObject enemyGO = null;
+                            enemyGO = ReturnPool(stageData.waves[curWaveStep].monsterConfigs[monsterConfigIdx].mobType);
+                            
+                            if(enemyGO != null)
+                            {
+                                Vector2 pos;
+                                do
+                                {
+                                    pos = player.transform.position + (Random.onUnitSphere * Random.Range(minRadius, maxRadius));
+                                }
+                                //while (pos.x < field.min.x &&
+                                //        pos.y < field.min.y &&
+                                //        pos.x > field.max.x &&
+                                //        pos.y > field.max.y);
+                                while (Vector3.Distance(pos, player.transform.position) < minRadius);
+                                //pos += Vector3.right * radius;
+                                //pos = Quaternion.Euler(0f, 0f, Random.Range(0, 360)) * pos;
+
+                                enemyGO.transform.position = pos;
+                                Managers.Object.AddMonster(enemyGO.GetComponent<MonsterController>());
+                                enemyGO.SetActive(true);
+
+                                _SpawnCount++;
+                                m_SpawnList[monsterConfigIdx].m_SpawnCount--;
+                                if (m_SpawnList[monsterConfigIdx].m_SpawnCount <= 0) break;
+                            }
+                        }
+                    }
+                }
+
+                if (_isEndSpawn) break;
+                yield return new WaitForEndOfFrame();
+            }
+            Debug.LogWarning("스폰끝! => " + _SpawnCount);
             yield return new WaitUntil(() => Managers.Object.IsAllMonsterDead());
             yield return new WaitForSeconds(stageData.termBetweenWaveToWave);
             curWaveStep++;

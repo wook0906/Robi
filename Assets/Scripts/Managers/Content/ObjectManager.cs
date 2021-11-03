@@ -59,6 +59,10 @@ public class ObjectManager
         }
         return false;
     }
+    public int AliveMonsterCount()
+    {
+        return _monsters.Count;
+    }
 
     public void MonsterLevelUp(int playerLevel)
     {

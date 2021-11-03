@@ -20,4 +20,5 @@ public class MonsterConfig
 {
     public Define.MonsterType mobType;
     public int numOfSpawn;
+    public int intervalCount;
 }

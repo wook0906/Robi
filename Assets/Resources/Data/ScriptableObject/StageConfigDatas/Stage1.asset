@@ -16,69 +16,94 @@ MonoBehaviour:
   - expPerMonster: 0
     monsterConfigs:
     - mobType: 0
-      numOfSpawn: 200
+      numOfSpawn: 100
+      intervalCount: 10
     - mobType: 1
-      numOfSpawn: 200
+      numOfSpawn: 100
+      intervalCount: 10
+    - mobType: 7
+      numOfSpawn: 100
+      intervalCount: 10
   - expPerMonster: 30
     monsterConfigs:
     - mobType: 0
       numOfSpawn: 88
+      intervalCount: 0
   - expPerMonster: 55
     monsterConfigs:
     - mobType: 0
       numOfSpawn: 105
+      intervalCount: 0
   - expPerMonster: 2837
     monsterConfigs:
     - mobType: 14
       numOfSpawn: 1
+      intervalCount: 0
   - expPerMonster: 200
     monsterConfigs:
     - mobType: 7
       numOfSpawn: 94
+      intervalCount: 0
     - mobType: 0
       numOfSpawn: 93
+      intervalCount: 0
   - expPerMonster: 400
     monsterConfigs:
     - mobType: 0
       numOfSpawn: 103
+      intervalCount: 0
     - mobType: 7
       numOfSpawn: 103
+      intervalCount: 0
   - expPerMonster: 600
     monsterConfigs:
     - mobType: 0
       numOfSpawn: 136
+      intervalCount: 0
     - mobType: 7
       numOfSpawn: 135
+      intervalCount: 0
   - expPerMonster: 38867
     monsterConfigs:
     - mobType: 21
       numOfSpawn: 2
+      intervalCount: 0
   - expPerMonster: 1000
     monsterConfigs:
     - mobType: 0
       numOfSpawn: 71
+      intervalCount: 0
     - mobType: 1
       numOfSpawn: 71
+      intervalCount: 0
     - mobType: 7
       numOfSpawn: 71
+      intervalCount: 0
   - expPerMonster: 1400
     monsterConfigs:
     - mobType: 0
       numOfSpawn: 88
+      intervalCount: 0
     - mobType: 1
       numOfSpawn: 88
+      intervalCount: 0
     - mobType: 7
       numOfSpawn: 88
+      intervalCount: 0
   - expPerMonster: 1800
     monsterConfigs:
     - mobType: 0
       numOfSpawn: 93
+      intervalCount: 0
     - mobType: 1
       numOfSpawn: 93
+      intervalCount: 0
     - mobType: 7
       numOfSpawn: 93
+      intervalCount: 0
   - expPerMonster: 0
     monsterConfigs:
     - mobType: 15
       numOfSpawn: 1
+      intervalCount: 0
   termBetweenWaveToWave: 5
