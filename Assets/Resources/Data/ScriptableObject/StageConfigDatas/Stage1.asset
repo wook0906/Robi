@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Stage1
   m_EditorClassIdentifier: 
   waves:
-  - expPerMonster: 20
+  - expPerMonster: 0
     monsterConfigs:
     - mobType: 0
-      numOfSpawn: 35
+      numOfSpawn: 200
+    - mobType: 1
+      numOfSpawn: 200
   - expPerMonster: 30
     monsterConfigs:
     - mobType: 0

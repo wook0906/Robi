@@ -82,7 +82,7 @@ public class MonsterController : BaseController
             else
             {
                 Managers.Object.RemoveMonster(this);
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
     }

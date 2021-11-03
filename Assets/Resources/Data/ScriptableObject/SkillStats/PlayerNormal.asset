@@ -16,7 +16,7 @@ MonoBehaviour:
   _coolTime: 0.5
   _damage: 100
   _attackRange: 0
-  _numOfProjectilePerBurst: 2
+  _numOfProjectilePerBurst: 1
   _speed: 20
   _isExplode: 0
   _explosionRange: 0

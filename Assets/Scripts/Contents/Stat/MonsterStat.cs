@@ -249,7 +249,7 @@ public class MonsterStat : CreatureStat
             playerStat.Exp += resultExp;
         }
         Managers.Object.RemoveMonster(GetComponent<MonsterController>());
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
     public void LevelUp(int playerLevel)
     {
